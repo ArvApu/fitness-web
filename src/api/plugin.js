@@ -14,18 +14,31 @@ const createRequestInterceptor = (store) => {
 
 const createResponseInterceptor = (store) => {
     request.interceptors.response.use(null, async (error) => {
-        const { status, data, message } = error.response;
+        const status  = error.response.status;
+        const message = error.response.data.error;
 
         switch (status) {
-            case 401:
-                console.log(data);
-                store.dispatch();
-                // TODO: try to refresh token if fails then redirect to login (router.push('/login');)
+            case 401: {
+                let shouldRefresh = !store.state.auth.refreshFailed;
+
+                if(shouldRefresh) {
+                    store.dispatch('auth/refresh');
+                    break;
+                }
+
+                store.dispatch('auth/clearSession');
                 break;
-            default:
-                console.error(status, message);
+            }
+            case 422: {
                 // error = extractErrors(error.response.data); TODO
+                break;
+            }
+            default: {
+                console.error(status, message);
+                break;
+            }
         }
+
         return Promise.reject(error);
     });
 };
