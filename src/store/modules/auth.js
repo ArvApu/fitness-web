@@ -43,15 +43,18 @@ const actions = {
         }
     },
 
-    logout: async function() {
+    logout: async function({ commit }) {
         await api.auth.logout();
+
+        commit('SET_ACCESS_TOKEN', null);
+        commit('SET_EXPIRY_TIME', null);
 
         window.localStorage.clear();
         window.sessionStorage.clear();
 
         setTimeout(() => {
             location.reload();
-        }, 1000);
+        }, 500);
     },
 
     calculateExpireTime: function ({ commit }, expiresIn) {

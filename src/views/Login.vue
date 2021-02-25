@@ -1,34 +1,24 @@
 <template>
   <div>
-    <form class="login" @submit.prevent="login">
 
-      <h1>Sign in</h1>
+    <h1>Sign in</h1>
+
+    <form class="login" @submit.prevent="login">
+      <hr>
       <label>Email</label>
-      <input required v-model="email" type="email" placeholder="Name"/>
+      <input required v-model="email" type="email" placeholder="Email"/>
 
       <label>Password</label>
       <input required v-model="password" type="password" placeholder="Password"/>
 
-      <hr/>
-
+      <hr>
       <button type="submit">Login</button>
     </form>
-
-    <!-- TODO: Temporary -->
-    <br>
-    <hr>
-    {{ accessToken }}
-    <br>
-    <hr>
-    {{ expiryTime }}
-
 
   </div>
 </template>
 
 <script>
-
-import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -36,9 +26,6 @@ export default {
       email : null,
       password: null
     }
-  },
-  computed: {
-    ...mapState('auth', ['accessToken', 'expiryTime']),
   },
   methods: {
     login() {
