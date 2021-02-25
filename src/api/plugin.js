@@ -2,7 +2,7 @@ import request from './request';
 
 const createRequestInterceptor = (store) => {
     request.interceptors.request.use(function(config) {
-        const token = store.dispatch('getToken');
+        const token = store.state.auth.accessToken;
 
         if (token != null) {
             config.headers['Authorization'] = `Bearer ${token}`;
@@ -14,7 +14,7 @@ const createRequestInterceptor = (store) => {
 
 const createResponseInterceptor = (store) => {
     request.interceptors.response.use(null, async (error) => {
-        const { status, data, message} = error.response;
+        const { status, data, message } = error.response;
 
         switch (status) {
             case 401:
