@@ -10,7 +10,6 @@ const persistedState = createPersistedState({
 
 export default new Vuex.Store({
   state: {
-    user: { penis: 'large' }
   },
   mutations: {
   },
