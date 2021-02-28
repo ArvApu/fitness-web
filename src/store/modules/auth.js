@@ -21,7 +21,7 @@ const mutations = {
 };
 
 const actions = {
-    login: async function({ commit, dispatch }, credentials) {
+    async login({ commit, dispatch }, credentials) {
         try {
             const response = await api.auth.login(credentials);
 
@@ -36,7 +36,7 @@ const actions = {
         }
     },
 
-    refresh: async function({ commit, dispatch}) {
+    async refresh({ commit, dispatch}) {
 
         commit('SET_REFRESH_FAILED', true); // Lets assume that refresh fails so that no thread would try to refresh.
 
@@ -54,7 +54,7 @@ const actions = {
         }
     },
 
-    logout: async function({ dispatch }) {
+    async logout({ dispatch }) {
         await api.auth.logout();
 
         dispatch('clearSession');
@@ -64,11 +64,11 @@ const actions = {
         }, 500);
     },
 
-    calculateExpireTime: function ({ commit }, expiresIn) {
+    calculateExpireTime({ commit }, expiresIn) {
         commit('SET_EXPIRY_TIME', Date.now() + expiresIn)
     },
 
-    clearSession: function ({ commit }) {
+    clearSession({ commit }) {
         commit('SET_ACCESS_TOKEN', null);
         commit('SET_EXPIRY_TIME', null);
 

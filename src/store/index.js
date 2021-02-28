@@ -5,6 +5,7 @@ import createPersistedState from 'vuex-persistedstate';
 import apiPlugin from '@/api/plugin';
 
 import auth from './modules/auth'
+import exercises from './modules/exercises'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,8 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    auth
+    auth,
+    exercises
   },
   plugins: [apiPlugin, persistedState],
   strict: debug
