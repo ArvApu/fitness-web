@@ -30,6 +30,9 @@ const routes = [
     name: 'Register',
     component: Register
   },
+  /* Default route - not found */
+  { path: '/not-found', component: () => import('../views/NotFound.vue') },
+  { path: '*', redirect: '/not-found' },
 ]
 
 const router = new VueRouter({
