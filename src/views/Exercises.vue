@@ -1,7 +1,12 @@
 <template>
   <div>
 
-    {{ exercises }}
+    <div v-for="exercise in exercises" :key="exercise.id">
+      {{ exercise.id }}
+      {{ exercise.name }}
+      {{ exercise.description }}
+      {{ exercise.is_private }}
+    </div>
 
   </div>
 </template>
@@ -11,6 +16,13 @@
 import { mapState, mapActions} from 'vuex';
 
 export default {
+  data() {
+    return {
+      name: null,
+      description: null,
+      is_private: false,
+    }
+  },
   computed: {
     ...mapState('exercises', [
       'exercises'
@@ -18,11 +30,11 @@ export default {
   },
   methods: {
     ...mapActions('exercises', [
-        'fetchExercises'
-    ]),
+        'fetchAll'
+    ])
   },
   created() {
-    this.fetchExercises()
+    this.fetchAll()
   }
 }
 </script>
