@@ -1,7 +1,10 @@
 import api from "@/api";
 
 const state = {
-    messages: [],
+    messages: {
+        sent: [],
+        received: [],
+    },
     isLoading: false,
 };
 
@@ -16,6 +19,9 @@ const mutations = {
     },
     ADD_SENT_MESSAGE(state, message) {
         state.messages.sent.push(message);
+    },
+    ADD_RECEIVED_MESSAGE(state, message) {
+        state.messages.received.push(message);
     },
 };
 
@@ -51,6 +57,10 @@ const actions = {
         } catch (e) {
             return Promise.reject(e);
         }
+    },
+
+    receive({ commit }, message) {
+        commit('ADD_RECEIVED_MESSAGE', message);
     },
 };
 
