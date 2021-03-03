@@ -6,6 +6,7 @@ import apiPlugin from '@/api/plugin';
 
 import auth from './modules/auth'
 import exercises from './modules/exercises'
+import messages from './modules/messages'
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ export default new Vuex.Store({
   },
   modules: {
     auth,
-    exercises
+    exercises,
+    messages
   },
   plugins: [apiPlugin, persistedState],
   strict: debug

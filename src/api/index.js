@@ -4,6 +4,7 @@ import registration from "./registration";
 import workouts from "./workouts";
 import exercises from "./exercises";
 import days from "./days";
+import messages from "./messages";
 
 export default {
     request,
@@ -11,5 +12,6 @@ export default {
     registration,
     workouts,
     exercises,
-    days
+    days,
+    messages
 };

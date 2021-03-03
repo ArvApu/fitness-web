@@ -33,6 +33,7 @@
 import api from '@/api'
 
 export default {
+  name: 'Register',
   data() {
     return {
       user: {

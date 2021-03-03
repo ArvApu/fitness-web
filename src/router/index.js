@@ -6,6 +6,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Exercises from '../views/Exercises.vue'
+import Messages from '../views/Messages.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,11 @@ const routes = [
     path: '/exercises',
     name: 'Exercises',
     component: Exercises
+  },
+  {
+    path: '/messages',
+    name: 'Messages',
+    component: Messages
   },
   {
     path: '/login',
