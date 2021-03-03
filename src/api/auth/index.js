@@ -12,5 +12,9 @@ export default {
 
     refresh() {
         return request.post('refresh');
+    },
+
+    me() {
+        return request.get('me');
     }
 };
