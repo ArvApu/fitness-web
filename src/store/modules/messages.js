@@ -22,13 +22,9 @@ const mutations = {
 const actions = {
     async fetchAll({ commit }, userId) {
 
-        // const id = 1; // TODO: take it from auth
-
         try {
             commit('SET_IS_LOADING', true);
-
             const response = await api.messages.getByUser(userId);
-
             commit('SET_MESSAGES', response.data)
         } catch (e) {
             return Promise.reject(e);
