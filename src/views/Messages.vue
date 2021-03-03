@@ -40,7 +40,7 @@ export default {
   },
   mounted() {
     const pusher = new Pusher(process.env.VUE_APP_PUSHER_API_KEY, {
-      cluster: 'eu', // TODO: set via config
+      cluster: process.env.VUE_APP_PUSHER_CLUSTER ?? 'eu',
     });
 
     const channel = pusher.subscribe('testing');
