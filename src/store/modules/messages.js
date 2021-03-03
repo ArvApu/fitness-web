@@ -1,10 +1,7 @@
 import api from "@/api";
 
 const state = {
-    messages: {
-        sent: [],
-        received: [],
-    },
+    messages: [],
     isLoading: false,
 };
 
@@ -17,11 +14,8 @@ const mutations = {
     SET_MESSAGES(state, messages) {
         state.messages = messages;
     },
-    ADD_SENT_MESSAGE(state, message) {
-        state.messages.sent.push(message);
-    },
-    ADD_RECEIVED_MESSAGE(state, message) {
-        state.messages.received.push(message);
+    ADD_MESSAGE(state, message) {
+        state.messages.unshift(message);
     },
 };
 
@@ -33,14 +27,9 @@ const actions = {
         try {
             commit('SET_IS_LOADING', true);
 
-            const sent = await api.messages.getSent(userId);
-            const received = await api.messages.getReceived(userId);
+            const response = await api.messages.getByUser(userId);
 
-            commit('SET_MESSAGES', {
-                sent: sent.data,
-                received: received.data,
-            })
-
+            commit('SET_MESSAGES', response.data)
         } catch (e) {
             return Promise.reject(e);
         } finally {
@@ -52,7 +41,7 @@ const actions = {
         try {
             const response = await api.messages.send(data.userId, data.message);
             if (response && response.data && response.status === 201) {
-                commit('ADD_SENT_MESSAGE', response.data);
+                commit('ADD_MESSAGE', response.data);
             }
         } catch (e) {
             return Promise.reject(e);
@@ -60,7 +49,7 @@ const actions = {
     },
 
     receive({ commit }, message) {
-        commit('ADD_RECEIVED_MESSAGE', message);
+        commit('ADD_MESSAGE', message);
     },
 };
 

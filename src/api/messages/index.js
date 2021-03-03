@@ -4,12 +4,8 @@ const resource = 'messages';
 
 export default {
 
-    getSent(to) {
-        return request.get(`${resource}/sent/${to}`);
-    },
-
-    getReceived(from) {
-        return request.get(`${resource}/received/${from}`);
+    getByUser(id) {
+        return request.get(`${resource}/${id}`);
     },
 
     send(to, message) {
