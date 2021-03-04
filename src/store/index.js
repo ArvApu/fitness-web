@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
 
 import apiPlugin from '@/api/plugin';
+import broadcast from '@/broadcast'
 
 import auth from './modules/auth'
 import exercises from './modules/exercises'
@@ -31,6 +32,6 @@ export default new Vuex.Store({
     exercises,
     messages
   },
-  plugins: [apiPlugin, persistedState],
+  plugins: [apiPlugin, persistedState, broadcast],
   strict: debug
 })
