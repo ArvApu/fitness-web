@@ -12,6 +12,7 @@
         :show-audio="false"
         :show-add-room="false"
         :show-reaction-emojis="false"
+        :show-new-messages-divider="false"
         @fetch-messages="handleMessages"
         @fetch-more-rooms="handleRooms"
         @send-message="handleMessageSend"
@@ -41,13 +42,19 @@ export default {
   },
   computed: {
     ...mapState('messages', [
-      'messages', 'rooms'
-    ])
+      'messages',
+    ]),
+    ...mapState('rooms', [
+      'rooms',
+    ]),
   },
   methods: {
     ...mapActions('messages', [
-      'fetchAll', 'send', 'loadRooms'
+      'fetchAll', 'send'
     ]),
+    ...mapActions('rooms', {
+      fetchRooms: 'fetchAll'
+    }),
     handleMessageSend({ content }) {
       this.send({
         userId: this.userId,
@@ -67,7 +74,7 @@ export default {
     // TODO: remove
   },
   created() {
-    this.loadRooms();
+    this.fetchRooms();
   }
 }
 </script>

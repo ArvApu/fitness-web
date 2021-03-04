@@ -8,6 +8,7 @@ import broadcast from '@/broadcast'
 import auth from './modules/auth'
 import exercises from './modules/exercises'
 import messages from './modules/messages'
+import rooms from './modules/rooms'
 
 Vue.use(Vuex)
 
@@ -30,7 +31,8 @@ export default new Vuex.Store({
   modules: {
     auth,
     exercises,
-    messages
+    messages,
+    rooms,
   },
   plugins: [apiPlugin, persistedState, broadcast],
   strict: debug

@@ -2,7 +2,6 @@ import api from "@/api";
 
 const state = {
     messages: [],
-    rooms: [],
     isLoading: false,
 };
 
@@ -57,44 +56,6 @@ const actions = {
     receive({ commit }, message) {
         commit('ADD_MESSAGE', parseMessage(message));
     },
-
-    async loadRooms({ commit, rootState }) {
-
-        // TODO: Refactor
-
-        const currentUser = rootState.auth.user;
-
-        const response = await api.users.get();
-
-        const users = response.data;
-        const rooms = [];
-
-        for (let i = 0; i < users.length; i++) {
-
-            const user = users[i];
-
-            rooms.push({
-                roomId: i + 1,
-                roomName: user.first_name,
-                avatar: `https://robohash.org/${user.email}`,
-                users: [
-                    {
-                        _id: currentUser.id,
-                        username: currentUser.first_name,
-                        avatar: `https://robohash.org/${currentUser.email}`,
-                    },
-                    {
-                        _id: user.id,
-                        username: user.first_name,
-                        avatar: `https://robohash.org/${user.email}`,
-                    }
-                ],
-            });
-        }
-
-        commit('SET_ROOMS', rooms);
-    }
-
 };
 
 const module = {
@@ -104,6 +65,10 @@ const module = {
     mutations,
     actions
 };
+
+export default module;
+
+/* Module helper methods */
 
 function parseMessage(message) {
 
@@ -123,5 +88,3 @@ function parseMessage(message) {
         disableReactions: true,
     }
 }
-
-export default module;
