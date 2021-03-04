@@ -1,10 +1,21 @@
 <template>
   <div>
 
-    {{ messages }}
-
-    <input v-model="message" type="text">
-    <button v-on:click="submit"> Send message </button>
+    <chat-window
+        :height="'920px'"
+        :current-user-id="currentUserId"
+        :rooms="rooms"
+        :messages="messages"
+        :rooms-loaded="true"
+        :messages-loaded="messagesLoaded"
+        :show-files="false"
+        :show-audio="false"
+        :show-add-room="false"
+        :show-reaction-emojis="false"
+        @fetch-messages="handleMessages"
+        @fetch-more-rooms="handleRooms"
+        @send-message="handleMessageSend"
+    />
 
   </div>
 </template>
@@ -14,28 +25,43 @@
 import { mapState, mapActions} from 'vuex';
 import Pusher from 'pusher-js';
 
+import ChatWindow from 'vue-advanced-chat'
+import 'vue-advanced-chat/dist/vue-advanced-chat.css'
+
 export default {
   name: 'Messages',
+  components: {
+    ChatWindow
+  },
   data() {
     return {
-      userId: 3, // TODO: load dynamically, this is of user whose chat is active
-      message: null,
+      currentUserId: this.$store.state.auth.user.id,
+      userId: null,
+      messagesLoaded: false,
     }
   },
   computed: {
     ...mapState('messages', [
-      'messages'
+      'messages', 'rooms'
     ])
   },
   methods: {
     ...mapActions('messages', [
-      'fetchAll', 'send', 'receive'
+      'fetchAll', 'send', 'receive', 'loadRooms'
     ]),
-    submit() {
+    handleMessageSend({ content }) {
       this.send({
         userId: this.userId,
-        message: this.message
+        message: content
       })
+    },
+    handleRooms() {
+      // TODO: load more rooms
+    },
+    handleMessages({room}){
+      this.messagesLoaded = false;
+      this.userId = room.users.find(user => user._id !== this.currentUserId)._id;
+      this.fetchAll(this.userId).then(() => this.messagesLoaded = true);
     }
   },
   mounted() {
@@ -43,16 +69,18 @@ export default {
       cluster: process.env.VUE_APP_PUSHER_CLUSTER ?? 'eu',
     });
 
-    const channel = pusher.subscribe('testing');
+    const channel = pusher.subscribe(`user.channel.${this.currentUserId}`);
 
     const self = this;
 
-    channel.bind('message-sent', function (data) {
-      self.receive(data.message);
+    channel.bind('message.sent', function (data) {
+      if(data.message.sender_id !== self.currentUserId) {
+        self.receive(data.message);
+      }
     });
   },
   created() {
-    this.fetchAll(this.userId)
+    this.loadRooms();
   }
 }
 </script>
