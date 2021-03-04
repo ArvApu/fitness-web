@@ -66,14 +66,20 @@ export default {
   },
   mounted() {
     const pusher = new Pusher(process.env.VUE_APP_PUSHER_API_KEY, {
+      authEndpoint: `${process.env.VUE_APP_API_URL}/broadcasting/auth`,
+      auth: {
+        headers: {
+          'Authorization': `Bearer ${this.$store.state.auth.accessToken}`
+        }
+      },
       cluster: process.env.VUE_APP_PUSHER_CLUSTER ?? 'eu',
     });
 
-    const channel = pusher.subscribe(`user.channel.${this.currentUserId}`);
+    const channel = pusher.subscribe(`private-user.${this.currentUserId}`);
 
     const self = this;
 
-    channel.bind('message.sent', function (data) {
+    channel.bind('send.message', function (data) {
       if(data.message.sender_id !== self.currentUserId) {
         self.receive(data.message);
       }
