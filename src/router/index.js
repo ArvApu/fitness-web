@@ -7,6 +7,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Exercises from '../views/Exercises.vue'
 import Messages from '../views/Messages.vue'
+import Workouts from '../views/Workouts.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,11 @@ const routes = [
     path: '/exercises',
     name: 'Exercises',
     component: Exercises
+  },
+  {
+    path: '/workouts',
+    name: 'Workouts',
+    component: Workouts
   },
   {
     path: '/messages',

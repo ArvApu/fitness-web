@@ -7,6 +7,7 @@ import broadcast from '@/broadcast'
 
 import auth from './modules/auth'
 import exercises from './modules/exercises'
+import workouts from './modules/workouts'
 import messages from './modules/messages'
 import rooms from './modules/rooms'
 
@@ -31,6 +32,7 @@ export default new Vuex.Store({
   modules: {
     auth,
     exercises,
+    workouts,
     messages,
     rooms,
   },
