@@ -33,7 +33,7 @@ const actions = {
         try {
             commit('SET_IS_LOADING', true);
             const response = await api.exercises.all();
-            commit('SET_EXERCISES', response.data);
+            commit('SET_EXERCISES', response.data.data);
         } catch (e) {
             return Promise.reject(e);
         } finally {
