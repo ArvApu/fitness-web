@@ -48,8 +48,8 @@ export default {
   methods: {
     register() {
       api.registration.register(this.user)
-          .then(response => console.log(response.data))
-          .catch(error => console.error(error));
+          .then(() => this.$router.push('/login'))
+          .catch(err => console.log(err));
     },
   }
 }

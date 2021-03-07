@@ -90,7 +90,7 @@ const actions = {
     },
 
     calculateExpireTime({ commit }, expiresIn) {
-        commit('SET_EXPIRY_TIME', Date.now() + expiresIn)
+        commit('SET_EXPIRY_TIME', Math.floor(Date.now() / 1000) + expiresIn);
     },
 
     clearSession({ commit }) {
