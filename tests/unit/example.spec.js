@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from '@/components/NavLinks.vue'
 
-describe('HelloWorld.vue', () => {
+describe('NavLinks.vue', () => {
   it('renders props.msg when passed', () => {
     const msg = 'new message'
     const wrapper = shallowMount(HelloWorld, {

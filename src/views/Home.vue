@@ -1,18 +1,16 @@
 <template>
-  <div class="home">
-    <ul>
-      <li>
-        <router-link :to="{ name: 'Messages' }" exact-active-class="side-panel-exact-active" > Messages </router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'Exercises' }" exact-active-class="side-panel-exact-active" > Exercises </router-link>
-      </li>
-    </ul>
+  <div>
+    <NavLinks/>
   </div>
 </template>
 <script>
 
+import NavLinks from "@/components/NavLinks";
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    NavLinks
+  }
 }
 </script>
