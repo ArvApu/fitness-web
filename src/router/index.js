@@ -69,6 +69,11 @@ router.beforeEach(function(to, from, next) {
     next({ name: 'Login' });
   }
 
+  /* If user is authenticated and path is for guests then whe should block further action */
+  if (store.state.auth.accessToken && to.matched.some(path => path.meta.guest)) {
+    next({ name: 'Home' });
+  }
+
   next();
 });
 
