@@ -46,8 +46,7 @@ body, #app, #home {
     flex-direction: column;
 }
 
-a:hover, a:visited, a:link, a:active {
-    color: inherit;
+a, a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }
 
@@ -167,6 +166,7 @@ button[disabled=disabled], button:disabled {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    margin: 4px 0;
 }
 
 .form-input-textarea {

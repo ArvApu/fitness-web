@@ -1,11 +1,11 @@
 <template>
-  <div id="login">
+  <div class="auth">
 
-    <div class="login-box">
+    <div class="auth-box">
 
       <h1>Sign in</h1>
 
-      <form class="login-form" @submit.prevent="login">
+      <form class="auth-form" @submit.prevent="login">
 
         <div class="form-group">
           <label for="email">Email</label>
@@ -22,7 +22,7 @@
           <span>Login</span>
         </button>
 
-        <div class="form-group links">
+        <div class="form-group auth-links">
           <router-link :to="{ name: 'PasswordReset' }" > Remember password </router-link>
           <router-link :to="{ name: 'Register' }" > Do not have an account? </router-link>
         </div>
@@ -30,7 +30,7 @@
       </form>
     </div>
 
-    <div class="login-illustration"/>
+    <div class="auth-illustration"/>
 
   </div>
 
@@ -69,5 +69,5 @@ export default {
 </script>
 
 <style scoped>
-  @import '../../assets/css/login.css';
+  @import '../../assets/css/auth.css';
 </style>
