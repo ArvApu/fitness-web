@@ -4,6 +4,7 @@
     <div class="auth-box">
 
       <h1>Reset password</h1>
+
       <form class="auth-form" v-show="!success" @submit.prevent="handle">
 
         <div class="form-group">
@@ -61,7 +62,7 @@ export default {
       this.loading = true;
       api.password.reset(this.email)
           .then(() => this.success = true)
-          .catch(/*  Extract errors */)
+          .catch(/*  TODO: Extract errors */)
           .finally(() => this.loading = false);
     }
   }
