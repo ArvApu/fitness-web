@@ -17,7 +17,10 @@
           <input required class="form-input" v-model="password" id="password" type="password" placeholder="Password"/>
         </div>
 
-        <button type="submit" class="form-input btn btn-primary">Login</button>
+        <button type="submit" :disabled='loading' class="flex-center form-input btn btn-primary">
+          <loading-ring :show="loading"/>
+          <span>Login</span>
+        </button>
 
         <div class="form-group links">
           <router-link :to="{ name: 'PasswordReset' }" > Remember password </router-link>
@@ -35,22 +38,31 @@
 
 <script>
 
+import LoadingRing from "@/components/LoadingRing";
+
 export default {
   name: 'Login',
+  components: {
+    LoadingRing
+  },
   data() {
     return {
       email : null,
-      password: null
+      password: null,
+      loading: false,
     }
   },
   methods: {
     login() {
+      this.loading = true;
+
       let email = this.email;
       let password = this.password;
 
       this.$store.dispatch('auth/login', { email, password })
           .then(() => this.$router.push('/'))
-          .catch(err => console.log(err));
+          .catch(err => console.log(err))
+          .finally(() => this.loading = false);
     },
   }
 }
