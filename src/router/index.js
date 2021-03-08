@@ -3,11 +3,11 @@ import VueRouter from 'vue-router'
 import store from "@/store";
 
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import Exercises from '../views/Exercises.vue'
-import Messages from '../views/Messages.vue'
-import Workouts from '../views/Workouts.vue'
+import Login from '../views/Auth/Login.vue'
+import Register from '../views/Auth/Register.vue'
+import Exercises from '../views/Home/Exercises.vue'
+import Messages from '../views/Home/Messages.vue'
+import Workouts from '../views/Home/Workouts.vue'
 
 Vue.use(VueRouter)
 
