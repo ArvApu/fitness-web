@@ -15,22 +15,24 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
-  },
-  {
-    path: '/exercises',
-    name: 'Exercises',
-    component: Exercises
-  },
-  {
-    path: '/workouts',
-    name: 'Workouts',
-    component: Workouts
-  },
-  {
-    path: '/messages',
-    name: 'Messages',
-    component: Messages
+    component: Home,
+    children: [
+      {
+        path: '/exercises',
+        name: 'Exercises',
+        component: Exercises
+      },
+      {
+        path: '/workouts',
+        name: 'Workouts',
+        component: Workouts
+      },
+      {
+        path: '/messages',
+        name: 'Messages',
+        component: Messages
+      },
+    ]
   },
   {
     path: '/login',
