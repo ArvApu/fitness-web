@@ -45,3 +45,35 @@ body, #app{
     display: flex;
     flex-direction: column;
 }
+
+/* --------------- Main root elements ---------------- */
+
+#header {
+    height: 60px;
+    background-color: var(--primary-color);
+    flex: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+#main {
+    background-color: var(--main-bg-color);
+    flex: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+/* --------------- Main element elements ---------------- */
+
+#menu {
+    background-color: var(--secondary-color);
+    height: 100%;
+    width: 15%;
+}
+
+#content {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}

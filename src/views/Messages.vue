@@ -2,7 +2,7 @@
   <div>
 
     <chat-window
-        :height="'920px'"
+        :height="'93.5vh'"
         :current-user-id="currentUserId"
         :rooms="rooms"
         :messages="messages"
