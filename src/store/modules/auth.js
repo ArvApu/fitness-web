@@ -26,6 +26,9 @@ const mutations = {
 
 const actions = {
     async login({ commit, dispatch }, credentials) {
+
+        commit('SET_REFRESH_FAILED', true);
+
         try {
             const response = await api.auth.login(credentials);
 
@@ -61,13 +64,11 @@ const actions = {
     },
 
     async logout({ dispatch }) {
-        await api.auth.logout();
-
-        dispatch('clearSession');
-
-        setTimeout(() => {
-            location.reload();
-        }, 500);
+        try {
+            await api.auth.logout();
+        } finally {
+            dispatch('clearSession');
+        }
     },
 
     async getCurrentUserInformation({ commit }) {
