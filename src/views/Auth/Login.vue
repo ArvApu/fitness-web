@@ -13,6 +13,12 @@
 
       <hr>
       <button type="submit">Login</button>
+
+      <div class="form-group">
+        <router-link :to="{ name: 'PasswordReset' }" > Remember password. </router-link>
+        <router-link :to="{ name: 'Register' }" > Do not have an account? Register here. </router-link>
+      </div>
+
     </form>
 
   </div>

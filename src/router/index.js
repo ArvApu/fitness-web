@@ -5,6 +5,8 @@ import store from "@/store";
 import Home from '../views/Home.vue'
 import Login from '../views/Auth/Login.vue'
 import Register from '../views/Auth/Register.vue'
+import PasswordReset from '../views/Auth/PasswordReset.vue'
+import PasswordChange from '../views/Auth/PasswordChange.vue'
 import Exercises from '../views/Home/Exercises.vue'
 import Messages from '../views/Home/Messages.vue'
 import Workouts from '../views/Home/Workouts.vue'
@@ -44,6 +46,18 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register,
+    meta: { guest: true }
+  },
+  {
+    path: '/password/reset',
+    name: 'PasswordReset',
+    component: PasswordReset,
+    meta: { guest: true }
+  },
+  {
+    path: '/password/reset/:token',
+    name: 'PasswordChange',
+    component: PasswordChange,
     meta: { guest: true }
   },
   /* Default route - not found */

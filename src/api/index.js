@@ -1,5 +1,6 @@
 import request from "./request";
 import auth from "./auth";
+import password from "./password";
 import registration from "./registration";
 import workouts from "./workouts";
 import exercises from "./exercises";
@@ -10,6 +11,7 @@ import users from "./users";
 export default {
     request,
     auth,
+    password,
     registration,
     workouts,
     exercises,
