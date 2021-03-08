@@ -1,0 +1,88 @@
+#login {
+    background: var(--main-bg-color);
+    min-height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.login-box {
+    width: 35%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-form {
+    width: 80%;
+}
+
+.login-illustration {
+    background-image: url("../../assets/images/login.jpg");
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
+    width: 65%;
+    min-height: 100%;
+}
+
+.links {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    font-weight: bold;
+    color: #393e46;
+}
+
+/* -------------- Responsiveness -------------- */
+
+@media only screen and (max-width: 1130px) {
+    .login-box {
+        width: 50%;
+    }
+
+    .login-illustration {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 814px) {
+
+    #login {
+        justify-content: center;
+        align-items: center;
+        background-image: url("../../assets/images/login.jpg");
+        background-size:     cover;
+        background-repeat:   no-repeat;
+        background-position: center center;
+    }
+
+    .login-box {
+        border-radius: 4px;
+        background: var(--main-bg-color);
+        width: 80%;
+        min-height: 80%;
+    }
+
+    .login-illustration {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .login-box {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    .links{
+        flex-direction: column;
+    }
+    .links a {
+        margin: 3px 0;
+    }
+}

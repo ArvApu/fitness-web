@@ -46,6 +46,11 @@ body, #app, #home {
     flex-direction: column;
 }
 
+a:hover, a:visited, a:link, a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
 /* --------------- Main root elements ---------------- */
 
 #header {
@@ -76,4 +81,98 @@ body, #app, #home {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     width: 100%;
+}
+
+/* --------------- Buttons elements --------------- */
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn:focus {
+    outline: none;
+    border-color: black;
+    box-shadow: 0 0 0 3px;
+}
+
+::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.btn-primary {
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #16a596;
+}
+
+.btn-primary:hover {
+    background-color: #007c70;
+}
+
+.btn-secondary {
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #393e46;
+}
+
+.btn-secondary:hover {
+    background-color: #222831;
+}
+
+.btn-danger {
+    color: #ffffff;
+    font-weight: bold;
+    background-color:#ac0000;
+}
+
+.btn-danger:hover {
+    background-color: #810000;
+}
+
+/* --------------- Form groups --------------- */
+
+.form-input {
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-input-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+.form-group {
+    margin: 12px 0;
 }

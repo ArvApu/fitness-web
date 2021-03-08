@@ -1,27 +1,36 @@
 <template>
-  <div>
+  <div id="login">
 
-    <h1>Sign in</h1>
+    <div class="login-box">
 
-    <form class="login" @submit.prevent="login">
-      <hr>
-      <label>Email</label>
-      <input required v-model="email" type="email" placeholder="Email"/>
+      <h1>Sign in</h1>
 
-      <label>Password</label>
-      <input required v-model="password" type="password" placeholder="Password"/>
+      <form class="login-form" @submit.prevent="login">
 
-      <hr>
-      <button type="submit">Login</button>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input required class="form-input" v-model="email" id="email" type="email" placeholder="Email"/>
+        </div>
 
-      <div class="form-group">
-        <router-link :to="{ name: 'PasswordReset' }" > Remember password. </router-link>
-        <router-link :to="{ name: 'Register' }" > Do not have an account? Register here. </router-link>
-      </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input required class="form-input" v-model="password" id="password" type="password" placeholder="Password"/>
+        </div>
 
-    </form>
+        <button type="submit" class="form-input btn btn-primary">Login</button>
+
+        <div class="form-group links">
+          <router-link :to="{ name: 'PasswordReset' }" > Remember password </router-link>
+          <router-link :to="{ name: 'Register' }" > Do not have an account? </router-link>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="login-illustration"/>
 
   </div>
+
 </template>
 
 <script>
@@ -46,3 +55,7 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  @import '../../assets/css/login.css';
+</style>
