@@ -3,7 +3,7 @@
 
     <div>
 
-      <button class="btn btn-primary"> <font-awesome-icon icon="plus"/> Add workout </button>
+      <button class="btn btn-primary" v-on:click="add"> <font-awesome-icon icon="plus"/> Add workout </button>
 
       <div class="items">
 
@@ -20,12 +20,21 @@
 
           <div class="control">
             <font-awesome-icon class='view' icon="eye" size="lg" v-on:click="view(workout.id)"/>
-            <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="edit(workout.id)"/>
+            <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="edit(workout)"/>
             <font-awesome-icon class='remove' icon="trash-alt" size="lg" v-on:click="remove(workout.id)"/>
           </div>
 
         </div>
       </div>
+
+      <!-- MODALS -->
+      <v-dialog/>
+
+      <modal class="force-scroll-modal" name="add-workout-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+        <div class="modal-from">
+          <workout-form v-bind="this.workout" @created="hide" @updated="hide"/>
+        </div>
+      </modal>
 
     </div>
 
@@ -33,15 +42,18 @@
 </template>
 
 <script>
+
 import { mapState, mapActions} from 'vuex';
+import WorkoutForm from "@/components/WorkoutForm";
 
 export default {
   name: 'Workouts',
+  components: {
+    WorkoutForm
+  },
   data() {
     return {
-      name: null,
-      description: null,
-      is_private: false,
+      workout: null,
     }
   },
   computed: {
@@ -51,8 +63,47 @@ export default {
   },
   methods: {
     ...mapActions('workouts', [
-      'fetchAll'
-    ])
+      'fetchAll', 'delete'
+    ]),
+    view(id) {
+      console.log('workout view', id);
+      // TODO: open workout view
+    },
+    add() {
+      this.workout = null;
+      this.show();
+    },
+    edit(workout) {
+      this.workout = workout;
+      this.show();
+    },
+    remove(id) {
+      this.$modal.show('dialog', {
+        title: 'WARNING',
+        text: 'You are going to delete a workout. Are you sure you want to do this?',
+        buttons: [
+          {
+            title: 'Cancel',
+            handler: () => {
+              this.$modal.hide('dialog');
+            }
+          },
+          {
+            title: 'Yes',
+            handler: () => {
+              this.$modal.hide('dialog');
+              this.delete(id);
+            }
+          },
+        ]
+      })
+    },
+    show () {
+      this.$modal.show('add-workout-modal');
+    },
+    hide () {
+      this.$modal.hide('add-workout-modal');
+    },
   },
   created() {
     this.fetchAll()

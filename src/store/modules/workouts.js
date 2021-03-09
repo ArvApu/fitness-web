@@ -61,9 +61,9 @@ const actions = {
             return Promise.reject(e);
         }
     },
-    async update({ commit }, {id, data}) {
+    async update({ commit }, workout) {
         try {
-            const response = await api.workouts.update(id, data);
+            const response = await api.workouts.update(workout.id, workout);
             if (response && response.data && response.status === 200) {
                 commit('UPDATE_WORKOUT', response.data);
             }

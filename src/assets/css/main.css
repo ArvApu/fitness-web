@@ -244,7 +244,7 @@ button[disabled=disabled], button:disabled {
     background-color: #810000;
 }
 
-/* --------------- Form groups --------------- */
+/* -------------------- Forms -------------------- */
 
 .form-input {
     width: 100%;
@@ -278,6 +278,64 @@ button[disabled=disabled], button:disabled {
 
 .modal-from {
     padding: 15px;
+}
+
+/* --------------- Select --------------- */
+
+/* Reset Select */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+}
+
+/* Remove IE arrow */
+select::-ms-expand {
+    display: none;
+}
+
+/* Custom Select */
+.custom-select {
+    position: relative;
+    display: flex;
+    height: 3em;
+    line-height: 3;
+    background: #cecece;
+    overflow: hidden;
+    border-radius: .25em;
+    width: 100%;
+    margin: 12px 0;
+}
+
+select {
+    flex: 1;
+    padding: 0 .5em;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Arrow */
+.custom-select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #e7e7e7;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+}
+
+/* Transition */
+.custom-select:hover::after {
+    color: var(--primary-color);
 }
 
 /* --------------- Helpers --------------- */

@@ -30,7 +30,7 @@
       <v-dialog/>
 
       <modal class="force-scroll-modal" name="add-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
-        <div class="force-scroll-modal modal-from">
+        <div class="modal-from">
           <exercise-form v-bind="this.exercise" @created="hide" @updated="hide"/>
         </div>
       </modal>
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     ...mapActions('exercises', [
-        'fetchAll', 'update', 'delete'
+        'fetchAll', 'delete'
     ]),
     add() {
       this.exercise = null;
