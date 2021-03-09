@@ -27,14 +27,12 @@
       </div>
 
       <!-- MODALS -->
-      <v-dialog />
+      <v-dialog/>
 
-      <modal class="force-scroll-modal" name="add-exercise-modal" :width=800 :adaptive=true :scrollable=true>
-        <exercise-form
-            v-bind="this.exercise"
-            @created="hide"
-            @updated="hide"
-        />
+      <modal class="force-scroll-modal" name="add-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+        <div class="force-scroll-modal modal-from">
+          <exercise-form v-bind="this.exercise" @created="hide" @updated="hide"/>
+        </div>
       </modal>
 
     </div>

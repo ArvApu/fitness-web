@@ -1,5 +1,4 @@
 <template>
-  <div class=''>
     <form id='exercise-form' @submit.prevent="handle">
 
       <div class='form-group'>
@@ -12,15 +11,14 @@
         <textarea required class='form-input-textarea' id="description" name="description" v-model="exercise.description" />
       </div>
 
-      <div class='form-group'>
-        <label for="is_private"> Should exercise be private? </label>
-        <input class='form-input' type="checkbox" id="is_private" name="is_private" v-model="exercise.is_private">
+      <div class='form-check'>
+        <input type="checkbox" id="is_private" name="is_private" v-model="exercise.is_private">
+        <label for="is_private"> Exercise is private </label>
       </div>
 
       <input class='form-input btn btn-primary' type="submit" id="add-comment" name="add-comment" value="Submit">
 
     </form>
-  </div>
 </template>
 
 <script>

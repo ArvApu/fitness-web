@@ -160,7 +160,7 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 #menu li {
-    margin: 4px 0px;
+    margin: 4px 0;
     background-color: #bbded6;
 }
 
@@ -268,6 +268,16 @@ button[disabled=disabled], button:disabled {
 
 .form-group {
     margin: 12px 0;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+}
+
+.modal-from {
+    padding: 15px;
 }
 
 /* --------------- Helpers --------------- */
