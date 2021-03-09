@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="remove-content-paddings">
 
     <chat-window
         :height="'93.5vh'"

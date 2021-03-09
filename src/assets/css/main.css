@@ -46,19 +46,6 @@ body, #app, #home {
     flex-direction: column;
 }
 
-/* --------------- Scrollbar hides with functionality kept ---------------- */
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-#content::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-#content {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;     /* Firefox */
-}
-
 /* --------------- Remove anchor tags decoration ---------------- */
 
 a, a:hover, a:visited, a:link, a:active {
@@ -95,6 +82,20 @@ a, a:hover, a:visited, a:link, a:active {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     width: 100%;
+    padding: 15px 25px; /* If updated also update .remove-content-paddings */
+}
+
+/* --------------- Scrollbar hides with functionality kept ---------------- */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#content::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#content {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
 }
 
 /* --------------- Buttons elements --------------- */
@@ -204,4 +205,8 @@ button[disabled=disabled], button:disabled {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.remove-content-paddings {
+    margin: -15px -25px;
 }
