@@ -6,7 +6,7 @@
       <!--        <img class='image' src='@/assets/logo.png' alt="">-->
       <!--      </div>-->
 
-      <div class='buttons' v-if="isAuthenticated">
+      <div class='buttons'>
         <button class='btn' @click="logout()"> LOGOUT </button>
       </div>
 
@@ -15,7 +15,7 @@
     <!-- MAIN -->
     <div id="main">
 
-      <nav id="menu" v-if="isAuthenticated">
+      <nav id="menu">
         <NavLinks/>
       </nav>
 
@@ -32,17 +32,11 @@ import NavLinks from "@/components/NavLinks";
 
 export default {
   name: 'Home',
-  computed: {
-    isAuthenticated () {
-      return !!this.$store.state.auth.accessToken
-    }
-  },
   components: {
     NavLinks
   },
   methods: {
     logout() {
-      this.isAuthenticated = false;
       this.$store.dispatch('auth/logout').finally(() =>
           this.$router.push({ name: 'Login' })
       );
