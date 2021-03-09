@@ -46,6 +46,21 @@ body, #app, #home {
     flex-direction: column;
 }
 
+/* --------------- Scrollbar hides with functionality kept ---------------- */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#content::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#content {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+/* --------------- Remove anchor tags decoration ---------------- */
+
 a, a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }

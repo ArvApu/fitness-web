@@ -22,7 +22,6 @@
           <span>Reset</span>
         </button>
 
-
       </form>
 
       <div v-show="success">
@@ -71,7 +70,7 @@ export default {
       ).then(
           () => this.success = true
       ).catch(
-          () => console.log('error') // TODO: exctract error
+          () => console.log('error') // TODO: extract error
       ).finally(
           () => this.loading = false
       );
