@@ -10,6 +10,7 @@ import PasswordChange from '../views/Auth/PasswordChange.vue'
 import Exercises from '../views/Home/Exercises.vue'
 import Messages from '../views/Home/Messages.vue'
 import Workouts from '../views/Home/Workouts.vue'
+import Clients from '../views/Home/Clients.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
         path: '/messages',
         name: 'Messages',
         component: Messages
+      },
+      {
+        path: '/clients',
+        name: 'Clients',
+        component: Clients
       },
     ]
   },
