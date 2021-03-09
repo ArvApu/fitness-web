@@ -1,22 +1,13 @@
 <template>
   <div id="home">
-    <header id="header">
 
-      <!--      <div class='logo'>-->
-      <!--        <img class='image' src='@/assets/logo.png' alt="">-->
-      <!--      </div>-->
-
-      <div class='buttons'>
-        <button class='btn' @click="logout()"> LOGOUT </button>
-      </div>
-
-    </header>
+    <app-header/>
 
     <!-- MAIN -->
     <div id="main">
 
       <nav id="menu">
-        <NavLinks/>
+        <menu-links/>
       </nav>
 
       <div id="content">
@@ -28,19 +19,14 @@
 </template>
 
 <script>
-import NavLinks from "@/components/NavLinks";
+import MenuLinks from "@/components/MenuLinks";
+import AppHeader from "@/components/AppHeader";
 
 export default {
   name: 'Home',
   components: {
-    NavLinks
+    MenuLinks,
+    AppHeader
   },
-  methods: {
-    logout() {
-      this.$store.dispatch('auth/logout').finally(() =>
-          this.$router.push({ name: 'Login' })
-      );
-    }
-  }
 }
 </script>

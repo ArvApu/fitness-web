@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'NavLinks',
+  name: 'MenuLinks',
   props: {
     msg: String
   }

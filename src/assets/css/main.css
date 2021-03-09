@@ -100,6 +100,44 @@ a, a:hover, a:visited, a:link, a:active {
     scrollbar-width: none;     /* Firefox */
 }
 
+/* --------------- Header elements --------------- */
+
+#header .logo {
+    overflow: hidden;
+    height: 100%;
+    width: 200px;
+    padding-bottom: 10px;
+}
+
+#header .account {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+#header .account .btn {
+    background-color: #bbded6;
+    height: 35px;
+    margin: 2px 20px;
+    font-weight: bold;
+}
+
+#header .account .btn:hover {
+    background-color: #007c70
+}
+
+.profile-links a {
+    outline: none;
+    color: #ffffff;
+}
+
+.profile-links a:hover {
+    font-weight: bold;
+    text-decoration: underline  ;
+}
+
 /* --------------- Menu elements --------------- */
 
 #menu a {
