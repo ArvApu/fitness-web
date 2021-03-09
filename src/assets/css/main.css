@@ -134,8 +134,7 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 .profile-links a:hover {
-    font-weight: bold;
-    text-decoration: underline  ;
+    text-decoration: underline;
 }
 
 /* --------------- Menu elements --------------- */
@@ -281,6 +280,21 @@ button[disabled=disabled], button:disabled {
 
 .remove-content-paddings {
     margin: -15px -25px;
+}
+
+/* --------------- Other --------------- */
+
+.force-scroll-modal .vm--modal {
+    overflow-y: scroll !important;
+}
+
+.force-scroll-modal .vm--modal::-webkit-scrollbar {
+    display: none;
+}
+
+.force-scroll-modal .vm--modal {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 /* --------------- Responsiveness --------------- */

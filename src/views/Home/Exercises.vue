@@ -3,7 +3,7 @@
 
     <div>
 
-      <button class="btn btn-primary"> <font-awesome-icon icon="plus"/> Add exercise </button>
+      <button class="btn btn-primary" v-on:click="add"> <font-awesome-icon icon="plus"/> Add exercise </button>
 
       <div class="items">
 
@@ -19,12 +19,23 @@
           </div>
 
           <div class="control">
-            <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="edit(exercise.id)"/>
+            <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="edit(exercise)"/>
             <font-awesome-icon class='remove' icon="trash-alt" size="lg" v-on:click="remove(exercise.id)"/>
           </div>
 
         </div>
       </div>
+
+      <!-- MODALS -->
+      <v-dialog />
+
+      <modal class="force-scroll-modal" name="add-exercise-modal" :width=800 :adaptive=true :scrollable=true>
+        <exercise-form
+            v-bind="this.exercise"
+            @created="hide"
+            @updated="hide"
+        />
+      </modal>
 
     </div>
 
@@ -34,14 +45,16 @@
 <script>
 
 import { mapState, mapActions} from 'vuex';
+import ExerciseForm from "@/components/ExerciseForm";
 
 export default {
   name: 'Exercises',
+  components: {
+    ExerciseForm
+  },
   data() {
     return {
-      name: null,
-      description: null,
-      is_private: false,
+      exercise: null,
     }
   },
   computed: {
@@ -53,13 +66,40 @@ export default {
     ...mapActions('exercises', [
         'fetchAll', 'update', 'delete'
     ]),
-    edit(id) {
-      // TODO: Open modal window and enter information
-      console.log('edit', id);
+    add() {
+      this.exercise = null;
+      this.show();
+    },
+    edit(exercise) {
+      this.exercise = exercise;
+      this.show();
     },
     remove(id) {
-      // TODO: Open modal window to confirm
-      this.delete(id);
+      this.$modal.show('dialog', {
+        title: 'WARNING',
+        text: 'You are going to delete an exercise. Are you sure you want to do this?',
+        buttons: [
+          {
+            title: 'Cancel',
+            handler: () => {
+              this.$modal.hide('dialog');
+            }
+          },
+          {
+            title: 'Yes',
+            handler: () => {
+              this.$modal.hide('dialog');
+              this.delete(id);
+            }
+          },
+        ]
+      })
+    },
+    show () {
+      this.$modal.show('add-exercise-modal');
+    },
+    hide () {
+      this.$modal.hide('add-exercise-modal');
     },
   },
   created() {
