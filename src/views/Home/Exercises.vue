@@ -14,23 +14,13 @@
             <h3> {{ exercise.name }} </h3>
 
             <div class="description">
-              <!--            {{ exercise.description }}-->
-              error sit quia labore sit ut et consectetur vero excepturi  error sit quia labore sit ut et consectetur vero excepturi error sit quia labore sit ut et consectetur vero excepturi error sit quia labore sit ut et consectetur vero excepturi error sit quia lab
+              {{ exercise.description }}
             </div>
           </div>
 
           <div class="control">
-            <font-awesome-icon icon="pen" size="2x"/>
-            <font-awesome-icon icon="trash-alt" size="2x"/>
-
-<!--            <div>-->
-<!--              <font-awesome-icon icon="pen" />-->
-<!--            </div>-->
-
-<!--            <div>-->
-<!--              <font-awesome-icon icon="trash-alt" />-->
-<!--            </div>-->
-            <!--          {{ exercise.id }}-->
+            <font-awesome-icon class='edit' icon="pen" size="2x" v-on:click="edit(exercise.id)"/>
+            <font-awesome-icon class='remove' icon="trash-alt" size="2x" v-on:click="remove(exercise.id)"/>
           </div>
 
         </div>
@@ -61,8 +51,16 @@ export default {
   },
   methods: {
     ...mapActions('exercises', [
-        'fetchAll'
-    ])
+        'fetchAll', 'update', 'delete'
+    ]),
+    edit(id) {
+      // TODO: Open modal window and enter information
+      console.log('edit', id);
+    },
+    remove(id) {
+      // TODO: Open modal window to confirm
+      this.delete(id);
+    },
   },
   created() {
     this.fetchAll()
@@ -70,7 +68,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
   .exercises {
     display: flex;
@@ -110,4 +108,53 @@ export default {
     flex-direction: column;
     width: 10%;
   }
+
+  .exercise .control .remove:hover {
+    color: var(--danger-color);
+    cursor: pointer;
+  }
+
+  .exercise .control .edit:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+  }
+
+  @media only screen and (max-width: 1440px) {
+    .exercise {
+      margin: 1rem 0.2em;
+      height: 155px;
+    }
+  }
+
+  @media only screen and (max-width: 1220px) {
+    .exercises {
+      flex-direction: column;
+    }
+  }
+
+  @media only screen and (max-width: 860px) {
+    .exercises {
+      flex-direction: column;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+
+    .exercise {
+      flex-direction: column;
+    }
+
+    .exercise .info {
+      width: 100%;
+      border-bottom: 2px solid #999999;
+      border-right: none;
+    }
+
+    .exercise .control {
+      flex-direction: row;
+      padding: 7px 0;
+      width: 100%;
+    }
+  }
+
 </style>
