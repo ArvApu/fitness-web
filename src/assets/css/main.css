@@ -100,6 +100,70 @@ a, a:hover, a:visited, a:link, a:active {
     scrollbar-width: none;     /* Firefox */
 }
 
+/* --------------- Menu elements --------------- */
+
+#menu a {
+    color: #000000;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 10px 5px;
+    -webkit-transition: all ease 0.7s;
+    -moz-transition: all ease 0.7s;
+    transition: all ease 0.7s;
+}
+
+#menu a:hover{
+    background-color: #61c0bf;
+}
+
+#menu ul{
+    padding: 0;
+    list-style-type: none;
+}
+
+#menu li {
+    margin: 4px 0;
+    background-color: #bbded6;
+}
+
+#menu .side-panel-exact-active{
+    color: #ffffff;
+    background-color: #61c0bf;
+}
+
+/* --------------- Menu elements --------------- */
+
+#menu a {
+    color: #000000;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 10px 5px;
+    -webkit-transition: all ease 0.7s;
+    -moz-transition: all ease 0.7s;
+    transition: all ease 0.7s;
+}
+
+#menu a:hover{
+    background-color: #61c0bf;
+}
+
+#menu ul{
+    padding: 0;
+    list-style-type: none;
+}
+
+#menu li {
+    margin: 4px 0px;
+    background-color: #bbded6;
+}
+
+#menu .side-panel-exact-active{
+    color: #ffffff;
+    background-color: #61c0bf;
+}
+
 /* --------------- Buttons elements --------------- */
 
 .btn {
