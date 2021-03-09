@@ -49,7 +49,7 @@
           User account created. Please login.
         </p>
 
-        <router-link class="flex-center form-input btn btn-primary" :to="{ name: 'Login' }"> Go to login page </router-link>
+        <router-link class="form-input btn btn-primary" :to="{ name: 'Login' }"> Go to login page </router-link>
 
       </div>
 

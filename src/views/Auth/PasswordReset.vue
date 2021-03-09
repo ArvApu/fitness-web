@@ -29,7 +29,7 @@
           Email with password reset instruction was sent
         </p>
 
-        <router-link class="flex-center form-input btn btn-primary" :to="{ name: 'Login' }"> Return back to login </router-link>
+        <router-link class="form-input btn btn-primary" :to="{ name: 'Login' }"> Return back to login </router-link>
 
       </div>
 

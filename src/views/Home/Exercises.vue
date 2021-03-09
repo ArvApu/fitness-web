@@ -1,7 +1,12 @@
 <template>
   <div>
 
+    <button ></button>
+
     <div v-for="exercise in exercises" :key="exercise.id">
+
+<!--      class="form-input btn btn-primary"-->
+
       {{ exercise.id }}
       {{ exercise.name }}
       {{ exercise.description }}
