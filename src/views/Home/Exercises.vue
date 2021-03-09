@@ -3,7 +3,7 @@
 
     <div>
 
-      <button class="btn btn-primary"> Add exercise </button>
+      <button class="btn btn-primary"> <font-awesome-icon icon="plus"/> Add exercise </button>
 
       <div class="exercises">
 
@@ -78,7 +78,7 @@ export default {
   .exercise {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     box-sizing: border-box;
-    margin: 1rem 0.6em;
+    margin: 1rem 0.6em 1rem 0.3em;
     flex: 0 1 48%;
     transition: 0.3s;
     height: 130px;
