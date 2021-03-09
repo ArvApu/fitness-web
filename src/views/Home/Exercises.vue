@@ -19,8 +19,8 @@
           </div>
 
           <div class="control">
-            <font-awesome-icon class='edit' icon="pen" size="2x" v-on:click="edit(exercise.id)"/>
-            <font-awesome-icon class='remove' icon="trash-alt" size="2x" v-on:click="remove(exercise.id)"/>
+            <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="edit(exercise.id)"/>
+            <font-awesome-icon class='remove' icon="trash-alt" size="lg" v-on:click="remove(exercise.id)"/>
           </div>
 
         </div>

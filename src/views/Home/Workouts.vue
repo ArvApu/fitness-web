@@ -19,7 +19,7 @@
           </div>
 
           <div class="control">
-            <font-awesome-icon class='edit' icon="eye" size="lg" v-on:click="view(workout.id)"/>
+            <font-awesome-icon class='view' icon="eye" size="lg" v-on:click="view(workout.id)"/>
             <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="edit(workout.id)"/>
             <font-awesome-icon class='remove' icon="trash-alt" size="lg" v-on:click="remove(workout.id)"/>
           </div>

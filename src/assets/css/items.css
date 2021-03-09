@@ -37,13 +37,19 @@
     width: 10%;
 }
 
-.item .control .remove:hover {
-    color: var(--danger-color);
-    cursor: pointer;
+.view:hover {
+    color: var(--primary-color);
 }
 
-.item .control .edit:hover {
-    color: var(--primary-color);
+.edit:hover {
+    color: var(--secondary-color);
+}
+
+.remove:hover {
+    color: var(--danger-color);
+}
+
+.edit:hover, .remove:hover, .view:hover {
     cursor: pointer;
 }
 
@@ -55,12 +61,6 @@
 }
 
 @media only screen and (max-width: 1220px) {
-    .items {
-        flex-direction: column;
-    }
-}
-
-@media only screen and (max-width: 860px) {
     .items {
         flex-direction: column;
     }
