@@ -66,8 +66,7 @@ export default {
       'fetchAll', 'delete'
     ]),
     view(id) {
-      console.log('workout view', id);
-      // TODO: open workout view
+      this.$router.push({ name: 'Workout', params: { id: id }})
     },
     add() {
       this.workout = null;

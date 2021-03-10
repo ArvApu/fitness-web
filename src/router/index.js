@@ -11,6 +11,7 @@ import Exercises from '../views/Home/Exercises.vue'
 import Messages from '../views/Home/Messages.vue'
 import Workouts from '../views/Home/Workouts.vue'
 import Clients from '../views/Home/Clients.vue'
+import Workout from '../views/Home/Workout.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
         path: '/clients',
         name: 'Clients',
         component: Clients
+      },
+      {
+        path: '/workout/:id',
+        name: 'Workout',
+        component: Workout
       },
     ]
   },
