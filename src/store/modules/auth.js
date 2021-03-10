@@ -63,8 +63,9 @@ const actions = {
         }
     },
 
-    async logout({ dispatch }) {
+    async logout({ commit, dispatch }) {
         try {
+            commit('SET_REFRESH_FAILED', true); // In rare case when logout return's 401
             await api.auth.logout();
         } finally {
             dispatch('clearSession');
@@ -95,10 +96,13 @@ const actions = {
     },
 
     clearSession({ commit }) {
+        /* Setting default values */
         commit('SET_ACCESS_TOKEN', null);
         commit('SET_EXPIRY_TIME', null);
         commit('SET_USER', null);
+        commit('SET_REFRESH_FAILED', false);
 
+        /* Clearing storages */
         window.localStorage.clear();
         window.sessionStorage.clear();
     }
