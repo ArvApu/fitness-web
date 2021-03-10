@@ -86,6 +86,9 @@ export default {
             this.$emit('updated')
           });
     },
+  },
+  created() {
+    this.$store.dispatch('workouts/clearErrors')
   }
 }
 </script>

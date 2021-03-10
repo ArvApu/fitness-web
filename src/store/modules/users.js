@@ -20,6 +20,22 @@ const actions = {
         } catch (e) {
             return Promise.reject(e);
         }
+    },
+    async invite(context, email) {
+        try {
+            await api.users.invite(email);
+            // TODO: success message
+        } catch (e) {
+            return Promise.reject(e);
+        }
+    },
+    async confirmInvite(context, token) {
+        try {
+            await api.users.confirmInvite(token);
+            // TODO: success message
+        } catch (e) {
+            return Promise.reject(e);
+        }
     }
 };
 

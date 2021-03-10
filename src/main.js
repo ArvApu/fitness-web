@@ -6,10 +6,10 @@ import store from './store'
 import VModal from 'vue-js-modal'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPen, faTrashAlt, faPlus, faEye, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrashAlt, faPlus, faEye, faUser, faCircleNotch, faSpinner} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faPen, faTrashAlt, faPlus, faEye, faUser )
+library.add(faPen, faTrashAlt, faPlus, faEye, faUser, faCircleNotch, faSpinner )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

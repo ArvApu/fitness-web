@@ -44,7 +44,7 @@
 <script>
 
 import { mapState, mapActions} from 'vuex';
-import WorkoutForm from "@/components/WorkoutForm";
+import WorkoutForm from "@/components/Forms/WorkoutForm";
 
 export default {
   name: 'Workouts',
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     ...mapActions('workouts', [
-      'fetchAll', 'delete', 'clearErrors'
+      'fetchAll', 'delete'
     ]),
     view(id) {
       console.log('workout view', id);
@@ -99,7 +99,6 @@ export default {
       })
     },
     show () {
-      this.clearErrors();
       this.$modal.show('add-workout-modal');
     },
     hide () {

@@ -43,7 +43,7 @@
 <script>
 
 import { mapState, mapActions} from 'vuex';
-import ExerciseForm from "@/components/ExerciseForm";
+import ExerciseForm from "@/components/Forms/ExerciseForm";
 
 export default {
   name: 'Exercises',

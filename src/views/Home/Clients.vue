@@ -3,7 +3,7 @@
 
     <div>
 
-      <button class="btn btn-primary"> <font-awesome-icon icon="plus"/> Invite client </button>
+      <button class="btn btn-primary" v-on:click="show"> <font-awesome-icon icon="plus"/> Invite client </button>
 
       <div class="items">
 
@@ -27,6 +27,15 @@
         </div>
       </div>
 
+      <!-- MODALS -->
+      <v-dialog/>
+
+      <modal class="force-scroll-modal" name="invite-user-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+        <div class="modal-from">
+          <user-invite-form @invited="hide"/>
+        </div>
+      </modal>
+
     </div>
 
   </div>
@@ -35,9 +44,13 @@
 <script>
 
 import { mapState, mapActions} from 'vuex';
+import UserInviteForm from "@/components/Forms/UserInviteForm";
 
 export default {
   name: 'Clients',
+  components: {
+    UserInviteForm
+  },
   computed: {
     ...mapState('users', [
       'users'
@@ -46,7 +59,13 @@ export default {
   methods: {
     ...mapActions('users', [
       'fetchAll'
-    ])
+    ]),
+    show () {
+      this.$modal.show('invite-user-modal');
+    },
+    hide () {
+      this.$modal.hide('invite-user-modal');
+    },
   },
   created() {
     this.fetchAll()
