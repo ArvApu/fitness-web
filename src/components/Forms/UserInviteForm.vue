@@ -6,9 +6,7 @@
       <input required class='form-input' type="email" id="email" name="email" v-model="email">
     </div>
 
-
-
-    <input class='form-input btn btn-primary' type="submit" id="add-comment" name="add-comment" value="Submit">
+    <form-submit-button label="Invite" :processing="this.$store.state.users.isLoading"/>
 
   </form>
 </template>

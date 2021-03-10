@@ -2,6 +2,7 @@ import api from "@/api";
 
 const state = {
     users: [],
+    isLoading: false,
 };
 
 const getters = {};
@@ -9,6 +10,9 @@ const getters = {};
 const mutations = {
     SET_USERS(state, users) {
         state.users = users;
+    },
+    SET_IS_LOADING(state, status) {
+        state.isLoading = status;
     }
 };
 
@@ -21,12 +25,15 @@ const actions = {
             return Promise.reject(e);
         }
     },
-    async invite(context, email) {
+    async invite({ commit }, email) {
         try {
+            commit('SET_IS_LOADING', true);
             await api.users.invite(email);
             // TODO: success message
         } catch (e) {
             return Promise.reject(e);
+        } finally {
+            commit('SET_IS_LOADING', false);
         }
     },
     async confirmInvite(context, token) {
