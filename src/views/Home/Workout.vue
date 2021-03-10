@@ -92,7 +92,7 @@ table tr {
 
 table th,
 table td {
-  padding: .625em;
+  padding: .925em;
   text-align: center;
 }
 
