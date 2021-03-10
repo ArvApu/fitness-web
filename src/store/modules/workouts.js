@@ -16,7 +16,7 @@ const mutations = {
         state.workouts = workouts;
     },
     SET_ERRORS(state, errors) {
-        state.errors = (Array.isArray(errors)) ? errors : [errors];
+        state.errors = errors;
     },
     ADD_WORKOUT(state, workout) {
         state.workouts.unshift(workout);

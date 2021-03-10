@@ -15,7 +15,7 @@ const createRequestInterceptor = (store) => {
 const createResponseInterceptor = (store) => {
     request.interceptors.response.use(null, async (error) => {
         const status  = error.response.status;
-        const message = error.response.data.error;
+        let   message = error.response.data.error;
 
         switch (status) {
             case 401: {
@@ -41,7 +41,7 @@ const createResponseInterceptor = (store) => {
                     errors = [...errors, ...validationErrors[key]];
                 }
 
-                error.response.data.error = errors;
+                message = errors;
                 break;
             }
             default: {
@@ -49,6 +49,8 @@ const createResponseInterceptor = (store) => {
                 break;
             }
         }
+
+        error.response.data.error = (Array.isArray(message)) ? message : [message];
 
         return Promise.reject(error);
     });

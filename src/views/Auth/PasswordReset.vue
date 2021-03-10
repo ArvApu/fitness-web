@@ -7,6 +7,8 @@
 
       <form class="auth-form" v-show="!success" @submit.prevent="handle">
 
+        <alerts :errors="errors"/>
+
         <div class="form-group">
           <label for="email">Email</label>
           <input required class="form-input" v-model="email" id="email" type="email" name="email" placeholder="Email"/>
@@ -48,6 +50,7 @@ export default {
       email: null,
       loading: false,
       success: false,
+      errors: null,
     };
   },
   methods: {
@@ -55,7 +58,7 @@ export default {
       this.loading = true;
       api.password.reset(this.email)
           .then(() => this.success = true)
-          .catch(/*  TODO: Extract errors */)
+          .catch(err => this.errors = err.response.data.error)
           .finally(() => this.loading = false);
     }
   }

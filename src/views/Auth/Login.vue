@@ -7,6 +7,8 @@
 
       <form class="auth-form" @submit.prevent="login">
 
+        <alerts :errors="errors"/>
+
         <div class="form-group">
           <label for="email">Email</label>
           <input required class="form-input" v-model="email" id="email" type="email" placeholder="Email"/>
@@ -42,6 +44,7 @@ export default {
       email : null,
       password: null,
       loading: false,
+      errors: null,
     }
   },
   methods: {
@@ -53,7 +56,7 @@ export default {
 
       this.$store.dispatch('auth/login', { email, password })
           .then(() => this.$router.push('/'))
-          .catch(err => console.log(err))
+          .catch(err => this.errors = err.response.data.error)
           .finally(() => this.loading = false);
     },
   }

@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import FormSubmitButton from "@/components/FormSubmitButton";
+import Alerts from "@/components/Alerts";
 
 import VModal from 'vue-js-modal';
 
@@ -14,6 +15,7 @@ library.add(faPen, faTrashAlt, faPlus, faEye, faUser, faCircleNotch, faSpinner )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('form-submit-button', FormSubmitButton);
+Vue.component('alerts', Alerts);
 
 Vue.use(VModal, { dialog: true });
 

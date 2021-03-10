@@ -7,6 +7,8 @@
 
       <form class="auth-form" v-show="!success" @submit.prevent="register">
 
+        <alerts :errors="errors"/>
+
         <div class="form-group">
           <label for="first_name">First name</label>
           <input required class="form-input" v-model="user.first_name" id="first_name" type="text" placeholder="First name"/>
@@ -74,6 +76,7 @@ export default {
       },
       loading: false,
       success: false,
+      errors: null,
     }
   },
   methods: {
@@ -82,7 +85,7 @@ export default {
 
       api.registration.register(this.user)
           .then(() => this.success = true)
-          .catch(err => console.log(err)) // Todo: extract errors
+          .catch(err => this.errors = err.response.data.error)
           .finally(() => this.loading = false);
     },
   }

@@ -35,7 +35,6 @@
 
 <script>
 
-import Alerts from "@/components/Alerts";
 import {mapState} from "vuex";
 
 export default {
@@ -46,9 +45,6 @@ export default {
     description: String,
     type: String,
     is_private: Boolean,
-  },
-  components: {
-    Alerts
   },
   computed: {
     ...mapState('workouts', [

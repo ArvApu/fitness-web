@@ -7,6 +7,8 @@
 
       <form class="auth-form" v-show="!success" @submit.prevent="handle">
 
+        <alerts :errors="errors"/>
+
         <div class="form-group">
           <label for="password">Password</label>
           <input required class="form-input" v-model="password" id="password" type="password" name="password" placeholder="Password"/>
@@ -50,6 +52,7 @@ export default {
       password_confirmation: null,
       loading: false,
       success: false,
+      errors: null,
     };
   },
   methods: {
@@ -63,7 +66,7 @@ export default {
       ).then(
           () => this.success = true
       ).catch(
-          () => console.log('error') // TODO: extract error
+          err => this.errors = err.response.data.error
       ).finally(
           () => this.loading = false
       );
