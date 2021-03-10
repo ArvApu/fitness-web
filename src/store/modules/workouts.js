@@ -2,6 +2,7 @@ import api from "@/api";
 
 const state = {
     workouts: [],
+    errors: [],
     isLoading: false,
 };
 
@@ -14,6 +15,9 @@ const mutations = {
     SET_WORKOUTS(state, workouts) {
         state.workouts = workouts;
     },
+    SET_ERRORS(state, errors) {
+        state.errors = (Array.isArray(errors)) ? errors : [errors];
+    },
     ADD_WORKOUT(state, workout) {
         state.workouts.unshift(workout);
     },
@@ -23,7 +27,6 @@ const mutations = {
         );
     },
     DELETE_WORKOUT(state, id) {
-        console.log(id)
         state.workouts = state.workouts.filter((e) => e.id !== id);
     },
 };
@@ -35,6 +38,7 @@ const actions = {
             const response = await api.workouts.all();
             commit('SET_WORKOUTS', response.data.data);
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -46,18 +50,20 @@ const actions = {
             const response = await api.workouts.single(id);
             return response.data ?? null;
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
         }
     },
-    async create({ commit }, data) {
+    async create({ commit }, workout) {
         try {
-            const response = await api.workouts.create(data);
+            const response = await api.workouts.create(workout);
             if (response && response.data && response.status === 201) {
                 commit('ADD_WORKOUT', response.data);
             }
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         }
     },
@@ -68,6 +74,7 @@ const actions = {
                 commit('UPDATE_WORKOUT', response.data);
             }
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         }
     },
@@ -78,9 +85,13 @@ const actions = {
                 commit('DELETE_WORKOUT', parseInt(id));
             }
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         }
     },
+    clearErrors({ commit }) {
+        commit('SET_ERRORS', []);
+    }
 };
 
 const module = {

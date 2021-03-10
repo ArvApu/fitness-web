@@ -1,6 +1,8 @@
 <template>
     <form id='workout-form' @submit.prevent="handle">
 
+      <alerts :errors="errors"/>
+
       <div class='form-group'>
         <label for="name"> Name </label>
         <input required class='form-input' type="text" id="name" name="name" v-model="workout.name">
@@ -15,7 +17,7 @@
         <label for="type"> Type </label>
         <div class="custom-select">
           <select required id="type" name="type" v-model="workout.type">
-            <option disabled selected value="none">Please select one</option>
+            <option disabled selected value="none">Please select type</option>
             <option v-for="type in types" :key="type">{{ type }}</option>
           </select>
         </div>
@@ -32,6 +34,9 @@
 
 <script>
 
+import Alerts from "@/components/Alerts";
+import {mapState} from "vuex";
+
 export default {
   name: 'WorkoutForm',
   props: {
@@ -40,6 +45,14 @@ export default {
     description: String,
     type: String,
     is_private: Boolean,
+  },
+  components: {
+    Alerts
+  },
+  computed: {
+    ...mapState('workouts', [
+      'errors'
+    ])
   },
   data() {
     return {

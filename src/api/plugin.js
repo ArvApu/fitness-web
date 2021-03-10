@@ -30,7 +30,18 @@ const createResponseInterceptor = (store) => {
                 break;
             }
             case 422: {
-                // error = extractErrors(error.response.data); TODO
+                let validationErrors = error.response.data;
+
+                let errors = [];
+
+                for (const key in validationErrors) {
+                    if (!Object.prototype.hasOwnProperty.call(validationErrors, key)) {
+                        continue;
+                    }
+                    errors = [...errors, ...validationErrors[key]];
+                }
+
+                error.response.data.error = errors;
                 break;
             }
             default: {

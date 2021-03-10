@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     ...mapActions('workouts', [
-      'fetchAll', 'delete'
+      'fetchAll', 'delete', 'clearErrors'
     ]),
     view(id) {
       console.log('workout view', id);
@@ -99,6 +99,7 @@ export default {
       })
     },
     show () {
+      this.clearErrors();
       this.$modal.show('add-workout-modal');
     },
     hide () {
