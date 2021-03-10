@@ -1,5 +1,5 @@
 <template>
-  <form id='exercise-form' @submit.prevent="handle">
+  <form id='user-invite-form' @submit.prevent="handle">
 
     <alerts :errors="errors"/>
 
