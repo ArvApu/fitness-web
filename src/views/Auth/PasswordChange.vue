@@ -17,10 +17,7 @@
           <input required class="form-input" v-model="password_confirmation" id="password_confirmation" type="password"  name="password_confirmation" placeholder="Confirm password"/>
         </div>
 
-        <button type="submit" :disabled='loading' class="flex-center form-input btn btn-primary">
-          <loading-ring :show="loading"/>
-          <span>Reset</span>
-        </button>
+        <form-submit-button label="Change" :processing="loading"/>
 
       </form>
 
@@ -44,13 +41,9 @@
 <script>
 
 import api from '@/api';
-import LoadingRing from "@/components/LoadingRing";
 
 export default {
   name: 'PasswordChange',
-  components: {
-    LoadingRing
-  },
   data() {
     return {
       password: null,

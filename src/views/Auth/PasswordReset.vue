@@ -12,10 +12,7 @@
           <input required class="form-input" v-model="email" id="email" type="email" name="email" placeholder="Email"/>
         </div>
 
-        <button type="submit" :disabled='loading' class="flex-center form-input btn btn-primary">
-          <loading-ring :show="loading"/>
-          <span>Reset</span>
-        </button>
+        <form-submit-button label="Reset" :processing="loading"/>
 
         <div class="form-group auth-links">
           <router-link :to="{ name: 'Login' }"> Return back to login </router-link>
@@ -43,13 +40,9 @@
 <script>
 
 import api from '@/api';
-import LoadingRing from "@/components/LoadingRing";
 
 export default {
   name: 'PasswordReset',
-  components: {
-    LoadingRing
-  },
   data() {
     return {
       email: null,

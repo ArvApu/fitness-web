@@ -16,7 +16,7 @@
         <label for="is_private"> Exercise is private </label>
       </div>
 
-      <input class='form-input btn btn-primary' type="submit" id="add-comment" name="add-comment" value="Submit">
+      <form-submit-button label="Submit"/>
 
     </form>
 </template>

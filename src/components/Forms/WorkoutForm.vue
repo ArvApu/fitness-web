@@ -27,7 +27,8 @@
         <input type="checkbox" id="is_private" name="is_private" v-model="workout.is_private">
         <label for="is_private"> Workout is private </label>
       </div>
-      <input class='form-input btn btn-primary' type="submit" id="add-comment" name="add-comment" value="Submit">
+
+      <form-submit-button label="Submit"/>
 
     </form>
 </template>

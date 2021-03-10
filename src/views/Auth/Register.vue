@@ -32,10 +32,7 @@
           <input required class="form-input" v-model="user.password_confirmation" id="password_confirmation" type="password" placeholder="Confirm password"/>
         </div>
 
-        <button type="submit" :disabled='loading' class="flex-center form-input btn btn-primary">
-          <loading-ring :show="loading"/>
-          <span>Register</span>
-        </button>
+        <form-submit-button label="Register" :processing="loading"/>
 
         <div class="form-group auth-links">
           <router-link :to="{ name: 'Login' }"> Return back to login </router-link>
@@ -63,13 +60,9 @@
 <script>
 
 import api from '@/api'
-import LoadingRing from "@/components/LoadingRing";
 
 export default {
   name: 'Register',
-  components: {
-    LoadingRing
-  },
   data() {
     return {
       user: {
