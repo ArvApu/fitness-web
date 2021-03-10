@@ -2,6 +2,7 @@ import api from "@/api";
 
 const state = {
     users: [],
+    errors: [],
     isLoading: false,
 };
 
@@ -13,7 +14,10 @@ const mutations = {
     },
     SET_IS_LOADING(state, status) {
         state.isLoading = status;
-    }
+    },
+    SET_ERRORS(state, errors) {
+        state.errors = errors;
+    },
 };
 
 const actions = {
@@ -22,6 +26,7 @@ const actions = {
             const response = await api.users.get();
             commit('SET_USERS', response.data);
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         }
     },
@@ -31,18 +36,23 @@ const actions = {
             await api.users.invite(email);
             // TODO: success message
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
         }
     },
-    async confirmInvite(context, token) {
+    async confirmInvite({ commit }, token) {
         try {
             await api.users.confirmInvite(token);
             // TODO: success message
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         }
+    },
+    clearErrors({ commit }) {
+        commit('SET_ERRORS', []);
     }
 };
 

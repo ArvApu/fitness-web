@@ -3,6 +3,7 @@ import api from "@/api";
 const state = {
     exercises: [],
     isLoading: false,
+    errors: [],
 };
 
 const getters = {};
@@ -13,6 +14,9 @@ const mutations = {
     },
     SET_EXERCISES(state, exercises) {
         state.exercises = exercises;
+    },
+    SET_ERRORS(state, errors) {
+        state.errors = errors;
     },
     ADD_EXERCISE(state, exercise) {
         state.exercises.unshift(exercise);
@@ -35,6 +39,7 @@ const actions = {
             const response = await api.exercises.all();
             commit('SET_EXERCISES', response.data.data);
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -46,6 +51,7 @@ const actions = {
             const response = await api.exercises.single(id);
             return response.data ?? null;
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -58,6 +64,7 @@ const actions = {
                 commit('ADD_EXERCISE', response.data);
             }
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         }
     },
@@ -68,6 +75,7 @@ const actions = {
                 commit('UPDATE_EXERCISE', response.data);
             }
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         }
     },
@@ -78,9 +86,13 @@ const actions = {
                 commit('DELETE_EXERCISE', parseInt(id));
             }
         } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
         }
     },
+    clearErrors({ commit }) {
+        commit('SET_ERRORS', []);
+    }
 };
 
 const module = {

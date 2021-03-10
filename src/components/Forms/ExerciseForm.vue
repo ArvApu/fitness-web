@@ -1,6 +1,8 @@
 <template>
     <form id='exercise-form' @submit.prevent="handle">
 
+      <alerts :errors="errors"/>
+
       <div class='form-group'>
         <label for="name"> Name </label>
         <input required class='form-input' type="text" id="name" name="name" v-model="exercise.name">
@@ -23,6 +25,8 @@
 
 <script>
 
+import {mapState} from "vuex";
+
 export default {
   name: 'ExerciseForm',
   props: {
@@ -30,6 +34,11 @@ export default {
     name: String,
     description: String,
     is_private: Boolean,
+  },
+  computed: {
+    ...mapState('exercises', [
+      'errors'
+    ])
   },
   data() {
     return {
@@ -60,7 +69,10 @@ export default {
           .then(() => {
             this.$emit('updated')
           });
-    },
+    }
+  },
+  created() {
+    this.$store.dispatch('exercises/clearErrors')
   }
 }
 </script>
