@@ -34,6 +34,7 @@
     --primary-color: #16a596;
     --secondary-color: #393e46;
     --danger-color: #ac0000;
+    --success-color: #155724;
 }
 
 html, body, #app, #home {
@@ -208,9 +209,14 @@ a, a:hover, a:visited, a:link, a:active {
     padding: 0;
 }
 
-button[disabled=disabled], button:disabled {
+button[disabled=disabled], button:disabled, .btn-disabled-wait:disabled {
+    opacity: 0.5;
     border: 1px solid #999999;
     background-color: #cccccc !important;
+    cursor: initial;
+}
+
+.btn-disabled-wait:disabled {
     cursor: wait;
 }
 
@@ -268,6 +274,11 @@ button[disabled=disabled], button:disabled {
 
 .form-group {
     margin: 12px 0;
+}
+
+.form-inline {
+    display: flex;
+    justify-content: space-between;
 }
 
 .form-check {
@@ -361,6 +372,15 @@ select {
 
 .remove-content-paddings {
     margin: -15px -25px;
+}
+
+.sr-only {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
 }
 
 /* --------------- Other --------------- */

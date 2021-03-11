@@ -27,12 +27,23 @@
       </tbody>
     </table>
 
+    <!-- MODALS -->
+
+    <modal class="force-scroll-modal" name="assign-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+      <div class="modal-from">
+        <assign-exercise-form @created="hide" @updated="hide" @canceled="hide"/>
+      </div>
+    </modal>
+
+    <button class="btn btn-secondary add-exercise-button" v-on:click="show"> <font-awesome-icon icon="plus"/> Add </button>
+
   </div>
 </template>
 
 <script>
 
 import { mapState, mapActions} from 'vuex';
+import AssignExerciseForm from "@/components/Forms/AssignExerciseForm";
 
 export default {
   name: 'Workout',
@@ -40,6 +51,9 @@ export default {
     return {
       workout: {},
     }
+  },
+  components: {
+    AssignExerciseForm
   },
   computed: {
     ...mapState('workouts', [
@@ -50,6 +64,12 @@ export default {
     ...mapActions('workouts', [
       'fetchOne',
     ]),
+    show () {
+      this.$modal.show('assign-exercise-modal');
+    },
+    hide () {
+      this.$modal.hide('assign-exercise-modal');
+    },
   },
   created() {
     this.fetchOne(this.$route.params.id).then(
@@ -60,90 +80,17 @@ export default {
 </script>
 
 <style scoped>
+  @import '../../assets/css/table.css';
 
-h1 {
-  text-transform: capitalize;
-}
-
-table {
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  table-layout: fixed;
-}
-
-table thead tr {
-  background-color: var(--header-bg-color);
-  color: white;
-}
-
-table caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-
-table tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: .35em;
-}
-
-table th,
-table td {
-  padding: .925em;
-  text-align: center;
-}
-
-table th {
-  font-size: .85em;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-@media screen and (max-width: 600px) {
-  table {
-    border: 0;
-  }
-
-  table caption {
-    font-size: 1.3em;
-  }
-
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-
-  table tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: .625em;
-  }
-
-  table td {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    font-size: .8em;
-    text-align: right;
-  }
-
-  table td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
+  h1 {
     text-transform: capitalize;
   }
 
-  table td:last-child {
-    border-bottom: 0;
+  .add-exercise-button {
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    margin: 20px 0;
   }
-}
+
 </style>

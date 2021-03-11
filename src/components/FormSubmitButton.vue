@@ -1,5 +1,5 @@
 <template>
-  <button type="submit" :disabled='processing' class="flex-center form-input btn btn-primary">
+  <button type="submit" :disabled='processing' class="flex-center form-input btn btn-primary btn-disabled-wait">
     <loading-ring :show="processing"/>
     <span>{{label}}</span>
   </button>
