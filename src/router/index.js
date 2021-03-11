@@ -12,6 +12,7 @@ import Messages from '../views/Home/Messages.vue'
 import Workouts from '../views/Home/Workouts.vue'
 import Clients from '../views/Home/Clients.vue'
 import Workout from '../views/Home/Workout.vue'
+import Client from '../views/Client.vue'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,14 @@ const routes = [
         name: 'Workout',
         component: Workout
       },
+    ]
+  },
+  {
+    path: '/users/dashboard/:id?',
+    name: 'Client',
+    component: Client,
+    children: [
+      // TODO: add
     ]
   },
   {
@@ -119,6 +128,8 @@ router.beforeEach(function(to, from, next) {
   if (store.state.auth.accessToken && to.matched.some(path => path.meta.guest)) {
     next({ name: 'Home' });
   }
+
+  // TODO: guard by role
 
   next();
 });

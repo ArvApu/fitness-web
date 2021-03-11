@@ -21,8 +21,5 @@
 <script>
 export default {
   name: 'MenuLinks',
-  props: {
-    msg: String
-  }
 }
 </script>
