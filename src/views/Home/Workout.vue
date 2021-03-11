@@ -31,7 +31,7 @@
 
     <modal class="force-scroll-modal" name="assign-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
       <div class="modal-from">
-        <assign-exercise-form @created="hide" @updated="hide" @canceled="hide"/>
+        <assign-exercise-form @created="add" @canceled="hide" :workoutId="parseInt(this.$route.params.id)"/>
       </div>
     </modal>
 
@@ -70,6 +70,12 @@ export default {
     hide () {
       this.$modal.hide('assign-exercise-modal');
     },
+    add() {
+      this.fetchOne(this.$route.params.id).then(
+          result => this.workout = result
+      );
+      this.hide();
+    }
   },
   created() {
     this.fetchOne(this.$route.params.id).then(

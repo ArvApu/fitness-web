@@ -22,5 +22,11 @@ export default {
 
     destroy(id) {
         return request.delete(`${resource}/${id}`);
-    }
+    },
+
+    assignExercises(id, exercises) {
+        return request.post(`${resource}/${id}/exercises`, {
+            exercises: exercises
+        });
+    },
 };

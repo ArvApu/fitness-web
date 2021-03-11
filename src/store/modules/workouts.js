@@ -89,6 +89,14 @@ const actions = {
             return Promise.reject(e);
         }
     },
+    async assignExercises({ commit }, { id, exercises} ) {
+        try {
+            await api.workouts.assignExercises(id, exercises);
+        } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
+            return Promise.reject(e);
+        }
+    },
     clearErrors({ commit }) {
         commit('SET_ERRORS', []);
     }

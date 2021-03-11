@@ -56,8 +56,6 @@
   </form>
 </div>
 
-
-
 </template>
 
 <script>
@@ -72,43 +70,39 @@ export default {
     sets: Number,
     reps: Number,
     rest: Number,
+    workoutId: {
+      type: Number,
+      required: true,
+    }
   },
   computed: {
     ...mapState('exercises', [
-      'exercises', 'errors'
-    ])
+      'exercises'
+    ]),
+    ...mapState('workouts', [
+       'errors'
+    ]),
   },
   data() {
     return {
       assignee: {
-        id: this.id,
         sets: this.sets,
         reps: this.reps,
         rest: this.rest,
       },
       isChoosingExercise: true,
-      selected: null,
+      selected: this.id,
     }
   },
   methods: {
     handle() {
-      if(this.assignee.id) {
-        this.update();
-      } else {
-        this.create();
-      }
-    },
-    create() {
-      this.$store.dispatch('exercises/create', this.assignee)
-          .then(() => {
-            this.$emit('created')
-          });
-    },
-    update() {
-      this.$store.dispatch('exercises/update', this.assignee)
-          .then(() => {
-            this.$emit('updated')
-          });
+      this.assignee.id = this.selected;
+      this.$store.dispatch('workouts/assignExercises', {
+        id: this.workoutId,
+        exercises: [this.assignee]
+      }).then(() => {
+        this.$emit('created')
+      });
     },
     cancel() {
       this.$emit('canceled');
@@ -118,13 +112,13 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('exercises/clearErrors')
+    this.$store.dispatch('workouts/clearErrors')
     this.$store.dispatch('exercises/fetchAll');
   }
 }
 </script>
 
-<style >
+<style scoped>
   #assign-exercise-form .buttons {
     display: flex;
   }
