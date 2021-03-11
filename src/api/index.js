@@ -7,6 +7,7 @@ import exercises from "./exercises";
 import days from "./days";
 import messages from "./messages";
 import users from "./users";
+import email from "./email";
 
 export default {
     request,
@@ -18,4 +19,5 @@ export default {
     days,
     messages,
     users,
+    email,
 };

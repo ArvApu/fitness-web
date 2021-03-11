@@ -72,6 +72,19 @@ const routes = [
     component: PasswordChange,
     meta: { guest: true }
   },
+  /* Unguarded paths */
+  {
+    path: '/email/verify/:token',
+    name: 'VerifyEmail',
+    component: () => import('../views/Mail/VerifyEmail.vue'),
+    meta: { unguarded: true }
+  },
+  {
+    path: '/users/invite/:token',
+    name: 'InviteUser',
+    component: () => import('../views/Mail/InviteUser.vue'),
+    meta: { unguarded: true }
+  },
   /* Default route - not found */
   {
     path: '/not-found',
@@ -91,6 +104,11 @@ const router = new VueRouter({
 })
 
 router.beforeEach(function(to, from, next) {
+
+  /* Let all unguarded routes pass */
+  if (!to.matched.some(path => path.meta.unguarded)) {
+    next();
+  }
 
   /* If user is not authenticated and path is not for guests then whe should block further action */
   if (!store.state.auth.accessToken && !to.matched.some(path => path.meta.guest)) {
