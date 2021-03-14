@@ -1,55 +1,44 @@
 <template>
 
   <div>
-
         <form id='workout-log-form' @submit.prevent="handle">
 
           <alerts :errors="errors"/>
-
-<!--          <div class='form-group'>-->
-<!--            <label for="name"> Name </label>-->
-<!--            <input required class='form-input' type="text" id="name" name="name" v-model="exercise.name">-->
-<!--          </div>-->
-
-<!--          <div class='form-group'>-->
-<!--            <label for="description"> Description </label>-->
-<!--            <textarea required class='form-input-textarea' id="description" name="description" v-model="exercise.description" />-->
-<!--          </div>-->
-
-<!--          <div class='form-check'>-->
-<!--            <input type="checkbox" id="is_private" name="is_private" v-model="exercise.is_private">-->
-<!--            <label for="is_private"> Exercise is private </label>-->
-<!--          </div>-->
-
 
           <div class='form-group'>
             <label for="status"> Status </label>
             <div class="custom-select">
               <select required id="status" name="status" v-model="log.status">
-                <option disabled selected value="none">Please select a status</option>
                 <option v-for="status in statuses" :key="status">{{ status }}</option>
               </select>
             </div>
           </div>
 
-          <div class='form-group'>
-            <label for="difficulty"> Status </label>
+          <div class='form-group' v-show="log.status !== 'missed'">
+            <label for="difficulty"> Difficulty </label>
             <div class="custom-select">
               <select required id="difficulty" name="difficulty" v-model="log.difficulty">
-                <option disabled selected value="none">Please select a difficulty</option>
                 <option v-for="difficulty in difficulties" :key="difficulty">{{ difficulty }}</option>
               </select>
             </div>
           </div>
 
-          <div v-for="exercise in workout.exercises " :key="exercise.id">
-            {{ exercise.name }}
-            <br>
-            <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'sets_done')" :max="exercise.pivot.sets" type="number"> / {{ exercise.pivot.sets }}
-            <br>
-            <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'weight')" type="number">
-            <hr>
+          <div class='form-group'>
+            <label for="comment"> Comment (optional) </label>
+            <textarea class='form-input-textarea' id="comment" name="comment" v-model="log.comment" />
           </div>
+
+          <div v-if="log.status !== 'missed'">
+            <div v-for="exercise in workout.exercises " :key="exercise.id">
+              {{ exercise.name }}
+              <br>
+              <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'sets_done')" :max="exercise.pivot.sets" type="number"> / {{ exercise.pivot.sets }}
+              <br>
+              <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'weight')" type="number">
+              <hr>
+            </div>
+          </div>
+
 
           <form-submit-button label="Log"/>
 
@@ -76,7 +65,7 @@ export default {
         workoutId: this.$route.params.id,
         status: 'completed',
         comment: null,
-        difficulty: 'none',
+        difficulty: 'easy',
       },
       exerciseLogs: [],
       statuses: ['missed', 'interrupted', 'completed'],
