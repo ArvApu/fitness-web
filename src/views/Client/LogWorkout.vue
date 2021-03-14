@@ -25,23 +25,31 @@
 
           <div class='form-group'>
             <label for="comment"> Comment (optional) </label>
-            <textarea class='form-input-textarea' id="comment" name="comment" v-model="log.comment" />
+            <textarea class='form-input-textarea' id="comment" name="comment" v-model="log.comment" placeholder="Optional comment"/>
           </div>
 
           <div v-if="log.status !== 'missed'">
             <div v-for="exercise in workout.exercises " :key="exercise.id">
-              {{ exercise.name }}
-              <br>
-              <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'sets_done')" :max="exercise.pivot.sets" type="number"> / {{ exercise.pivot.sets }}
-              <br>
-              <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'weight')" type="number">
+              <h4>{{ exercise.name }}</h4>
+
+              <div class='form-group'>
+                <label :for="`${exercise.id}-sets`" class="exercise-log-input-label"> Sets done </label>
+                <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'sets_done')"
+                       :max="exercise.pivot.sets" type="number" :id="`${exercise.id}-sets`" placeholder="Number of sets done"> / {{ exercise.pivot.sets }}
+              </div>
+
+              <div class='form-group'>
+                <label :for="`${exercise.id}-weight`" class="exercise-log-input-label"> Exercise weight, seconds etc.  </label>
+                <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'weight')"
+                       type="number" :id="`${exercise.id}-weight`" placeholder="Value of exercise unit">
+              </div>
               <hr>
             </div>
           </div>
 
-
-          <form-submit-button label="Log"/>
-
+          <div class='form-group'>
+            <form-submit-button label="Log"/>
+          </div>
         </form>
   </div>
 
@@ -118,3 +126,16 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+
+h4 {
+  text-transform: capitalize;
+}
+
+.exercise-log-input-label {
+  display: block;
+}
+
+</style>
