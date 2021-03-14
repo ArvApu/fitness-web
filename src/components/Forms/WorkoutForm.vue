@@ -17,7 +17,7 @@
         <label for="type"> Type </label>
         <div class="custom-select">
           <select required id="type" name="type" v-model="workout.type">
-            <option disabled selected value="none">Please select type</option>
+            <option disabled selected value="none">Please select a type</option>
             <option v-for="type in types" :key="type">{{ type }}</option>
           </select>
         </div>
