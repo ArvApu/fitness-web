@@ -8,6 +8,7 @@ import days from "./days";
 import messages from "./messages";
 import users from "./users";
 import email from "./email";
+import workoutLogs from "./workoutLogs";
 
 export default {
     request,
@@ -20,4 +21,5 @@ export default {
     messages,
     users,
     email,
+    workoutLogs,
 };

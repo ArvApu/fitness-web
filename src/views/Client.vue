@@ -7,7 +7,7 @@
     <div id="main">
 
       <nav id="menu">
-        <client-menu-links :user-id="this.$route.params.id"/>
+        <client-menu-links :user-id="this.$route.params.userId"/>
       </nav>
 
       <div id="content">

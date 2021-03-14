@@ -1,16 +1,17 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 
 import apiPlugin from '@/api/plugin';
-import broadcast from '@/broadcast'
+import broadcast from '@/broadcast';
 
-import auth from './modules/auth'
-import exercises from './modules/exercises'
-import workouts from './modules/workouts'
-import messages from './modules/messages'
-import rooms from './modules/rooms'
-import users from './modules/users'
+import auth from './modules/auth';
+import exercises from './modules/exercises';
+import workouts from './modules/workouts';
+import messages from './modules/messages';
+import rooms from './modules/rooms';
+import users from './modules/users';
+import workoutLogs from './modules/workoutLogs';
 
 Vue.use(Vuex)
 
@@ -37,6 +38,7 @@ export default new Vuex.Store({
     messages,
     rooms,
     users,
+    workoutLogs,
   },
   plugins: [apiPlugin, persistedState, broadcast],
   strict: debug

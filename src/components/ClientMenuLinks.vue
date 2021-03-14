@@ -29,9 +29,10 @@ export default {
     }
   },
   created() {
-    if(!this.userId && this.user.role !== 'user') {
-      this.$router.back();
-    }
+    // TODO: improve
+    // if(!this.userId && this.user.role !== 'user') {
+    //   this.$router.back();
+    // }
   }
 }
 </script>

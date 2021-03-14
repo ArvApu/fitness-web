@@ -13,6 +13,7 @@ import Workouts from '../views/Home/Workouts.vue'
 import Clients from '../views/Home/Clients.vue'
 import Workout from '../views/Home/Workout.vue'
 import Client from '../views/Client.vue'
+import LogWorkout from "@/views/Client/LogWorkout";
 
 Vue.use(VueRouter)
 
@@ -50,11 +51,15 @@ const routes = [
     ]
   },
   {
-    path: '/users/dashboard/:id?',
+    path: '/clients/:userId?/dashboard',
     name: 'Client',
     component: Client,
     children: [
-      // TODO: add
+      {
+        path: '/workout/:id/log',
+        name: 'LogWorkout',
+        component: LogWorkout
+      },
     ]
   },
   {
