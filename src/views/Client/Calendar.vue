@@ -4,7 +4,7 @@
     <button v-if="canAddEvent" class="btn btn-primary form-input "> <font-awesome-icon icon="plus"/> Add event </button>
 
     <div class="calendar-box">
-      <full-calendar :options="calendarOptions" />
+      <full-calendar ref="fullCalendar" :options="calendarOptions" />
     </div>
   </div>
 
@@ -16,6 +16,7 @@ import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid'
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: 'Calendar',
@@ -30,10 +31,7 @@ export default {
         initialView: 'dayGridMonth',
         firstDay: 1,
         dateClick: this.handleDateClick,
-        events: [
-          { title: 'Workout 1', start: '2021-04-01 20:00:00', end: '2021-04-05 21:00:00' },
-          { title: 'Workout 2', date: '2021-03-02' }
-        ],
+        events: this.events,
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
@@ -42,11 +40,31 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState('events', [
+        'events'
+    ])
+  },
   methods: {
+    ...mapActions('events', [
+        'fetchAll'
+    ]),
     handleDateClick(arg) {
       let calendarApi = arg.view.calendar;
       calendarApi.changeView('timeGridDay', arg.dateStr);
     }
+  },
+  created() {
+    this.fetchAll().then(() => {
+      let calendarApi = this.$refs.fullCalendar.getApi()
+      for(const e of this.events) {
+        calendarApi.addEvent({
+          title: e.title,
+          start: e.start_time,
+          end: e.end_time,
+        });
+      }
+    });
   }
 }
 </script>
