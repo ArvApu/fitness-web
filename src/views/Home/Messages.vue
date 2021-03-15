@@ -13,6 +13,7 @@
         :show-add-room="false"
         :show-reaction-emojis="false"
         :show-new-messages-divider="false"
+        :single-room="singleRoom"
         @fetch-messages="handleMessages"
         @fetch-more-rooms="handleRooms"
         @send-message="handleMessageSend"
@@ -38,6 +39,7 @@ export default {
       currentUserId: this.$store.state.auth.user.id,
       userId: null,
       messagesLoaded: false,
+      singleRoom: this.$store.state.auth.user.role === 'user',
     }
   },
   computed: {
