@@ -11,6 +11,7 @@ import workouts from './modules/workouts';
 import messages from './modules/messages';
 import rooms from './modules/rooms';
 import users from './modules/users';
+import events from './modules/events';
 import workoutLogs from './modules/workoutLogs';
 
 Vue.use(Vuex)
@@ -38,6 +39,7 @@ export default new Vuex.Store({
     messages,
     rooms,
     users,
+    events,
     workoutLogs,
   },
   plugins: [apiPlugin, persistedState, broadcast],

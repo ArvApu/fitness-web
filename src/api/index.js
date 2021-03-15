@@ -4,7 +4,7 @@ import password from "./password";
 import registration from "./registration";
 import workouts from "./workouts";
 import exercises from "./exercises";
-import days from "./days";
+import events from "./events";
 import messages from "./messages";
 import users from "./users";
 import email from "./email";
@@ -17,7 +17,7 @@ export default {
     registration,
     workouts,
     exercises,
-    days,
+    events,
     messages,
     users,
     email,

@@ -1,6 +1,6 @@
 import request from './../request';
 
-const resource = 'days';
+const resource = 'events';
 
 export default {
 
@@ -10,6 +10,10 @@ export default {
 
     single(id) {
         return request.get(`${resource}/${id}`);
+    },
+
+    export() {
+        return request.get(`${resource}/export`);
     },
 
     create(payload) {
@@ -22,5 +26,5 @@ export default {
 
     destroy(id) {
         return request.delete(`${resource}/${id}`);
-    }
+    },
 };
