@@ -24,7 +24,7 @@ const actions = {
     async fetchAll({ commit }) {
         try {
             const response = await api.users.get();
-            commit('SET_USERS', response.data);
+            commit('SET_USERS', response.data.data);
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);

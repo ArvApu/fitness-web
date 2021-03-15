@@ -23,11 +23,6 @@
         </div>
       </div>
 
-      <div class='form-check'>
-        <input type="checkbox" id="is_private" name="is_private" v-model="workout.is_private">
-        <label for="is_private"> Workout is private </label>
-      </div>
-
       <form-submit-button label="Submit"/>
 
     </form>
@@ -58,7 +53,6 @@ export default {
         name: this.name,
         description: this.description,
         type: this.type ?? 'none',
-        is_private: this.is_private ?? false,
       },
       types: ['general', 'cardio', 'hiit', 'weight', 'recovery']
     }

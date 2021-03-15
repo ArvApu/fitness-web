@@ -21,9 +21,9 @@ const actions = {
         try {
             const response = await api.users.get();
 
-            for (let i = 0; i < response.data.length; i++) {
+            for (let i = 0; i < response.data.data.length; i++) {
                 rooms.push(
-                    buildRoom(i + 1, response.data[i], currentUser)
+                    buildRoom(i + 1, response.data.data[i], currentUser)
                 );
             }
 

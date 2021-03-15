@@ -13,11 +13,6 @@
         <textarea required class='form-input-textarea' id="description" name="description" v-model="exercise.description" />
       </div>
 
-      <div class='form-check'>
-        <input type="checkbox" id="is_private" name="is_private" v-model="exercise.is_private">
-        <label for="is_private"> Exercise is private </label>
-      </div>
-
       <form-submit-button label="Submit"/>
 
     </form>
@@ -46,7 +41,6 @@ export default {
         id: this.id,
         name: this.name,
         description: this.description,
-        is_private: this.is_private ?? false,
       },
     }
   },
