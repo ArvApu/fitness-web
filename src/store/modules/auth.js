@@ -5,6 +5,7 @@ const state = {
     expiryTime: null,
     user: null,
     refreshFailed: false,
+    clientId: null,
 };
 
 const getters = {};
@@ -21,6 +22,9 @@ const mutations = {
     },
     SET_REFRESH_FAILED(state, status) {
         state.refreshFailed = status;
+    },
+    SET_CLIENT_ID(state, id) {
+        state.clientId = id;
     }
 };
 
@@ -35,7 +39,7 @@ const actions = {
             commit('SET_REFRESH_FAILED', false);
             commit('SET_ACCESS_TOKEN', response.data.access_token);
 
-            dispatch('getCurrentUserInformation');
+            await dispatch('getCurrentUserInformation');
             dispatch('calculateExpireTime', response.data.expires_in);
 
             return response;

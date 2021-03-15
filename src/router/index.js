@@ -54,27 +54,28 @@ const routes = [
     ]
   },
   {
-    path: '/clients/:userId?/dashboard',
+    path: '/client',
     name: 'Client',
     component: Client,
+    meta: { client: true },
     children: [
       {
-        path: '/workout/:id/log',
+        path: 'workout/:id/log',
         name: 'LogWorkout',
         component: LogWorkout
       },
       {
-        path: '/client/messages',
+        path: 'messages',
         name: 'ClientMessages',
         component: Messages,
       },
       {
-        path: '/statistics',
+        path: 'statistics',
         name: 'Statistics',
         component: Statistics,
       },
       {
-        path: '/calendar',
+        path: 'calendar',
         name: 'Calendar',
         component: Calendar,
       },
@@ -158,6 +159,11 @@ router.beforeEach(function(to, from, next) {
       store.state.auth.user.role !== 'admin'
   )) {
     next({ name: 'Client' });
+  }
+
+  /* If path is created for client and admin/trainer did not enabled user view mode redirect back to clients page */
+  if(to.matched.some(path => path.meta.client) && store.state.auth.user.role !== 'user' && !store.state.auth.clientId) {
+    next({ name: 'Clients' });
   }
 
   next();

@@ -66,6 +66,10 @@ export default {
     hide () {
       this.$modal.hide('invite-user-modal');
     },
+    view(id) {
+      this.$store.commit('auth/SET_CLIENT_ID', id);
+      this.$router.push({ name: 'Client'});
+    }
   },
   created() {
     this.fetchAll()

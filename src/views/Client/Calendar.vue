@@ -1,7 +1,7 @@
 <template>
 
   <div class="calendar">
-    <button class="btn btn-primary form-input "> <font-awesome-icon icon="plus"/> Add event </button>
+    <button v-if="canAddEvent" class="btn btn-primary form-input "> <font-awesome-icon icon="plus"/> Add event </button>
 
     <div class="calendar-box">
       <full-calendar :options="calendarOptions" />
@@ -24,6 +24,7 @@ export default {
   },
   data() {
     return {
+      canAddEvent: this.$store.state.auth.user && ['admin', 'trainer'].includes(this.$store.state.auth.user.role),
       calendarOptions: {
         plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
