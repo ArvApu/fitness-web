@@ -14,6 +14,8 @@ import Clients from '../views/Home/Clients.vue'
 import Workout from '../views/Home/Workout.vue'
 import Client from '../views/Client.vue'
 import LogWorkout from "@/views/Client/LogWorkout";
+import Statistics from "@/views/Client/Statistics";
+import Calendar from "@/views/Client/Calendar";
 
 Vue.use(VueRouter)
 
@@ -65,6 +67,16 @@ const routes = [
         path: '/client/messages',
         name: 'ClientMessages',
         component: Messages,
+      },
+      {
+        path: '/statistics',
+        name: 'Statistics',
+        component: Statistics,
+      },
+      {
+        path: '/calendar',
+        name: 'Calendar',
+        component: Calendar,
       },
     ]
   },
