@@ -7,7 +7,7 @@
       <router-link :to="{ name: 'Calendar'}" exact-active-class="side-panel-exact-active" > Calendar </router-link>
     </li>
     <li v-show="!userId && user.role === 'user'">
-      <router-link :to="{ name: 'Messages'}" exact-active-class="side-panel-exact-active" > Messages </router-link>
+      <router-link :to="{ name: 'ClientMessages'}" exact-active-class="side-panel-exact-active" > Messages </router-link>
     </li>
   </ul>
 </template>

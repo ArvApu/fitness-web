@@ -22,11 +22,12 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: { trainer: true },
     children: [
       {
         path: '/exercises',
         name: 'Exercises',
-        component: Exercises
+        component: Exercises,
       },
       {
         path: '/workouts',
@@ -36,7 +37,7 @@ const routes = [
       {
         path: '/messages',
         name: 'Messages',
-        component: Messages
+        component: Messages,
       },
       {
         path: '/clients',
@@ -59,6 +60,11 @@ const routes = [
         path: '/workout/:id/log',
         name: 'LogWorkout',
         component: LogWorkout
+      },
+      {
+        path: '/client/messages',
+        name: 'ClientMessages',
+        component: Messages,
       },
     ]
   },
@@ -134,7 +140,13 @@ router.beforeEach(function(to, from, next) {
     next({ name: 'Home' });
   }
 
-  // TODO: guard by role
+  /* If path only for trainers check is user a trainer and can access this path (admins have full access) */
+  if (to.matched.some(path => path.meta.trainer &&
+      store.state.auth.user.role !== 'trainer' &&
+      store.state.auth.user.role !== 'admin'
+  )) {
+    next({ name: 'Client' });
+  }
 
   next();
 });
