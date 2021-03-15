@@ -23,7 +23,7 @@
 /* --------------- Global ---------------- */
 
 * {
-    overflow: hidden;
+    /*overflow: hidden; TODO: check if needed (breaks emotes in messenger) */
     box-sizing: border-box;
 }
 
