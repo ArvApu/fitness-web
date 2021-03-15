@@ -70,9 +70,6 @@ export default {
       this.fetchAll(this.userId).then(() => this.messagesLoaded = true);
     }
   },
-  mounted() {
-    // TODO: remove
-  },
   created() {
     this.fetchRooms();
   }

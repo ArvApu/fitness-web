@@ -2,6 +2,7 @@ import api from "@/api";
 
 const state = {
     messages: [],
+    lastFetchedUserId: null,
     isLoading: false,
 };
 
@@ -14,11 +15,11 @@ const mutations = {
     SET_MESSAGES(state, messages) {
         state.messages = messages;
     },
+    SET_LAST_FETCHED_USER_ID(state, id) {
+        state.lastFetchedUserId = parseInt(id);
+    },
     ADD_MESSAGE(state, message) {
         state.messages.push(message);
-    },
-    SET_ROOMS(state, rooms) {
-        state.rooms = rooms;
     }
 };
 
@@ -28,6 +29,8 @@ const actions = {
         try {
             commit('SET_IS_LOADING', true);
             const response = await api.messages.getByUser(userId);
+
+            commit('SET_LAST_FETCHED_USER_ID', userId);
 
             const messages = [];
             for (let i = 0; i < response.data.length; i++) {
@@ -53,8 +56,15 @@ const actions = {
         }
     },
 
-    receive({ commit }, message) {
-        commit('ADD_MESSAGE', parseMessage(message));
+    receive({ state, commit }, message) {
+
+        if(message.sender_id === state.lastFetchedUserId) {
+            commit('ADD_MESSAGE', parseMessage(message));
+            return;
+        }
+
+        // TODO: send notification
+        alert('You have a message');
     },
 };
 
