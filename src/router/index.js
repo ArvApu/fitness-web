@@ -16,6 +16,7 @@ import Client from '../views/Client.vue'
 import LogWorkout from "@/views/Client/LogWorkout";
 import Statistics from "@/views/Client/Statistics";
 import Calendar from "@/views/Client/Calendar";
+import Event from "@/views/Client/Event";
 
 Vue.use(VueRouter)
 
@@ -78,6 +79,11 @@ const routes = [
         path: 'calendar',
         name: 'Calendar',
         component: Calendar,
+      },
+      {
+        path: 'calendar/events/:id',
+        name: 'Event',
+        component: Event,
       },
     ]
   },

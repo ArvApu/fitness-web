@@ -35,7 +35,7 @@ export default {
     Datepicker,
   },
   computed: {
-    ...mapState('exercises', [
+    ...mapState('events', [
       'errors'
     ])
   },

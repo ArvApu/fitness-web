@@ -68,7 +68,7 @@ export default {
       calendarApi.changeView('timeGridDay', arg.dateStr);
     },
     handleEventClick(arg) {
-      console.log(arg.event.id); // TODO: open modal with options of edit/log/delete
+      this.$router.push({ name: 'Event', params: {id: arg.event.id} })
     },
     handleDateChange(arg) {
       console.log(arg.startStr);
