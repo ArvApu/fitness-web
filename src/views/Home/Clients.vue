@@ -72,7 +72,7 @@ export default {
     },
     view(id) {
       this.$store.commit('auth/SET_CLIENT_ID', id);
-      this.$router.push({ name: 'Client'});
+      this.$router.push({ name: 'Statistics'});
     }
   },
   created() {
