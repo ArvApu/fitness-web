@@ -33,10 +33,10 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAll({ commit }) {
+    async fetchAll({ commit }, {start, end}) {
         try {
             commit('SET_IS_LOADING', true);
-            const response = await api.events.all();
+            const response = await api.events.all(start, end);
             commit('SET_EVENTS', response.data);
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);

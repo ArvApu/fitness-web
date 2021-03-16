@@ -4,8 +4,13 @@ const resource = 'events';
 
 export default {
 
-    all() {
-        return request.get(`${resource}`);
+    all(start, end) {
+        return request.get(`${resource}`, {
+            params: {
+                start_date: start,
+                end_date: end,
+            }
+        });
     },
 
     single(id) {

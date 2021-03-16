@@ -36,6 +36,7 @@ export default {
   },
   data() {
     return {
+      fetchedRanges: [],
       canAddEvent: this.$store.state.auth.user && ['admin', 'trainer'].includes(this.$store.state.auth.user.role),
       calendarOptions: {
         plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -71,8 +72,25 @@ export default {
       this.$router.push({ name: 'Event', params: {id: arg.event.id} })
     },
     handleDateChange(arg) {
-      console.log(arg.startStr);
-      console.log(arg.endStr);
+
+      if(arg.startStr in this.fetchedRanges) {
+        return;
+      }
+
+      this.fetchedRanges[arg.startStr] = arg.endStr;
+
+      this.fetchAll({start: arg.startStr.substring(0, 10), end: arg.endStr.substring(0, 10)}).then(() => {
+        let calendarApi = this.$refs.fullCalendar.getApi()
+        for(const e of this.events) {
+          calendarApi.addEvent({
+            id: e.id,
+            title: e.title,
+            start: e.start_time,
+            end: e.end_time,
+          });
+        }
+      });
+
     },
     show () {
       this.$modal.show('add-event-modal');
@@ -81,19 +99,6 @@ export default {
       this.$modal.hide('add-event-modal');
     },
   },
-  created() {
-    this.fetchAll().then(() => {
-      let calendarApi = this.$refs.fullCalendar.getApi()
-      for(const e of this.events) {
-        calendarApi.addEvent({
-          id: e.id,
-          title: e.title,
-          start: e.start_time,
-          end: e.end_time,
-        });
-      }
-    });
-  }
 }
 </script>
 
