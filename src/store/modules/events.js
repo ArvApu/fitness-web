@@ -96,6 +96,23 @@ const actions = {
             return Promise.reject(e);
         }
     },
+    async export({ commit }, userId) {
+        try {
+            const response = await api.events.export(userId);
+
+            var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+            var fileLink = document.createElement('a');
+
+            fileLink.href = fileURL;
+            fileLink.setAttribute('download', 'calendar.ical');
+            document.body.appendChild(fileLink);
+
+            fileLink.click();
+        } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
+            return Promise.reject(e);
+        }
+    },
     clearErrors({ commit }) {
         commit('SET_ERRORS', []);
     }

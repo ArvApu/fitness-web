@@ -1,7 +1,10 @@
 <template>
 
   <div class="calendar">
-    <button v-if="canAddEvent" class="btn btn-primary form-input" v-on:click="show"> <font-awesome-icon icon="plus"/> Add event </button>
+    <button v-if="canAddEvent" class="btn btn-primary" v-on:click="show"> <font-awesome-icon icon="plus"/> Add event </button>
+    <button v-if="canAddEvent" class="btn btn-secondary" style="margin-left: 10px" v-on:click="handleExport">
+      <font-awesome-icon icon="file-export"/> Export upcoming events
+    </button>
 
     <div class="calendar-box">
       <full-calendar ref="fullCalendar" :options="calendarOptions" />
@@ -61,7 +64,7 @@ export default {
   },
   methods: {
     ...mapActions('events', [
-        'fetchAll'
+        'fetchAll', 'export'
     ]),
     handleDateClick(arg) {
       let calendarApi = arg.view.calendar;
@@ -95,6 +98,12 @@ export default {
       }
       this.$modal.hide('add-event-modal');
     },
+    handleExport() {
+      console.log('aaa');
+      this.export(
+          this.$store.state.auth.clientId || this.$store.state.auth.user_id
+      );
+    }
   },
 }
 </script>

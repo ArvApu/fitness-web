@@ -17,8 +17,13 @@ export default {
         return request.get(`${resource}/${id}`);
     },
 
-    export() {
-        return request.get(`${resource}/export`);
+    export(userId) {
+        return request.get(`${resource}/export`, {
+            params: {
+                user_id: userId
+            },
+            responseType: 'blob',
+        });
     },
 
     create(payload) {
