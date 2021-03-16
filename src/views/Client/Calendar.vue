@@ -12,7 +12,7 @@
 
     <modal class="force-scroll-modal" name="add-event-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
       <div class="modal-from">
-        <event-form @created="hide" @updated="hide"/>
+        <event-form @created="hide"/>
       </div>
     </modal>
   </div>
@@ -36,7 +36,6 @@ export default {
   },
   data() {
     return {
-      fetchedRanges: [],
       canAddEvent: this.$store.state.auth.user && ['admin', 'trainer'].includes(this.$store.state.auth.user.role),
       calendarOptions: {
         plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -72,15 +71,9 @@ export default {
       this.$router.push({ name: 'Event', params: {id: arg.event.id} })
     },
     handleDateChange(arg) {
-
-      if(arg.startStr in this.fetchedRanges) {
-        return;
-      }
-
-      this.fetchedRanges[arg.startStr] = arg.endStr;
-
       this.fetchAll({start: arg.startStr.substring(0, 10), end: arg.endStr.substring(0, 10)}).then(() => {
         let calendarApi = this.$refs.fullCalendar.getApi()
+        calendarApi.removeAllEvents();
         for(const e of this.events) {
           calendarApi.addEvent({
             id: e.id,
@@ -95,7 +88,11 @@ export default {
     show () {
       this.$modal.show('add-event-modal');
     },
-    hide () {
+    hide (result) {
+      if(result) {
+        let calendarApi = this.$refs.fullCalendar.getApi();
+        calendarApi.addEvent(result);
+      }
       this.$modal.hide('add-event-modal');
     },
   },

@@ -59,10 +59,14 @@ const actions = {
     },
     async create({ commit }, data) {
         try {
-            console.log(data)
             const response = await api.events.create(data);
             if (response && response.data && response.status === 201) {
                 commit('ADD_EVENT', response.data);
+            }
+            return {
+                title: response.data.title,
+                start: response.data.start_time,
+                end: response.data.end_time,
             }
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);

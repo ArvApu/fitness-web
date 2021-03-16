@@ -58,10 +58,9 @@ export default {
   },
   methods: {
     handle() {
-      console.log(this.eventObj);
       this.$store.dispatch('events/create', this.eventObj)
-          .then(() => {
-            this.$emit('created')
+          .then((result) => {
+            this.$emit('created', result)
           });
     },
   },
