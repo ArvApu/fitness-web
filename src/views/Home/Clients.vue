@@ -5,6 +5,8 @@
 
       <button class="btn btn-primary" v-on:click="show"> <font-awesome-icon icon="plus"/> Invite client </button>
 
+      <empty-message-block :show="users === undefined || users.length === 0" resource="clients"/>
+
       <div class="items">
 
         <div class="item" v-for="client in users" :key="client.id">
@@ -45,11 +47,13 @@
 
 import { mapState, mapActions} from 'vuex';
 import UserInviteForm from "@/components/Forms/UserInviteForm";
+import EmptyMessageBlock from "@/components/EmptyMessageBlock";
 
 export default {
   name: 'Clients',
   components: {
-    UserInviteForm
+    UserInviteForm,
+    EmptyMessageBlock
   },
   computed: {
     ...mapState('users', [

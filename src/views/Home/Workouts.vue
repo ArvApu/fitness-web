@@ -5,6 +5,8 @@
 
       <button class="btn btn-primary" v-on:click="add"> <font-awesome-icon icon="plus"/> Add workout </button>
 
+      <empty-message-block :show="workouts === undefined || workouts.length === 0" resource="workouts"/>
+
       <div class="items">
 
         <div class="item" v-for="workout in workouts" :key="workout.id">
@@ -45,11 +47,13 @@
 
 import { mapState, mapActions} from 'vuex';
 import WorkoutForm from "@/components/Forms/WorkoutForm";
+import EmptyMessageBlock from "@/components/EmptyMessageBlock";
 
 export default {
   name: 'Workouts',
   components: {
-    WorkoutForm
+    WorkoutForm,
+    EmptyMessageBlock
   },
   data() {
     return {
