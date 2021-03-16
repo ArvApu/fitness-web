@@ -17,6 +17,7 @@ import LogWorkout from "@/views/Client/LogWorkout";
 import Statistics from "@/views/Client/Statistics";
 import Calendar from "@/views/Client/Calendar";
 import Event from "@/views/Client/Event";
+import Settings from "@/views/Settings";
 
 Vue.use(VueRouter)
 
@@ -86,6 +87,11 @@ const routes = [
         component: Event,
       },
     ]
+  },
+  {
+    path: '/profile/settings',
+    name: 'Settings',
+    component: Settings,
   },
   {
     path: '/login',
