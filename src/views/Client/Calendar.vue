@@ -1,27 +1,38 @@
 <template>
 
   <div class="calendar">
-    <button v-if="canAddEvent" class="btn btn-primary form-input "> <font-awesome-icon icon="plus"/> Add event </button>
+    <button v-if="canAddEvent" class="btn btn-primary form-input" v-on:click="show"> <font-awesome-icon icon="plus"/> Add event </button>
 
     <div class="calendar-box">
       <full-calendar ref="fullCalendar" :options="calendarOptions" />
     </div>
+
+    <!-- MODALS -->
+    <v-dialog/>
+
+    <modal class="force-scroll-modal" name="add-event-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+      <div class="modal-from">
+        <event-form @created="hide" @updated="hide"/>
+      </div>
+    </modal>
   </div>
 
 </template>
 
 <script>
 
-import FullCalendar from '@fullcalendar/vue'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import timeGridPlugin from '@fullcalendar/timegrid'
+import FullCalendar from '@fullcalendar/vue';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import {mapActions, mapState} from "vuex";
+import EventForm from "@/components/Forms/EventForm";
 
 export default {
   name: 'Calendar',
   components: {
-    FullCalendar
+    FullCalendar,
+    EventForm,
   },
   data() {
     return {
@@ -29,8 +40,11 @@ export default {
       calendarOptions: {
         plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
+        editable: true,
         firstDay: 1,
         dateClick: this.handleDateClick,
+        eventClick: this.handleEventClick,
+        datesSet: this.handleDateChange,
         events: this.events,
         headerToolbar: {
           left: 'prev,next today',
@@ -52,13 +66,27 @@ export default {
     handleDateClick(arg) {
       let calendarApi = arg.view.calendar;
       calendarApi.changeView('timeGridDay', arg.dateStr);
-    }
+    },
+    handleEventClick(arg) {
+      console.log(arg.event.id); // TODO: open modal with options of edit/log/delete
+    },
+    handleDateChange(arg) {
+      console.log(arg.startStr);
+      console.log(arg.endStr);
+    },
+    show () {
+      this.$modal.show('add-event-modal');
+    },
+    hide () {
+      this.$modal.hide('add-event-modal');
+    },
   },
   created() {
     this.fetchAll().then(() => {
       let calendarApi = this.$refs.fullCalendar.getApi()
       for(const e of this.events) {
         calendarApi.addEvent({
+          id: e.id,
           title: e.title,
           start: e.start_time,
           end: e.end_time,
