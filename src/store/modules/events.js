@@ -64,6 +64,7 @@ const actions = {
                 commit('ADD_EVENT', response.data);
             }
             return {
+                id: response.data.id,
                 title: response.data.title,
                 start: response.data.start_time,
                 end: response.data.end_time,
