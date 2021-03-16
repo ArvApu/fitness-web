@@ -39,6 +39,7 @@ export default {
   },
   data() {
     return {
+      userId: this.$store.state.auth.clientId || this.$store.state.auth.user_id,
       canAddEvent: this.$store.state.auth.user && ['admin', 'trainer'].includes(this.$store.state.auth.user.role),
       calendarOptions: {
         plugins: [ dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -74,7 +75,7 @@ export default {
       this.$router.push({ name: 'Event', params: {id: arg.event.id} })
     },
     handleDateChange(arg) {
-      this.fetchAll({start: arg.startStr.substring(0, 10), end: arg.endStr.substring(0, 10)}).then(() => {
+      this.fetchAll({userId: this.userId, start: arg.startStr.substring(0, 10), end: arg.endStr.substring(0, 10)}).then(() => {
         let calendarApi = this.$refs.fullCalendar.getApi()
         calendarApi.removeAllEvents();
         for(const e of this.events) {
@@ -99,10 +100,7 @@ export default {
       this.$modal.hide('add-event-modal');
     },
     handleExport() {
-      console.log('aaa');
-      this.export(
-          this.$store.state.auth.clientId || this.$store.state.auth.user_id
-      );
+      this.export(this.userId);
     }
   },
 }

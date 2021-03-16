@@ -33,10 +33,10 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAll({ commit }, {start, end}) {
+    async fetchAll({ commit }, {userId, start, end}) {
         try {
             commit('SET_IS_LOADING', true);
-            const response = await api.events.all(start, end);
+            const response = await api.events.all(userId, start, end);
             commit('SET_EVENTS', response.data);
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
@@ -45,10 +45,10 @@ const actions = {
             commit('SET_IS_LOADING', false);
         }
     },
-    async fetchOne({ commit }, id) {
+    async fetchOne({ commit }, {id, userId}) {
         try {
             commit('SET_IS_LOADING', true);
-            const response = await api.events.single(id);
+            const response = await api.events.single(id, userId);
             return response.data ?? null;
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);

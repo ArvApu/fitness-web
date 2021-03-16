@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
+      userId: this.$store.state.auth.clientId || this.$store.state.auth.user_id,
       event: null,
       canControl: ['trainer', 'admin'].includes(this.$store.state.auth.user.role),
     }
@@ -32,7 +33,7 @@ export default {
       'fetchOne', 'delete'
     ]),
     edit() {
-      console.log('edit');
+      console.log('edit'); // TODO: Implement
     },
     remove() {
       this.$modal.show('dialog', {
@@ -57,7 +58,7 @@ export default {
     },
   },
   created() {
-    this.fetchOne(this.id).then((result) => {
+    this.fetchOne({id: this.id, userId: this.userId}).then((result) => {
       this.event = result;
     }).catch(() => {
       this.$router.back();

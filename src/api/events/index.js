@@ -4,17 +4,22 @@ const resource = 'events';
 
 export default {
 
-    all(start, end) {
+    all(userId, start, end) {
         return request.get(`${resource}`, {
             params: {
+                user_id: userId,
                 start_date: start,
                 end_date: end,
             }
         });
     },
 
-    single(id) {
-        return request.get(`${resource}/${id}`);
+    single(id, userId) {
+        return request.get(`${resource}/${id}`,{
+            params: {
+                user_id: userId,
+            }
+        });
     },
 
     export(userId) {
