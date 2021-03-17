@@ -84,6 +84,7 @@ export default {
             title: e.title,
             start: e.start_time,
             end: e.end_time,
+            allDay: e.all_day,
           });
         }
       });
