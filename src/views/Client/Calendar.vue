@@ -1,8 +1,8 @@
 <template>
 
   <div class="calendar">
-    <button v-if="canAddEvent" class="btn btn-primary" v-on:click="show"> <font-awesome-icon icon="plus"/> Add event </button>
-    <button v-if="canAddEvent" class="btn btn-secondary" style="margin-left: 10px" v-on:click="handleExport">
+    <button v-if="canAddEvent" class="btn btn-primary" style="margin-right: 10px" v-on:click="show"> <font-awesome-icon icon="plus"/> Add event </button>
+    <button class="btn btn-secondary" v-on:click="handleExport">
       <font-awesome-icon icon="file-export"/> Export upcoming events
     </button>
 
