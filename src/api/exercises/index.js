@@ -4,8 +4,8 @@ const resource = 'exercises';
 
 export default {
 
-    all() {
-        return request.get(`${resource}`);
+    all(page) {
+        return request.get(`${resource}?page=${page}`);
     },
 
     single(id) {
