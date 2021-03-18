@@ -2,8 +2,8 @@ import request from './../request';
 
 export default {
 
-    get() {
-        return request.get('users');
+    get(page) {
+        return request.get('users?page='+page);
     },
 
     invite(email) {

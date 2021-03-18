@@ -27,6 +27,8 @@
           </div>
 
         </div>
+
+        <paginator @paginate="paginate" v-bind="paginator"/>
       </div>
 
       <!-- MODALS -->
@@ -48,16 +50,18 @@
 import { mapState, mapActions} from 'vuex';
 import UserInviteForm from "@/components/Forms/UserInviteForm";
 import EmptyMessageBlock from "@/components/EmptyMessageBlock";
+import Paginator from "@/components/Paginator";
 
 export default {
   name: 'Clients',
   components: {
     UserInviteForm,
-    EmptyMessageBlock
+    EmptyMessageBlock,
+    Paginator
   },
   computed: {
     ...mapState('users', [
-      'users'
+      'users', 'paginator'
     ])
   },
   methods: {
@@ -73,6 +77,9 @@ export default {
     view(id) {
       this.$store.commit('auth/SET_CLIENT_ID', id);
       this.$router.push({ name: 'Statistics'});
+    },
+    paginate(page) {
+      this.fetchAll(page)
     }
   },
   created() {

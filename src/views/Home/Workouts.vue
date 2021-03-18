@@ -27,6 +27,8 @@
           </div>
 
         </div>
+
+        <paginator @paginate="paginate" v-bind="paginator"/>
       </div>
 
       <!-- MODALS -->
@@ -48,12 +50,14 @@
 import { mapState, mapActions} from 'vuex';
 import WorkoutForm from "@/components/Forms/WorkoutForm";
 import EmptyMessageBlock from "@/components/EmptyMessageBlock";
+import Paginator from "@/components/Paginator";
 
 export default {
   name: 'Workouts',
   components: {
     WorkoutForm,
-    EmptyMessageBlock
+    EmptyMessageBlock,
+    Paginator
   },
   data() {
     return {
@@ -62,7 +66,7 @@ export default {
   },
   computed: {
     ...mapState('workouts', [
-      'workouts'
+      'workouts', 'paginator'
     ])
   },
   methods: {
@@ -107,6 +111,9 @@ export default {
     hide () {
       this.$modal.hide('add-workout-modal');
     },
+    paginate(page) {
+      this.fetchAll(page)
+    }
   },
   created() {
     this.fetchAll()

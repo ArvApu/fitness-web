@@ -4,6 +4,12 @@ const state = {
     workouts: [],
     errors: [],
     isLoading: false,
+    paginator: {
+        currentPage: 1,
+        lastPage: 1,
+        total: 0,
+        perPage: 0,
+    },
 };
 
 const getters = {};
@@ -18,25 +24,28 @@ const mutations = {
     SET_ERRORS(state, errors) {
         state.errors = errors;
     },
-    ADD_WORKOUT(state, workout) {
-        state.workouts.unshift(workout);
+    SET_PAGINATOR(state, paginator) {
+        state.paginator = paginator;
     },
     UPDATE_WORKOUT(state, workout) {
         state.workouts = state.workouts.map((e) =>
             e.id === workout.id ? workout : e
         );
     },
-    DELETE_WORKOUT(state, id) {
-        state.workouts = state.workouts.filter((e) => e.id !== id);
-    },
 };
 
 const actions = {
-    async fetchAll({ commit }) {
+    async fetchAll({ commit }, page) {
         try {
             commit('SET_IS_LOADING', true);
-            const response = await api.workouts.all();
+            const response = await api.workouts.all(page);
             commit('SET_WORKOUTS', response.data.data);
+            commit('SET_PAGINATOR', {
+                currentPage: response.data.meta.current_page,
+                lastPage: response.data.meta.last_page,
+                total: response.data.meta.total,
+                perPage: response.data.meta.per_page,
+            });
         } catch (e) {
             this._vm.$toast.error('Failed to fetch workouts.');
             return Promise.reject(e);
@@ -56,12 +65,10 @@ const actions = {
             commit('SET_IS_LOADING', false);
         }
     },
-    async create({ commit }, workout) {
+    async create({ state, dispatch, commit }, workout) {
         try {
-            const response = await api.workouts.create(workout);
-            if (response && response.data && response.status === 201) {
-                commit('ADD_WORKOUT', response.data);
-            }
+            await api.workouts.create(workout);
+            dispatch('fetchAll', state.paginator.currentPage );
             this._vm.$toast.success('Workout created.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
@@ -80,12 +87,10 @@ const actions = {
             return Promise.reject(e);
         }
     },
-    async delete({ commit }, id) {
+    async delete({ state, dispatch }, id) {
         try {
-            const response = await api.workouts.destroy(id);
-            if (response && response.status === 204) {
-                commit('DELETE_WORKOUT', parseInt(id));
-            }
+            await api.workouts.destroy(id);
+            dispatch('fetchAll', state.paginator.currentPage );
             this._vm.$toast.success('Workout deleted.');
         } catch (e) {
             this._vm.$toast.error('Failed to delete a workout.');

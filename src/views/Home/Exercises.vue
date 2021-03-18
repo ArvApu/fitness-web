@@ -112,7 +112,7 @@ export default {
     }
   },
   created() {
-    this.fetchAll(1)
+    this.fetchAll()
   }
 }
 </script>

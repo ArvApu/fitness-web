@@ -4,6 +4,12 @@ const state = {
     users: [],
     errors: [],
     isLoading: false,
+    paginator: {
+        currentPage: 1,
+        lastPage: 1,
+        total: 0,
+        perPage: 0,
+    },
 };
 
 const getters = {};
@@ -11,6 +17,9 @@ const getters = {};
 const mutations = {
     SET_USERS(state, users) {
         state.users = users;
+    },
+    SET_PAGINATOR(state, paginator) {
+        state.paginator = paginator;
     },
     SET_IS_LOADING(state, status) {
         state.isLoading = status;
@@ -21,10 +30,16 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAll({ commit }) {
+    async fetchAll({ commit }, page) {
         try {
-            const response = await api.users.get();
+            const response = await api.users.get(page);
             commit('SET_USERS', response.data.data);
+            commit('SET_PAGINATOR', {
+                currentPage: response.data.meta.current_page,
+                lastPage: response.data.meta.last_page,
+                total: response.data.meta.total,
+                perPage: response.data.meta.per_page,
+            });
         } catch (e) {
             this._vm.$toast.error('Failed to fetch users.');
             return Promise.reject(e);
