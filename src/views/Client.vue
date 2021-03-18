@@ -1,7 +1,7 @@
 <template>
   <div id="home">
 
-    <app-header/>
+    <app-header links="client"/>
 
     <!-- MAIN -->
     <div id="main">

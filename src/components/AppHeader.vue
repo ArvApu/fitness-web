@@ -2,7 +2,10 @@
   <header id="header">
 
     <div class='logo'>
-
+      <slide id='mobile-menu'>
+        <client-menu-links v-if="this.links === 'client'"/>
+        <menu-links v-else/>
+      </slide>
     </div>
 
     <div class='account'>
@@ -23,8 +26,21 @@
 </template>
 
 <script>
+
+import MenuLinks from '@/components/MenuLinks.vue'
+import ClientMenuLinks from '@/components/ClientMenuLinks.vue'
+import { Slide } from 'vue-burger-menu'
+
 export default {
   name: 'AppHeader',
+  components: {
+    Slide,
+    MenuLinks,
+    ClientMenuLinks
+  },
+  props: {
+    links: String
+  },
   data () {
     return {
       active: false
@@ -44,7 +60,6 @@ export default {
 </script>
 
 <style scoped>
-
 /* Classes used for <transition> */
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
