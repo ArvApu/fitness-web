@@ -10,14 +10,20 @@
         :messages-loaded="messagesLoaded"
         :show-files="false"
         :show-audio="false"
-        :show-add-room="false"
+        :show-add-room="canAddRoom"
         :show-reaction-emojis="false"
         :show-new-messages-divider="false"
-        :single-room="singleRoom"
         @fetch-messages="handleMessages"
         @fetch-more-rooms="handleRooms"
         @send-message="handleMessageSend"
+        @add-room="show"
     />
+
+    <modal class="force-scroll-modal" name="add-room-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+      <div class="modal-from">
+        <room-form @created="hide"/>
+      </div>
+    </modal>
 
   </div>
 </template>
@@ -28,18 +34,20 @@ import { mapState, mapActions} from 'vuex';
 
 import ChatWindow from 'vue-advanced-chat'
 import 'vue-advanced-chat/dist/vue-advanced-chat.css'
+import RoomForm from '@/components/Forms/RoomForm';
 
 export default {
   name: 'Messages',
   components: {
-    ChatWindow
+    ChatWindow,
+    RoomForm,
   },
   data() {
     return {
       currentUserId: this.$store.state.auth.user.id,
       userId: null,
       messagesLoaded: false,
-      singleRoom: this.$store.state.auth.user.role === 'user',
+      canAddRoom: this.$store.state.auth.user.role !== 'user',
     }
   },
   computed: {
@@ -57,20 +65,24 @@ export default {
     ...mapActions('rooms', {
       fetchRooms: 'fetchAll'
     }),
-    handleMessageSend({ content }) {
+    handleMessageSend({ roomId, content }) {
       this.send({
-        userId: this.userId,
+        roomId: roomId,
         message: content
       })
     },
     handleRooms() {
-      // TODO: load more rooms
+      this.fetchRooms(); // TODO: paginate
     },
     handleMessages({room}){
-      this.messagesLoaded = false;
-      this.userId = room.users.find(user => user._id !== this.currentUserId)._id;
-      this.fetchAll(this.userId).then(() => this.messagesLoaded = true);
-    }
+      this.fetchAll(room.roomId); // TODO: paginate
+    },
+    show () {
+      this.$modal.show('add-room-modal');
+    },
+    hide () {
+      this.$modal.hide('add-room-modal');
+    },
   },
   created() {
     this.fetchRooms();

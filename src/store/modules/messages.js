@@ -2,7 +2,6 @@ import api from "@/api";
 
 const state = {
     messages: [],
-    lastFetchedUserId: null,
     isLoading: false,
 };
 
@@ -15,26 +14,22 @@ const mutations = {
     SET_MESSAGES(state, messages) {
         state.messages = messages;
     },
-    SET_LAST_FETCHED_USER_ID(state, id) {
-        state.lastFetchedUserId = parseInt(id);
-    },
     ADD_MESSAGE(state, message) {
         state.messages.push(message);
     }
 };
 
 const actions = {
-    async fetchAll({ commit }, userId) {
+    async fetchAll({ commit }, roomId) {
 
         try {
             commit('SET_IS_LOADING', true);
-            const response = await api.messages.getByUser(userId);
-
-            commit('SET_LAST_FETCHED_USER_ID', userId);
+            const response = await api.rooms.messages(roomId);
 
             const messages = [];
-            for (let i = 0; i < response.data.length; i++) {
-                messages.push(parseMessage(response.data[i]));
+
+            for (let i = 0; i < response.data.data.length; i++) {
+                messages.unshift(parseMessage(response.data.data[i]));
             }
 
             commit('SET_MESSAGES', messages)
@@ -48,7 +43,7 @@ const actions = {
 
     async send({ commit }, data) {
         try {
-            const response = await api.messages.send(data.userId, data.message);
+            const response = await api.messages.send(data.roomId, data.message);
             if (response && response.data && response.status === 201) {
                 commit('ADD_MESSAGE', parseMessage(response.data));
             }
@@ -58,9 +53,9 @@ const actions = {
         }
     },
 
-    receive({ state, commit }, message) {
+    receive({ commit }, message) {
 
-        if(message.sender_id === state.lastFetchedUserId) {
+        if(message.room_id === 11111) { // TODO: check if room is opened, if yes add message
             commit('ADD_MESSAGE', parseMessage(message));
             return;
         }
@@ -89,12 +84,12 @@ function parseMessage(message) {
     return {
         _id: message.id,
         content: message.message,
-        senderId: message.sender_id,
+        senderId: message.user_id,
         date: dateString.split('T')[0],
         timestamp: dateString.match(/\d\d:\d\d/)[0],
+        seen: message.is_seen,
         saved: true,
         distributed: true,
-        seen: message.is_seen,
         disableActions: true,
         disableReactions: true,
     }

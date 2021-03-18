@@ -9,6 +9,7 @@ import messages from "./messages";
 import users from "./users";
 import email from "./email";
 import workoutLogs from "./workoutLogs";
+import rooms from "./rooms";
 
 export default {
     request,
@@ -22,4 +23,5 @@ export default {
     users,
     email,
     workoutLogs,
+    rooms,
 };
