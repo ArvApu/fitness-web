@@ -39,6 +39,7 @@ const actions = {
 
             commit('SET_MESSAGES', messages)
         } catch (e) {
+            this._vm.$toast.error('Failed to fetch messages.');
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -52,6 +53,7 @@ const actions = {
                 commit('ADD_MESSAGE', parseMessage(response.data));
             }
         } catch (e) {
+            this._vm.$toast.error('Failed to send a message.');
             return Promise.reject(e);
         }
     },

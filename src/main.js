@@ -24,7 +24,7 @@ Vue.use(VModal, { dialog: true });
 
 Vue.use(Toast, {
   position: 'top-right',
-  timeout: 4000,
+  timeout: 2000,
   closeOnClick: true,
   pauseOnFocusLoss: true,
   pauseOnHover: true,

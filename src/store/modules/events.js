@@ -27,7 +27,6 @@ const mutations = {
         );
     },
     DELETE_EVENT(state, id) {
-        console.log(id)
         state.events = state.events.filter((e) => e.id !== id);
     },
 };
@@ -39,7 +38,7 @@ const actions = {
             const response = await api.events.all(userId, start, end);
             commit('SET_EVENTS', response.data);
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to fetch events.');
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -51,7 +50,7 @@ const actions = {
             const response = await api.events.single(id, userId);
             return response.data ?? null;
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to fetch an event.');
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -63,6 +62,7 @@ const actions = {
             if (response && response.data && response.status === 201) {
                 commit('ADD_EVENT', response.data);
             }
+            this._vm.$toast.success('Event created.');
             return {
                 id: response.data.id,
                 title: response.data.title,
@@ -80,6 +80,7 @@ const actions = {
             if (response && response.data && response.status === 200) {
                 commit('UPDATE_EVENT', response.data);
             }
+            this._vm.$toast.success('Event updated.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
@@ -91,12 +92,13 @@ const actions = {
             if (response && response.status === 204) {
                 commit('DELETE_EVENT', parseInt(id));
             }
+            this._vm.$toast.success('Event deleted.');
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to delete an event.');
             return Promise.reject(e);
         }
     },
-    async export({ commit }, userId) {
+    async export(context, userId) {
         try {
             const response = await api.events.export(userId);
 
@@ -109,7 +111,7 @@ const actions = {
 
             fileLink.click();
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to export events.');
             return Promise.reject(e);
         }
     },

@@ -38,7 +38,7 @@ const actions = {
             const response = await api.workouts.all();
             commit('SET_WORKOUTS', response.data.data);
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to fetch workouts.');
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -50,7 +50,7 @@ const actions = {
             const response = await api.workouts.single(id);
             return response.data ?? null;
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to fetch a workout.');
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -62,6 +62,7 @@ const actions = {
             if (response && response.data && response.status === 201) {
                 commit('ADD_WORKOUT', response.data);
             }
+            this._vm.$toast.success('Workout created.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
@@ -73,6 +74,7 @@ const actions = {
             if (response && response.data && response.status === 200) {
                 commit('UPDATE_WORKOUT', response.data);
             }
+            this._vm.$toast.success('Workout updated.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
@@ -84,8 +86,9 @@ const actions = {
             if (response && response.status === 204) {
                 commit('DELETE_WORKOUT', parseInt(id));
             }
+            this._vm.$toast.success('Workout deleted.');
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to delete a workout.');
             return Promise.reject(e);
         }
     },

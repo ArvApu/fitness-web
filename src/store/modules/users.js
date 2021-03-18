@@ -26,7 +26,7 @@ const actions = {
             const response = await api.users.get();
             commit('SET_USERS', response.data.data);
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to fetch users.');
             return Promise.reject(e);
         }
     },
@@ -34,7 +34,7 @@ const actions = {
         try {
             commit('SET_IS_LOADING', true);
             await api.users.invite(email);
-            // TODO: success message
+            this._vm.$toast.success('Invitation sent.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
@@ -45,7 +45,6 @@ const actions = {
     async confirmInvite({ commit }, token) {
         try {
             await api.users.confirmInvite(token);
-            // TODO: success message
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);

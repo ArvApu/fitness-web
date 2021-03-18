@@ -27,7 +27,6 @@ const mutations = {
         );
     },
     DELETE_EXERCISE(state, id) {
-        console.log(id)
         state.exercises = state.exercises.filter((e) => e.id !== id);
     },
 };
@@ -39,7 +38,7 @@ const actions = {
             const response = await api.exercises.all();
             commit('SET_EXERCISES', response.data.data);
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to fetch exercises.');
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -51,7 +50,7 @@ const actions = {
             const response = await api.exercises.single(id);
             return response.data ?? null;
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to fetch an exercise.');
             return Promise.reject(e);
         } finally {
             commit('SET_IS_LOADING', false);
@@ -63,6 +62,7 @@ const actions = {
             if (response && response.data && response.status === 201) {
                 commit('ADD_EXERCISE', response.data);
             }
+            this._vm.$toast.success('Exercise created.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
@@ -74,6 +74,7 @@ const actions = {
             if (response && response.data && response.status === 200) {
                 commit('UPDATE_EXERCISE', response.data);
             }
+            this._vm.$toast.success('Exercise updated.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
@@ -85,8 +86,9 @@ const actions = {
             if (response && response.status === 204) {
                 commit('DELETE_EXERCISE', parseInt(id));
             }
+            this._vm.$toast.success('Exercise deleted.');
         } catch (e) {
-            commit('SET_ERRORS', e.response.data.error);
+            this._vm.$toast.error('Failed to delete an exercise.');
             return Promise.reject(e);
         }
     },
