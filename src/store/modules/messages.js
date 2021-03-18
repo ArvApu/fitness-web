@@ -3,6 +3,13 @@ import api from "@/api";
 const state = {
     messages: [],
     isLoading: false,
+    currentRoom: null,
+    paginator: {
+        currentPage: 0,
+        lastPage: 1,
+        total: 0,
+        perPage: 0,
+    },
 };
 
 const getters = {};
@@ -16,15 +23,28 @@ const mutations = {
     },
     ADD_MESSAGE(state, message) {
         state.messages.push(message);
-    }
+    },
+    ADD_MESSAGES(state, messages)  {
+        state.messages.unshift(...messages);
+    },
+    SET_PAGINATOR(state, paginator) {
+        state.paginator = paginator;
+    },
 };
 
 const actions = {
-    async fetchAll({ commit }, roomId) {
+    async fetchAll({ commit }, { roomId, page }) {
 
         try {
             commit('SET_IS_LOADING', true);
-            const response = await api.rooms.messages(roomId);
+            const response = await api.rooms.messages(roomId, page);
+
+            commit('SET_PAGINATOR', {
+                currentPage: response.data.meta.current_page,
+                lastPage: response.data.meta.last_page,
+                total: response.data.meta.total,
+                perPage: response.data.meta.per_page,
+            });
 
             const messages = [];
 
@@ -32,7 +52,7 @@ const actions = {
                 messages.unshift(parseMessage(response.data.data[i]));
             }
 
-            commit('SET_MESSAGES', messages)
+            commit('ADD_MESSAGES', messages);
         } catch (e) {
             this._vm.$toast.error('Failed to fetch messages.');
             return Promise.reject(e);
@@ -51,6 +71,16 @@ const actions = {
             this._vm.$toast.error('Failed to send a message.');
             return Promise.reject(e);
         }
+    },
+
+    resetMessages({ commit }) {
+        commit('SET_MESSAGES', []);
+        commit('SET_PAGINATOR', {
+            currentPage: 0,
+            lastPage: 1,
+            total: 0,
+            perPage: 0,
+        });
     },
 
     receive({ commit }, message) {

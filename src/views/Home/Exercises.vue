@@ -112,7 +112,7 @@ export default {
     }
   },
   created() {
-    this.fetchAll()
+    this.fetchAll(this.paginator.currentPage)
   }
 }
 </script>

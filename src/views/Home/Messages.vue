@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      currentRoom: null,
       currentUserId: this.$store.state.auth.user.id,
       userId: null,
       messagesLoaded: false,
@@ -52,7 +53,7 @@ export default {
   },
   computed: {
     ...mapState('messages', [
-      'messages',
+      'messages', 'paginator'
     ]),
     ...mapState('rooms', [
       'rooms',
@@ -60,7 +61,7 @@ export default {
   },
   methods: {
     ...mapActions('messages', [
-      'fetchAll', 'send'
+      'fetchAll', 'send', 'resetMessages'
     ]),
     ...mapActions('rooms', {
       fetchRooms: 'fetchAll'
@@ -74,8 +75,18 @@ export default {
     handleRooms() {
       this.fetchRooms(); // TODO: paginate
     },
-    handleMessages({room}){
-      this.fetchAll(room.roomId); // TODO: paginate
+    handleMessages({room, options}){
+      this.messagesLoaded = false;
+      if(options && options.reset) {
+        this.resetMessages();
+      }
+
+      this.fetchAll({
+        roomId: room.roomId,
+        page: this.paginator.currentPage + 1
+      }).finally(() => {
+        this.messagesLoaded = this.paginator.currentPage >= this.paginator.lastPage;
+      });
     },
     show () {
       this.$modal.show('add-room-modal');

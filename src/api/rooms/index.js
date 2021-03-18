@@ -8,8 +8,8 @@ export default {
         return request.get(`${resource}`);
     },
 
-    messages(id) {
-        return request.get(`${resource}/${id}/messages`);
+    messages(id, page) {
+        return request.get(`${resource}/${id}/messages?page=${page}`);
     },
 
     create(payload) {
