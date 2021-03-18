@@ -2,7 +2,7 @@ import Pusher from 'pusher-js';
 
 const plugin = (store) => {
 
-    if(!store.state.auth.user || process.env.VUE_APP_NO_BROADCAST) {
+    if(!store.state.auth.user || !process.env.VUE_APP_NO_BROADCAST) {
         return;
     }
 

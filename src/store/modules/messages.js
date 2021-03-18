@@ -63,8 +63,7 @@ const actions = {
             return;
         }
 
-        // TODO: send notification
-        alert('You have a message');
+        this._vm.$toast('You received a message.');
     },
 };
 
