@@ -103,7 +103,9 @@ export default {
   },
   created() {
     this.resetRooms();
-    this.fetchRooms(1);
+    this.fetchRooms(1).finally(() => {
+      this.roomsLoaded = this.roomPaginator.currentPage >= this.roomPaginator.lastPage;
+    });
   }
 }
 </script>

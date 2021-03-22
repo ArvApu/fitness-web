@@ -91,7 +91,7 @@ export default {
   margin: 0 80px;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
   .account {
     margin: 0;
   }

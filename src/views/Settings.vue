@@ -1,7 +1,7 @@
 <template>
   <div id="home">
 
-    <app-header/>
+    <app-header links="settings"/>
 
     <!-- MAIN -->
     <div id="main">

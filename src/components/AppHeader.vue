@@ -4,6 +4,7 @@
     <div class='logo'>
       <slide id='mobile-menu'>
         <client-menu-links v-if="this.links === 'client'"/>
+        <settings-menu-links v-else-if="this.links === 'settings'"/>
         <menu-links v-else/>
       </slide>
     </div>
@@ -30,13 +31,15 @@
 import MenuLinks from '@/components/MenuLinks/MenuLinks.vue'
 import ClientMenuLinks from '@/components/MenuLinks/ClientMenuLinks.vue'
 import { Slide } from 'vue-burger-menu'
+import SettingsMenuLinks from "@/components/MenuLinks/SettingsMenuLinks";
 
 export default {
   name: 'AppHeader',
   components: {
     Slide,
     MenuLinks,
-    ClientMenuLinks
+    ClientMenuLinks,
+    SettingsMenuLinks,
   },
   props: {
     links: String
