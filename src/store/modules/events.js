@@ -66,6 +66,7 @@ const actions = {
             return {
                 id: response.data.id,
                 title: response.data.title,
+                allDay: response.data.all_day,
                 start: response.data.start_time,
                 end: response.data.end_time,
             }

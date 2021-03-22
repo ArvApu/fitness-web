@@ -96,17 +96,6 @@ export default {
           });
     },
   },
-  watch: {
-    'eventObj.all_day': function(val) {
-      if (val) {
-        this.$set(this.config, 'altInput', true);
-        this.$set(this.config, 'enableTime', false);
-      } else {
-        this.$set(this.config, 'altInput', false);
-        this.$set(this.config, 'enableTime', true);
-      }
-    },
-  },
   created() {
     this.$store.dispatch('events/clearErrors');
   }
