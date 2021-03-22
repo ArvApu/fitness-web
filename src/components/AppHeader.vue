@@ -27,8 +27,8 @@
 
 <script>
 
-import MenuLinks from '@/components/MenuLinks.vue'
-import ClientMenuLinks from '@/components/ClientMenuLinks.vue'
+import MenuLinks from '@/components/MenuLinks/MenuLinks.vue'
+import ClientMenuLinks from '@/components/MenuLinks/ClientMenuLinks.vue'
 import { Slide } from 'vue-burger-menu'
 
 export default {

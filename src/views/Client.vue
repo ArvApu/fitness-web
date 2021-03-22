@@ -20,7 +20,7 @@
 
 <script>
 import AppHeader from "@/components/AppHeader";
-import ClientMenuLinks from "@/components/ClientMenuLinks";
+import ClientMenuLinks from "@/components/MenuLinks/ClientMenuLinks";
 
 export default {
   name: 'Client',

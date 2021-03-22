@@ -18,6 +18,9 @@ import Statistics from "@/views/Client/Statistics";
 import Calendar from "@/views/Client/Calendar";
 import Event from "@/views/Client/Event";
 import Settings from "@/views/Settings";
+import Account from "@/views/Settings/Account";
+import Profile from "@/views/Settings/Profile";
+import Security from "@/views/Settings/Security";
 
 Vue.use(VueRouter)
 
@@ -59,6 +62,7 @@ const routes = [
     path: '/client',
     name: 'Client',
     component: Client,
+    redirect: '/client/statistics',
     meta: { client: true },
     children: [
       {
@@ -89,9 +93,27 @@ const routes = [
     ]
   },
   {
-    path: '/profile/settings',
+    path: '/settings',
     name: 'Settings',
+    redirect: '/settings/account',
     component: Settings,
+    children: [
+      {
+        path: 'account',
+        name: 'Account',
+        component: Account
+      },
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: Profile,
+      },
+      {
+        path: 'security',
+        name: 'Security',
+        component: Security,
+      },
+    ]
   },
   {
     path: '/login',

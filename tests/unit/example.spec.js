@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/MenuLinks.vue'
+import HelloWorld from '@/components/MenuLinks/MenuLinks.vue'
 
 describe('MenuLinks.vue', () => {
   it('renders props.msg when passed', () => {

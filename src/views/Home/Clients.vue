@@ -76,7 +76,7 @@ export default {
     },
     view(id) {
       this.$store.commit('auth/SET_CLIENT_ID', id);
-      this.$router.push({ name: 'Statistics'});
+      this.$router.push({ name: 'Client'});
     },
     paginate(page) {
       this.fetchAll(page)

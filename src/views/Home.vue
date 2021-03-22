@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import MenuLinks from "@/components/MenuLinks";
+import MenuLinks from "@/components/MenuLinks/MenuLinks";
 import AppHeader from "@/components/AppHeader";
 
 export default {
