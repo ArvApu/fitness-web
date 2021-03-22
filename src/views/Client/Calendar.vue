@@ -1,13 +1,23 @@
 <template>
 
   <div class="calendar">
-    <button v-if="canAddEvent" class="btn btn-primary" style="margin-right: 10px" v-on:click="show"> <font-awesome-icon icon="plus"/> Add event </button>
-    <button class="btn btn-secondary" v-on:click="handleExport">
-      <font-awesome-icon icon="file-export"/> Export upcoming events
-    </button>
+
+    <div class="cal-btn">
+      <button v-if="canAddEvent" class="btn btn-primary" v-on:click="show"> <font-awesome-icon icon="plus"/> Add event </button>
+      <button class="btn btn-secondary" v-on:click="handleExport">
+        <font-awesome-icon icon="file-export"/> Export upcoming events
+      </button>
+    </div>
+
 
     <div class="calendar-box">
       <full-calendar ref="fullCalendar" :options="calendarOptions" />
+    </div>
+
+    <div class="events-box">
+      <div v-for="event in events" :key="event.id">
+        {{ event }}
+      </div>
     </div>
 
     <!-- MODALS -->
@@ -107,7 +117,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .calendar {
     margin: 0 100px;
   }
@@ -115,9 +125,52 @@ export default {
     margin: 20px 0;
   }
 
+  .cal-btn button:first-child {
+    margin-right: 10px;
+  }
+
   @media only screen and (max-width: 1120px) {
     .calendar {
       margin: 0;
+    }
+  }
+
+  @media only screen and (max-width: 620px) {
+    .calendar-box .fc-view-harness {
+      display: none;
+    }
+
+    .fc-toolbar-chunk:last-child {
+      display: none !important;
+    }
+
+    .events-box {
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  @media only screen and (max-width: 390px) {
+    .cal-btn button:first-child {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+
+    .cal-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .fc-toolbar-chunk {
+      display: flex;
+      padding: 5px;
+      justify-content: space-between;
+    }
+
+    .fc-toolbar-title {
+      font-size: 20px !important;
     }
   }
 
