@@ -34,7 +34,6 @@ const mutations = {
 
 const actions = {
     async fetchAll({ commit }, { roomId, page }) {
-
         try {
             commit('SET_IS_LOADING', true);
             const response = await api.rooms.messages(roomId, page);

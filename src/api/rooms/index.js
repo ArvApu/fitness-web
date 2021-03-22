@@ -4,8 +4,8 @@ const resource = 'rooms';
 
 export default {
 
-    all() {
-        return request.get(`${resource}`);
+    all(page) {
+        return request.get(`${resource}?page=${page}`);
     },
 
     messages(id, page) {

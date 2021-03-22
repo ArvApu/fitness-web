@@ -4,6 +4,12 @@ const state = {
     errors: [],
     rooms: [],
     isLoading: false,
+    paginator: {
+        currentPage: 1,
+        lastPage: 1,
+        total: 0,
+        perPage: 0,
+    },
 };
 
 const getters = {};
@@ -15,24 +21,37 @@ const mutations = {
     SET_ROOMS(state, rooms) {
         state.rooms = rooms;
     },
+    ADD_ROOMS(state, rooms)  {
+        state.rooms.push(...rooms);
+    },
     SET_ERRORS(state, errors) {
         state.errors = errors;
+    },
+    SET_PAGINATOR(state, paginator) {
+        state.paginator = paginator;
     },
 };
 
 const actions = {
-    async fetchAll({ commit }) {
-        commit('SET_IS_LOADING', true);
-        const rooms = [];
-
+    async fetchAll({ state, commit }, page) {
         try {
-            const response = await api.rooms.all();
+            commit('SET_IS_LOADING', true);
+            const response = await api.rooms.all(page ?? state.paginator.currentPage);
+
+            commit('SET_PAGINATOR', {
+                currentPage: response.data.meta.current_page,
+                lastPage: response.data.meta.last_page,
+                total: response.data.meta.total,
+                perPage: response.data.meta.per_page,
+            });
+
+            const rooms = [];
 
             for (let i = 0; i < response.data.data.length; i++) {
                 rooms.push(parseRoom(response.data.data[i]));
             }
 
-            commit('SET_ROOMS', rooms);
+            commit('ADD_ROOMS', rooms);
         } catch (e) {
             this._vm.$toast.error('Failed to fetch rooms.');
             return Promise.reject(e);
@@ -44,6 +63,7 @@ const actions = {
         try {
             const response = await api.rooms.create(data);
             if (response && response.data && response.status === 201) {
+                dispatch('resetRooms');
                 dispatch('fetchAll');
             }
             this._vm.$toast.success('Room created.');
@@ -54,7 +74,16 @@ const actions = {
     },
     clearErrors({ commit }) {
         commit('SET_ERRORS', []);
-    }
+    },
+    resetRooms({ commit }) {
+        commit('SET_ROOMS', []);
+        commit('SET_PAGINATOR', {
+            currentPage: 0,
+            lastPage: 1,
+            total: 0,
+            perPage: 0,
+        });
+    },
 };
 
 const module = {

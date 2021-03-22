@@ -6,7 +6,7 @@
         :current-user-id="currentUserId"
         :rooms="rooms"
         :messages="messages"
-        :rooms-loaded="true"
+        :rooms-loaded="roomsLoaded"
         :messages-loaded="messagesLoaded"
         :show-files="false"
         :show-audio="false"
@@ -48,6 +48,7 @@ export default {
       currentUserId: this.$store.state.auth.user.id,
       userId: null,
       messagesLoaded: false,
+      roomsLoaded: false,
       canAddRoom: this.$store.state.auth.user.role !== 'user',
     }
   },
@@ -55,16 +56,18 @@ export default {
     ...mapState('messages', [
       'messages', 'paginator'
     ]),
-    ...mapState('rooms', [
-      'rooms',
-    ]),
+    ...mapState('rooms', {
+      rooms: 'rooms',
+      roomPaginator: 'paginator',
+    }),
   },
   methods: {
     ...mapActions('messages', [
       'fetchAll', 'send', 'resetMessages'
     ]),
     ...mapActions('rooms', {
-      fetchRooms: 'fetchAll'
+      fetchRooms: 'fetchAll',
+      resetRooms: 'resetRooms'
     }),
     handleMessageSend({ roomId, content }) {
       this.send({
@@ -73,7 +76,10 @@ export default {
       })
     },
     handleRooms() {
-      this.fetchRooms(); // TODO: paginate
+      this.roomsLoaded = false;
+      this.fetchRooms(this.roomPaginator.currentPage + 1).finally(() => {
+        this.roomsLoaded = this.roomPaginator.currentPage >= this.roomPaginator.lastPage;
+      });
     },
     handleMessages({room, options}){
       this.messagesLoaded = false;
@@ -96,7 +102,8 @@ export default {
     },
   },
   created() {
-    this.fetchRooms();
+    this.resetRooms();
+    this.fetchRooms(1);
   }
 }
 </script>
