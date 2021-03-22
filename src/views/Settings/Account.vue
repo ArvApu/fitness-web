@@ -37,7 +37,7 @@
 
       <div class="form-group">
         <label for="birthday-u">Birthday</label>
-        <input class="form-input" v-model="user.birthday" id="birthday-u" type="date"/>
+        <flat-pickr v-model="user.birthday" :config="config" id="birthday-u" class="form-input" placeholder="Date only"/>
       </div>
 
       <form-submit-button label="Submit"/>
@@ -60,7 +60,7 @@
 
       <div class="form-group">
         <label for="birthday">Birthday</label>
-        <input class="form-input" v-model="user.birthday" id="birthday" type="date"/>
+        <flat-pickr v-model="user.birthday" :config="config" id="birthday" class="form-input" placeholder="Date only"/>
       </div>
 
       <form-submit-button label="Submit"/>
@@ -70,12 +70,25 @@
 </template>
 
 <script>
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
 export default {
   name: 'Account',
+  components: {
+    flatPickr,
+  },
   data() {
     return {
-      user: this.$store.state.auth.user
+      user: this.$store.state.auth.user,
+      config: {
+        altInput: true,
+        altFormat: "Y-m-d",
+        dateFormat: "Y-m-d H:i:S",
+        locale: {
+          firstDayOfWeek: 1,
+        },
+      },
     }
   },
   methods: {

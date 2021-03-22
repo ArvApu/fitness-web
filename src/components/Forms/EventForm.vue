@@ -18,7 +18,7 @@
       <div v-show="eventObj.all_day">
         <div class='form-group'>
           <label> Date </label>
-          <flat-pickr v-model="eventObj.start_time" :config="configDateOnly" class="form-input" placeholder="Date only (time doesn't matter)"/>
+          <flat-pickr v-model="eventObj.start_time" :config="configDateOnly" class="form-input" placeholder="Date only"/>
         </div>
       </div>
 
