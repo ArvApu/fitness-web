@@ -353,10 +353,6 @@ button[disabled=disabled], button:disabled, .btn-disabled-wait:disabled {
     padding: 15px;
 }
 
-.date-picker-input {
-    width: 100% !important;
-}
-
 /* --------------- Remove arrows from number inputs --------------- */
 
 input::-webkit-outer-spin-button,

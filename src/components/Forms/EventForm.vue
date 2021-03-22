@@ -15,22 +15,22 @@
 
     <hr>
 
-      <div v-if="eventObj.all_day">
+      <div v-show="eventObj.all_day">
         <div class='form-group'>
           <label> Date </label>
-          <datepicker v-model="eventObj.start_time" :lang="lang" value-type="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD" type="date" class="date-picker-input"/>
+          <flat-pickr v-model="eventObj.start_time" :config="configDateOnly" class="form-input" placeholder="Date only (time doesn't matter)"/>
         </div>
       </div>
 
-      <div v-else>
+      <div v-show="!eventObj.all_day">
         <div class='form-group'>
           <label> Start time </label>
-          <datepicker v-model="eventObj.start_time" :lang="lang" value-type="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD HH:mm:ss" type="datetime" class="date-picker-input"/>
+          <flat-pickr v-model="eventObj.start_time" :config="config" class="form-input" placeholder="Date and time"/>
         </div>
 
         <div class='form-group' >
           <label> End time </label>
-          <datepicker v-model="eventObj.end_time" :lang="lang" value-type="YYYY-MM-DD HH:mm:ss" format="YYYY-MM-DD HH:mm:ss" type="datetime" class="date-picker-input"/>
+          <flat-pickr v-model="eventObj.end_time" :config="config" class="form-input" placeholder="Date and time"/>
         </div>
       </div>
 
@@ -42,13 +42,13 @@
 <script>
 
 import {mapState} from "vuex";
-import Datepicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
 export default {
   name: 'EventForm',
   components: {
-    Datepicker,
+    flatPickr,
   },
   computed: {
     ...mapState('events', [
@@ -65,16 +65,27 @@ export default {
         end_time: null,
         all_day: false,
       },
-      lang: {
-        formatLocale: {
+      config: {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i:S",
+        time_24hr: true,
+        locale: {
           firstDayOfWeek: 1,
         },
-        monthBeforeYear: false,
+      },
+      configDateOnly: {
+        altInput: true,
+        altFormat: "Y-m-d",
+        dateFormat: "Y-m-d H:i:S",
+        locale: {
+          firstDayOfWeek: 1,
+        },
       },
     }
   },
   methods: {
     handle() {
+
       if(!this.eventObj.end_time) {
         this.eventObj.end_time = this.eventObj.start_time
       }
@@ -85,8 +96,19 @@ export default {
           });
     },
   },
+  watch: {
+    'eventObj.all_day': function(val) {
+      if (val) {
+        this.$set(this.config, 'altInput', true);
+        this.$set(this.config, 'enableTime', false);
+      } else {
+        this.$set(this.config, 'altInput', false);
+        this.$set(this.config, 'enableTime', true);
+      }
+    },
+  },
   created() {
-    this.$store.dispatch('events/clearErrors')
+    this.$store.dispatch('events/clearErrors');
   }
 }
 </script>
