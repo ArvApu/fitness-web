@@ -19,7 +19,6 @@ import Calendar from "@/views/Client/Calendar";
 import Event from "@/views/Client/Event";
 import Settings from "@/views/Settings";
 import Account from "@/views/Settings/Account";
-import Profile from "@/views/Settings/Profile";
 import Security from "@/views/Settings/Security";
 
 Vue.use(VueRouter)
@@ -102,11 +101,6 @@ const routes = [
         path: 'account',
         name: 'Account',
         component: Account
-      },
-      {
-        path: 'profile',
-        name: 'Profile',
-        component: Profile,
       },
       {
         path: 'security',

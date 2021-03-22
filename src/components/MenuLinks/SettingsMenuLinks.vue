@@ -4,9 +4,6 @@
       <router-link :to="{ name: 'Account'}" exact-active-class="side-panel-exact-active" > Account </router-link>
     </li>
     <li>
-      <router-link :to="{ name: 'Profile'}" exact-active-class="side-panel-exact-active" > Profile </router-link>
-    </li>
-    <li>
       <router-link :to="{ name: 'Security'}" exact-active-class="side-panel-exact-active" > Security </router-link>
     </li>
   </ul>

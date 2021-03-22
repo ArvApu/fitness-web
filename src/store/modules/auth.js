@@ -81,13 +81,7 @@ const actions = {
             const response = await api.auth.me();
             const user = response.data;
 
-            commit('SET_USER', {
-                id: user.id,
-                role: user.role,
-                first_name: user.first_name,
-                email: user.email,
-                last_login_at: user.last_login_at,
-            });
+            commit('SET_USER', user);
 
             return response;
         } catch (e) {
