@@ -25,7 +25,15 @@ const mutations = {
     },
     SET_CLIENT_ID(state, id) {
         state.clientId = id;
-    }
+    },
+    UPDATE_USER(state, user) {
+        for (const prop in user) {
+            if (!Object.prototype.hasOwnProperty.call(user, prop)) {
+                continue;
+            }
+            state.user[prop] = user[prop];
+        }
+    },
 };
 
 const actions = {

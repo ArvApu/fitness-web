@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import {mapActions, mapState} from "vuex";
+
 export default {
   name: 'Security',
   data() {
@@ -39,9 +41,24 @@ export default {
       new_password_confirmation: null,
     }
   },
+  computed: {
+    ...mapState('profile',[
+      'errors'
+    ]),
+  },
   methods: {
+    ...mapActions('profile',[
+      'changePassword', 'clearErrors'
+    ]),
     handle() {
-
+      this.changePassword({
+        password: this.password,
+        new_password: this.new_password,
+        new_password_confirmation: this.new_password_confirmation,
+      });
+    },
+    created() {
+      this.clearErrors();
     }
   }
 }

@@ -10,6 +10,7 @@ import users from "./users";
 import email from "./email";
 import workoutLogs from "./workoutLogs";
 import rooms from "./rooms";
+import profile from "./profile";
 
 export default {
     request,
@@ -24,4 +25,5 @@ export default {
     email,
     workoutLogs,
     rooms,
+    profile,
 };
