@@ -4,9 +4,9 @@
 
     <alerts :errors="errors"/>
 
-    <form id='account-form' @submit.prevent="handle">
+    <form id='user-form' @submit.prevent="handle">
 
-      <h2> Account information </h2>
+      <h2> User information </h2>
 
       <div class="form-group">
         <label for="first_name">First name</label>
@@ -18,31 +18,18 @@
         <input class="form-input" v-model="user.last_name" id="last_name" type="text" placeholder="Last name"/>
       </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input class="form-input" v-model="user.email" id="email" type="email" placeholder="Email"/>
-      </div>
-
-      <form-submit-button label="Submit"/>
-    </form>
-
-    <form id='user-form' @submit.prevent="handle" v-if="user.role === 'trainer'">
-
-      <h2> User information </h2>
-
-      <div class="form-group">
+      <div class="form-group" v-if="user.role === 'user'">
         <label for="weight">Weight</label>
         <input class="form-input" v-model="user.weight" id="weight" type="number" placeholder="Weight"/>
       </div>
 
       <div class="form-group">
         <label for="birthday-u">Birthday</label>
-        <flat-pickr v-model="user.birthday" :config="config" id="birthday-u" class="form-input" placeholder="Date only"/>
+        <flat-pickr v-model="user.birthday" :config="config" id="birthday-u" class="form-input" placeholder="Birthday"/>
       </div>
 
       <form-submit-button label="Submit"/>
     </form>
-
 
     <form id='trainer-form' @submit.prevent="handle" v-if="user.role === 'trainer'">
 
@@ -56,11 +43,6 @@
       <div  class="form-group">
         <label for="about">About you</label>
         <textarea class='form-input-textarea' id="about" name="about" v-model="user.about" />
-      </div>
-
-      <div class="form-group">
-        <label for="birthday">Birthday</label>
-        <flat-pickr v-model="user.birthday" :config="config" id="birthday" class="form-input" placeholder="Date only"/>
       </div>
 
       <form-submit-button label="Submit"/>
@@ -83,8 +65,8 @@ export default {
       user: this.$store.state.auth.user,
       config: {
         altInput: true,
-        altFormat: "Y-m-d",
-        dateFormat: "Y-m-d H:i:S",
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
         locale: {
           firstDayOfWeek: 1,
         },
