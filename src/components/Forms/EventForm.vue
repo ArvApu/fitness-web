@@ -60,7 +60,7 @@ export default {
       eventObj: {
         attendee_id: this.$store.state.auth.clientId ?? this.$store.state.auth.user.id,
         title: null,
-        information: 'this.title',
+        information: null,
         start_time: null,
         end_time: null,
         all_day: false,
@@ -85,9 +85,12 @@ export default {
   },
   methods: {
     handle() {
-
       if(!this.eventObj.end_time) {
         this.eventObj.end_time = this.eventObj.start_time
+      }
+
+      if(!this.eventObj.information) {
+        this.eventObj.information = this.eventObj.title
       }
 
       this.$store.dispatch('events/create', this.eventObj)

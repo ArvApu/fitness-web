@@ -9,14 +9,27 @@
       </button>
     </div>
 
-
     <div class="calendar-box">
       <full-calendar ref="fullCalendar" :options="calendarOptions" />
     </div>
 
     <div class="events-box">
-      <div v-for="event in events" :key="event.id">
-        {{ event }}
+      <div class="event" v-for="event in events" :key="event.id">
+        <h3> {{ event.title }}</h3>
+
+        <div v-if="event.all_day">
+          <p> All day </p>
+        </div>
+        <div v-else class="from-to">
+          <p> <b>From:</b> {{ event.start_time }}</p>
+          <p> <b>To:</b> {{ event.end_time }}</p>
+        </div>
+
+        <div class="control">
+          <font-awesome-icon class='view' icon="eye" size="lg" v-on:click="view(event.id)"/>
+        </div>
+
+
       </div>
     </div>
 
@@ -82,7 +95,7 @@ export default {
       calendarApi.changeView('timeGridDay', arg.dateStr);
     },
     handleEventClick(arg) {
-      this.$router.push({ name: 'Event', params: {id: arg.event.id} })
+      this.view(arg.event.id);
     },
     handleDateChange(arg) {
       this.fetchAll({userId: this.userId, start: arg.startStr.substring(0, 10), end: arg.endStr.substring(0, 10)}).then(() => {
@@ -112,12 +125,16 @@ export default {
     },
     handleExport() {
       this.export(this.userId);
-    }
+    },
+    view(id) {
+      this.$router.push({ name: 'Event', params: {id: id} })
+    },
   },
 }
 </script>
 
 <style>
+
   .calendar {
     margin: 0 100px;
   }
@@ -127,6 +144,10 @@ export default {
 
   .cal-btn button:first-child {
     margin-right: 10px;
+  }
+
+  .events-box {
+    display: none;
   }
 
   @media only screen and (max-width: 1120px) {
@@ -145,9 +166,41 @@ export default {
     }
 
     .events-box {
-      padding-top: 20px;
       display: flex;
       flex-direction: column;
+      flex-wrap: wrap;
+    }
+
+    .event {
+      border: 1px solid #999999;
+      border-radius: 7px;
+      box-sizing: border-box;
+      margin: 1rem 0.6em 1rem 0.3em;
+      flex: 0 1 48%;
+      transition: 0.3s;
+      height: 130px;
+      padding: 7px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event h3 {
+      margin: 0;
+    }
+
+    .event .from-to {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .event .control {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      border-top: solid 1px #999999;
+      padding-top: 5px;
+      width: 100%;
     }
   }
 
@@ -171,6 +224,16 @@ export default {
 
     .fc-toolbar-title {
       font-size: 20px !important;
+    }
+
+    .event .from-to {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .event .from-to p:last-child {
+      margin: 0;
     }
   }
 

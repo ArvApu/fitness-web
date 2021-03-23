@@ -19,7 +19,7 @@ const mutations = {
         state.errors = errors;
     },
     ADD_EVENT(state, event) {
-        state.events.unshift(event);
+        state.events.push(event);
     },
     UPDATE_EVENT(state, event) {
         state.events = state.events.map((e) =>
