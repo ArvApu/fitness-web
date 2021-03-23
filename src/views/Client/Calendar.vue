@@ -78,6 +78,11 @@ export default {
           center: 'title',
           right: 'dayGridMonth,timeGridDay'
         },
+        eventTimeFormat: {
+          hour: '2-digit',
+          minute: '2-digit',
+          meridiem: false
+        },
       }
     }
   },
