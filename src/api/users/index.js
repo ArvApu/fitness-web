@@ -16,4 +16,11 @@ export default {
         return request.post(`users/invite/${token}`);
     },
 
+    update(id, payload) {
+        return request.put(`users/${id}`, payload);
+    },
+
+    destroy(id) {
+        return request.delete(`users/${id}`);
+    },
 };

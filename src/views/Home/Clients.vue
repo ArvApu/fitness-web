@@ -23,7 +23,9 @@
           </div>
 
           <div class="control">
-            <font-awesome-icon class='view' icon="eye" size="lg" v-on:click="view(client.id)"/>
+            <font-awesome-icon v-if="client.role === 'user'" class='view' icon="eye" size="lg" v-on:click="view(client.id)"/>
+            <font-awesome-icon v-if="$store.state.auth.user.role === 'admin'" class='edit' icon="pen" size="lg" v-on:click="edit(client)"/>
+            <font-awesome-icon v-if="client.role === 'user'" class='remove' icon="trash-alt" size="lg" v-on:click="remove(client.id)"/>
           </div>
 
         </div>
@@ -40,6 +42,12 @@
         </div>
       </modal>
 
+      <modal class="force-scroll-modal" name="update-user-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+        <div class="modal-from">
+          <user-update-form :user="client" @updated="hideEdit"/>
+        </div>
+      </modal>
+
     </div>
 
   </div>
@@ -49,6 +57,7 @@
 
 import { mapState, mapActions} from 'vuex';
 import UserInviteForm from "@/components/Forms/UserInviteForm";
+import UserUpdateForm from "@/components/Forms/UserUpdateForm";
 import EmptyMessageBlock from "@/components/EmptyMessageBlock";
 import Paginator from "@/components/Paginator";
 
@@ -56,8 +65,14 @@ export default {
   name: 'Clients',
   components: {
     UserInviteForm,
+    UserUpdateForm,
     EmptyMessageBlock,
     Paginator
+  },
+  data() {
+    return {
+      client: null,
+    }
   },
   computed: {
     ...mapState('users', [
@@ -66,7 +81,7 @@ export default {
   },
   methods: {
     ...mapActions('users', [
-      'fetchAll'
+      'fetchAll', 'delete', 'update'
     ]),
     show () {
       this.$modal.show('invite-user-modal');
@@ -77,6 +92,34 @@ export default {
     view(id) {
       this.$store.commit('auth/SET_CLIENT_ID', id);
       this.$router.push({ name: 'Client'});
+    },
+    edit(client) {
+      this.client = client;
+      this.$modal.show('update-user-modal');
+    },
+    hideEdit() {
+      this.$modal.hide('update-user-modal');
+    },
+    remove(id) {
+      this.$modal.show('dialog', {
+        title: 'WARNING',
+        text: 'You are going to delete a user. Are you sure you want to do this?',
+        buttons: [
+          {
+            title: 'Cancel',
+            handler: () => {
+              this.$modal.hide('dialog');
+            }
+          },
+          {
+            title: 'Yes',
+            handler: () => {
+              this.$modal.hide('dialog');
+              this.delete(id);
+            }
+          },
+        ]
+      })
     },
     paginate(page) {
       this.fetchAll(page)
