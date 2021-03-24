@@ -14,7 +14,7 @@
     </div>
 
     <div class='form-group'>
-      <label> Workout </label>
+      <label> Workout (optional) </label>
       <v-select @search="fetchWorkouts" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId"/>
     </div>
 
@@ -119,6 +119,7 @@ export default {
   },
   created() {
     this.$store.dispatch('events/clearErrors');
+    this.$store.dispatch('workouts/fetchAll', {page: 1})
   }
 }
 </script>
