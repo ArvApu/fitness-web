@@ -35,7 +35,7 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAll({ commit }, page) {
+    async fetchAll({ commit }, { page }) {
         try {
             commit('SET_IS_LOADING', true);
             const response = await api.workouts.all(page);
@@ -46,6 +46,7 @@ const actions = {
                 total: response.data.meta.total,
                 perPage: response.data.meta.per_page,
             });
+            return response.data.data;
         } catch (e) {
             this._vm.$toast.error('Failed to fetch workouts.');
             return Promise.reject(e);

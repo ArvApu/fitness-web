@@ -13,6 +13,11 @@
       <label for="all_day"> Will event be all day? </label>
     </div>
 
+    <div class='form-group'>
+      <label> Workout </label>
+      <v-select @search="fetchWorkouts" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId"/>
+    </div>
+
     <hr>
 
       <div v-show="eventObj.all_day">
@@ -53,6 +58,9 @@ export default {
   computed: {
     ...mapState('events', [
       'errors'
+    ]),
+    ...mapState('workouts', [
+        'workouts', 'paginator'
     ])
   },
   data() {
@@ -65,6 +73,7 @@ export default {
         end_time: null,
         all_day: false,
       },
+      workoutId: null,
       config: {
         enableTime: true,
         dateFormat: "Y-m-d H:i:S",
@@ -86,18 +95,27 @@ export default {
   methods: {
     handle() {
       if(!this.eventObj.end_time) {
-        this.eventObj.end_time = this.eventObj.start_time
+        this.eventObj.end_time = this.eventObj.start_time;
       }
 
       if(!this.eventObj.information) {
-        this.eventObj.information = this.eventObj.title
+        this.eventObj.information = this.eventObj.title;
+      }
+
+      if(this.workoutId) {
+        this.eventObj.workout_id = this.workoutId;
       }
 
       this.$store.dispatch('events/create', this.eventObj)
-          .then((result) => {
-            this.$emit('created', result)
-          });
+        .then((result) => {
+          this.$emit('created', result)
+        });
     },
+    fetchWorkouts(search, loading) {
+      loading(true)
+      this.$store.dispatch('workouts/fetchAll', {page: 1})
+        .finally(() => loading(false))
+    }
   },
   created() {
     this.$store.dispatch('events/clearErrors');
