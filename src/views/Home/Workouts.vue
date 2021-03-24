@@ -112,11 +112,11 @@ export default {
       this.$modal.hide('add-workout-modal');
     },
     paginate(page) {
-      this.fetchAll(page)
+      this.fetchAll({page: page})
     }
   },
   created() {
-    this.fetchAll(this.paginator.currentPage)
+    this.fetchAll({page: this.paginator.currentPage})
   }
 }
 </script>

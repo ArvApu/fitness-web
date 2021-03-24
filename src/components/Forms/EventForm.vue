@@ -15,7 +15,12 @@
 
     <div class='form-group'>
       <label> Workout (optional) </label>
-      <v-select @search="fetchWorkouts" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId"/>
+      <v-select @search="fetchWorkouts" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId">
+        <li slot="list-footer" class="pagination">
+          <button class="btn btn-secondary" @click.prevent="prevPage()" :disabled="!hasPrevPage">Prev</button>
+          <button class="btn btn-secondary" @click.prevent="nextPage()" :disabled="!hasNextPage">Next</button>
+        </li>
+      </v-select>
     </div>
 
     <hr>
@@ -61,7 +66,13 @@ export default {
     ]),
     ...mapState('workouts', [
         'workouts', 'paginator'
-    ])
+    ]),
+    hasNextPage () {
+      return Boolean(this.paginator.currentPage < this.paginator.lastPage);
+    },
+    hasPrevPage () {
+      return Boolean(this.paginator.currentPage >= this.paginator.lastPage);
+    }
   },
   data() {
     return {
@@ -113,8 +124,20 @@ export default {
     },
     fetchWorkouts(search, loading) {
       loading(true)
-      this.$store.dispatch('workouts/fetchAll', {page: 1})
-        .finally(() => loading(false))
+      this.search = !search.length ? null : search;
+      this.$store.dispatch('workouts/fetchAll', {
+        page: 1, search: search
+      }).finally(() => loading(false))
+    },
+    nextPage() {
+      this.$store.dispatch('workouts/fetchAll', {
+        page: this.paginator.currentPage + 1, search: this.search
+      });
+    },
+    prevPage() {
+      this.$store.dispatch('workouts/fetchAll', {
+        page: this.paginator.currentPage - 1, search: this.search
+      });
     }
   },
   created() {
@@ -123,3 +146,18 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .pagination {
+    display: flex;
+    margin: .25rem .25rem 0;
+  }
+
+  .pagination button {
+    flex-grow: 1;
+  }
+
+  .pagination button:disabled {
+    cursor: default;
+  }
+</style>

@@ -35,10 +35,10 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAll({ commit }, { page }) {
+    async fetchAll({ commit }, { page, search}) {
         try {
             commit('SET_IS_LOADING', true);
-            const response = await api.workouts.all(page);
+            const response = await api.workouts.all(page, search);
             commit('SET_WORKOUTS', response.data.data);
             commit('SET_PAGINATOR', {
                 currentPage: response.data.meta.current_page,

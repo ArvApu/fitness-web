@@ -4,7 +4,10 @@ const resource = 'workouts';
 
 export default {
 
-    all(page) {
+    all(page, search) {
+        if(search) {
+            return request.get(`${resource}?page=${page}&q=${search}`);
+        }
         return request.get(`${resource}?page=${page}`);
     },
 
