@@ -2,7 +2,10 @@ import request from './../request';
 
 export default {
 
-    get(page) {
+    get(page, search) {
+        if(search) {
+            return request.get('users?page='+page+'&q='+search);
+        }
         return request.get('users?page='+page);
     },
 

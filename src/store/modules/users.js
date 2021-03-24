@@ -35,9 +35,9 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAll({ commit }, page) {
+    async fetchAll({ commit }, {page, search}) {
         try {
-            const response = await api.users.get(page);
+            const response = await api.users.get(page, search);
             commit('SET_USERS', response.data.data);
             commit('SET_PAGINATOR', {
                 currentPage: response.data.meta.current_page,

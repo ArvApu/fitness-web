@@ -122,11 +122,11 @@ export default {
       })
     },
     paginate(page) {
-      this.fetchAll(page)
+      this.fetchAll({page: page})
     }
   },
   created() {
-    this.fetchAll(this.paginator.currentPage)
+    this.fetchAll({page: this.paginator.currentPage})
   }
 }
 </script>

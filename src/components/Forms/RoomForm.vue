@@ -9,8 +9,13 @@
     </div>
 
     <div class='form-group'>
-      <label for="user"> User </label>
-      <input required class='form-input' type="number" id="user" name="user" v-model="user">
+      <label> User </label>
+      <v-select required @search="fetchUsers" :filterable="false" :options="users" label="last_name" :reduce="user => user.id" v-model="userId">
+        <li slot="list-footer" class="pagination">
+          <button class="btn btn-secondary" @click.prevent="prevPage()" :disabled="!hasPrevPage">Prev</button>
+          <button class="btn btn-secondary" @click.prevent="nextPage()" :disabled="!hasNextPage">Next</button>
+        </li>
+      </v-select>
     </div>
 
     <form-submit-button label="Add room" :processing="this.$store.state.users.isLoading"/>
@@ -26,29 +31,72 @@ export default {
   name: 'RoomForm',
   data() {
     return {
+      search: null,
       name: null,
-      user: null,
+      userId: null,
     }
   },
   computed: {
     ...mapState('rooms', [
       'errors'
-    ])
+    ]),
+    ...mapState('users', [
+      'users', 'paginator'
+    ]),
+    hasNextPage () {
+      return Boolean(this.paginator.currentPage < this.paginator.lastPage);
+    },
+    hasPrevPage () {
+      return Boolean(this.paginator.currentPage >= this.paginator.lastPage);
+    }
   },
   methods: {
     handle() {
       this.$store.dispatch('rooms/create', {
         name: this.name,
         users: [
-          this.user // TODO: select users from list
+          this.userId // TODO: select users from list
         ]
       }).then(() => {
         this.$emit('created')
       });
+    },
+    fetchUsers(search, loading) {
+      loading(true);
+      this.search = !search.length ? null : search;
+      this.$store.dispatch('users/fetchAll', {
+        page: 1, search: search
+      }).finally(() => loading(false))
+    },
+    nextPage() {
+      this.$store.dispatch('users/fetchAll', {
+        page: this.paginator.currentPage + 1, search: this.search
+      });
+    },
+    prevPage() {
+      this.$store.dispatch('users/fetchAll', {
+        page: this.paginator.currentPage - 1, search: this.search
+      });
     }
   },
   created() {
-    this.$store.dispatch('rooms/clearErrors')
+    this.$store.dispatch('rooms/clearErrors');
+    this.$store.dispatch('users/fetchAll', {page: 1});
   }
 }
 </script>
+
+<style scoped>
+.pagination {
+  display: flex;
+  margin: .25rem .25rem 0;
+}
+
+.pagination button {
+  flex-grow: 1;
+}
+
+.pagination button:disabled {
+  cursor: default;
+}
+</style>
