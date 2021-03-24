@@ -5,7 +5,7 @@
       <h1> {{ event.title }} </h1>
 
       <h4> Information </h4>
-      <div class="information"> {{ event.information }} asdasa asdasa asdasa asdasa asdasa asdasa asdasa asdasa</div>
+      <div class="information"> {{ event.information }} </div>
 
       <h4> Duration </h4>
       <div v-if="event.all_day">
