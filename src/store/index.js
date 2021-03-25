@@ -14,6 +14,7 @@ import users from './modules/users';
 import events from './modules/events';
 import workoutLogs from './modules/workoutLogs';
 import profile from './modules/profile';
+import news from './modules/news';
 
 Vue.use(Vuex)
 
@@ -43,6 +44,7 @@ export default new Vuex.Store({
     events,
     workoutLogs,
     profile,
+    news,
   },
   plugins: [apiPlugin, persistedState, broadcast],
   strict: debug

@@ -11,6 +11,7 @@ import email from "./email";
 import workoutLogs from "./workoutLogs";
 import rooms from "./rooms";
 import profile from "./profile";
+import news from "./news";
 
 export default {
     request,
@@ -26,4 +27,5 @@ export default {
     workoutLogs,
     rooms,
     profile,
+    news,
 };
