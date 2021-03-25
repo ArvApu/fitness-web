@@ -20,6 +20,7 @@ import Event from "@/views/Client/Event";
 import Settings from "@/views/Settings";
 import Account from "@/views/Settings/Account";
 import Security from "@/views/Settings/Security";
+import Overview from "@/views/Home/Overview";
 
 Vue.use(VueRouter)
 
@@ -28,8 +29,14 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    redirect: '/overview',
     meta: { trainer: true },
     children: [
+      {
+        path: '/overview',
+        name: 'Overview',
+        component: Overview,
+      },
       {
         path: '/exercises',
         name: 'Exercises',
