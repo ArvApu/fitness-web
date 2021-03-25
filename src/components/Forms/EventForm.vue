@@ -15,7 +15,7 @@
 
     <div class='form-group'>
       <label> Workout (optional) </label>
-      <v-select @search="fetchWorkouts" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId">
+      <v-select @search="fetchWorkouts" :appendToBody="true" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId">
         <li slot="list-footer" class="pagination">
           <button class="btn btn-secondary" @click.prevent="prevPage()" :disabled="!hasPrevPage">Prev</button>
           <button class="btn btn-secondary" @click.prevent="nextPage()" :disabled="!hasNextPage">Next</button>

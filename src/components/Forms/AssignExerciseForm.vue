@@ -2,32 +2,23 @@
 
 <div>
 
-  <div v-if="isChoosingExercise" >
-
-    <div class="exercises-list">
-      <div v-for="exercise in exercises" :key="exercise.id" v-on:click="chooseExercise(exercise)"
-           :class="{highlight:exercise.id === selected}" class="exercise"
-      >
-        <span> {{ exercise.id }} {{ exercise.name }} </span>
-        <span v-show="exercise.id === selected">
-          <font-awesome-icon icon="check"/>
-        </span>
-      </div>
-    </div>
-
-    <button v-on:click="isChoosingExercise = false" :disabled="!selected" class="form-input btn btn-secondary">
-      <font-awesome-icon icon="angle-double-right" size="lg"/>
-    </button>
-
-  </div>
-
-  <div v-if="isChoosingExercise">
-
-  </div>
-
-  <form v-if="!isChoosingExercise" id='assign-exercise-form' @submit.prevent="handle">
+  <form id='assign-exercise-form' @submit.prevent="handle">
 
     <alerts :errors="errors"/>
+
+    <div class='form-group'>
+      <label> Exercise </label>
+      <v-select @search="fetchExercises" :appendToBody="true" :filterable="false" :options="exercises"
+                label="name" :reduce="exercise => exercise.id" v-model="assignee.id">
+        <template #search="{attributes, events}">
+          <input class="vs__search" :required="!assignee.id" v-bind="attributes" v-on="events"/>
+        </template>
+        <li slot="list-footer" class="pagination">
+          <button class="btn btn-secondary" @click.prevent="prevPage()" :disabled="!hasPrevPage">Prev</button>
+          <button class="btn btn-secondary" @click.prevent="nextPage()" :disabled="!hasNextPage">Next</button>
+        </li>
+      </v-select>
+    </div>
 
     <div class='form-group' style="margin-right: 12px">
       <label for="sets"> Sets </label>
@@ -45,11 +36,6 @@
     </div>
 
     <div class="buttons" >
-
-      <button v-on:click="isChoosingExercise = true" class="form-input btn btn-secondary">
-        <font-awesome-icon icon="angle-double-left" size="lg"/>
-      </button>
-
       <form-submit-button label="Submit"/>
     </div>
 
@@ -65,11 +51,6 @@ import {mapState} from "vuex";
 export default {
   name: 'AssignExerciseForm',
   props: {
-    id: Number,
-    name: String,
-    sets: Number,
-    reps: Number,
-    rest: Number,
     workoutId: {
       type: Number,
       required: true,
@@ -77,26 +58,31 @@ export default {
   },
   computed: {
     ...mapState('exercises', [
-      'exercises'
+      'exercises', 'paginator'
     ]),
     ...mapState('workouts', [
        'errors'
     ]),
+    hasNextPage () {
+      return Boolean(this.paginator.currentPage < this.paginator.lastPage);
+    },
+    hasPrevPage () {
+      return Boolean(this.paginator.currentPage >= this.paginator.lastPage);
+    }
   },
   data() {
     return {
       assignee: {
-        sets: this.sets,
-        reps: this.reps,
-        rest: this.rest,
+        id: null,
+        sets: null,
+        reps: null,
+        rest: null,
       },
-      isChoosingExercise: true,
-      selected: this.id,
+      exerciseId: null,
     }
   },
   methods: {
     handle() {
-      this.assignee.id = this.selected;
       this.$store.dispatch('workouts/assignExercises', {
         id: this.workoutId,
         exercises: [this.assignee]
@@ -104,16 +90,27 @@ export default {
         this.$emit('created')
       });
     },
-    cancel() {
-      this.$emit('canceled');
+    fetchExercises(search, loading) {
+      loading(true)
+      this.search = !search.length ? null : search;
+      this.$store.dispatch('exercises/fetchAll', {
+        page: 1, search: search
+      }).finally(() => loading(false))
     },
-    chooseExercise(exercise) {
-      this.selected = exercise.id;
+    nextPage() {
+      this.$store.dispatch('exercises/fetchAll', {
+        page: this.paginator.currentPage + 1, search: this.search
+      });
     },
+    prevPage() {
+      this.$store.dispatch('exercises/fetchAll', {
+        page: this.paginator.currentPage - 1, search: this.search
+      });
+    }
   },
   created() {
     this.$store.dispatch('workouts/clearErrors')
-    this.$store.dispatch('exercises/fetchAll');
+    this.$store.dispatch('exercises/fetchAll', {page: 1});
   }
 }
 </script>
@@ -123,28 +120,16 @@ export default {
     display: flex;
   }
 
-  .exercise {
-    height: 40px;
+  .pagination {
     display: flex;
-    align-items: center;
-    border-bottom: 1px solid #393e46;
-    padding: 7px;
-    text-transform: capitalize;
+    margin: .25rem .25rem 0;
   }
 
-  .exercises-list div:last-child {
-    border-bottom: none;
+  .pagination button {
+    flex-grow: 1;
   }
 
-  .highlight {
-    background: #dbdbdb;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
+  .pagination button:disabled {
+    cursor: default;
   }
-
-  .highlight span:last-child {
-    color: var(--success-color);
-  }
-
 </style>

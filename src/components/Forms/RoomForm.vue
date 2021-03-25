@@ -4,18 +4,21 @@
     <alerts :errors="errors"/>
 
     <div class='form-group'>
-      <label for="name"> Name </label>
-      <input required class='form-input' type="text" id="name" name="name" v-model="name">
-    </div>
-
-    <div class='form-group'>
       <label> User </label>
-      <v-select required @search="fetchUsers" :filterable="false" :options="users" label="last_name" :reduce="user => user.id" v-model="userId">
+      <v-select required @search="fetchUsers" :appendToBody="true" :filterable="false" :options="users" label="last_name" :reduce="user => user.id" v-model="userId">
+        <template #search="{attributes, events}">
+          <input class="vs__search" :required="!userId" v-bind="attributes" v-on="events"/>
+        </template>
         <li slot="list-footer" class="pagination">
           <button class="btn btn-secondary" @click.prevent="prevPage()" :disabled="!hasPrevPage">Prev</button>
           <button class="btn btn-secondary" @click.prevent="nextPage()" :disabled="!hasNextPage">Next</button>
         </li>
       </v-select>
+    </div>
+
+    <div class='form-group'>
+      <label for="name"> Name </label>
+      <input required class='form-input' type="text" id="name" name="name" v-model="name">
     </div>
 
     <form-submit-button label="Add room" :processing="this.$store.state.users.isLoading"/>

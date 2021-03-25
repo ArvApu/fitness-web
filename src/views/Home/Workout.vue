@@ -14,7 +14,7 @@
         <th scope="col">Name</th>
         <th scope="col">Sets</th>
         <th scope="col">Reps</th>
-        <th scope="col">Reset (s)</th>
+        <th scope="col">Rest (s)</th>
       </tr>
       </thead>
       <tbody>
