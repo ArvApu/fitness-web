@@ -5,7 +5,7 @@
 
     <div class='form-group'>
       <label> User </label>
-      <v-select required @search="fetchUsers" :appendToBody="true" :filterable="false" :options="users" label="last_name" :reduce="user => user.id" v-model="userId">
+      <v-select required @search="fetchUsers" :appendToBody="true" :filterable="false" :options="users" label="full_name" :reduce="user => user.id" v-model="userId">
         <template #search="{attributes, events}">
           <input class="vs__search" :required="!userId" v-bind="attributes" v-on="events"/>
         </template>
@@ -50,7 +50,7 @@ export default {
       return Boolean(this.paginator.currentPage < this.paginator.lastPage);
     },
     hasPrevPage () {
-      return Boolean(this.paginator.currentPage >= this.paginator.lastPage);
+      return Boolean(this.paginator.currentPage > this.paginator.lastPage);
     }
   },
   methods: {
