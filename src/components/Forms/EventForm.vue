@@ -71,7 +71,7 @@ export default {
       return Boolean(this.paginator.currentPage < this.paginator.lastPage);
     },
     hasPrevPage () {
-      return Boolean(this.paginator.currentPage > this.paginator.lastPage);
+      return Boolean(this.paginator.currentPage >= this.paginator.lastPage && this.paginator.currentPage !== 1);
     }
   },
   data() {
