@@ -117,7 +117,6 @@ export default {
     },
     showDetails(exercise) {
       this.url = exercise.url;
-      console.log(exercise.url);
       this.$modal.show('exercise-details-modal');
     },
     paginate(page) {

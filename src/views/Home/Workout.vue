@@ -15,6 +15,7 @@
         <th scope="col">Sets</th>
         <th scope="col">Reps</th>
         <th scope="col">Rest (s)</th>
+        <th scope="col">Video url</th>
       </tr>
       </thead>
       <tbody>
@@ -23,6 +24,10 @@
         <td data-label="Sets"> {{ exercise.pivot.sets }} </td>
         <td data-label="Reps"> {{ exercise.pivot.reps }} </td>
         <td data-label="Reset (s)"> {{ exercise.pivot.rest }} </td>
+        <td data-label="Video url">
+          <font-awesome-icon v-if="exercise.url" class='view' icon="video" size="lg" v-on:click="showDetails(exercise)"/>
+          <span v-else> - </span>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -32,6 +37,12 @@
     <modal class="force-scroll-modal" name="assign-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
       <div class="modal-from">
         <assign-exercise-form @created="add" @canceled="hide" :workoutId="parseInt(this.$route.params.id)"/>
+      </div>
+    </modal>
+
+    <modal class="force-scroll-modal" name="exercise-details-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+      <div>
+        <iframe class="video" :src="this.url"></iframe>
       </div>
     </modal>
 
@@ -50,6 +61,7 @@ export default {
   data() {
     return {
       workout: {},
+      url: null,
     }
   },
   components: {
@@ -69,6 +81,10 @@ export default {
     },
     hide () {
       this.$modal.hide('assign-exercise-modal');
+    },
+    showDetails(exercise) {
+      this.url = exercise.url;
+      this.$modal.show('exercise-details-modal');
     },
     add() {
       this.fetchOne(this.$route.params.id).then(
@@ -97,6 +113,16 @@ export default {
     padding: 12px 20px;
     display: inline-block;
     margin: 20px 0;
+  }
+
+  .view:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+  }
+
+  .video {
+    width: 100%;
+    height: 550px;
   }
 
 </style>
