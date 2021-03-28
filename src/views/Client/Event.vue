@@ -27,7 +27,7 @@
       </div>
 
       <div v-if="canControl" class="control-box">
-        <button v-on:click="edit" class="btn btn-secondary"> Edit </button>
+        <button v-if="event.workout_id" v-on:click="log(event.workout_id)" class="btn btn-secondary"> Log </button>
         <button v-on:click="remove" class="btn btn-danger"> Remove </button>
       </div>
     </div>
@@ -58,8 +58,8 @@ export default {
     ...mapActions('events', [
       'fetchOne', 'delete'
     ]),
-    edit() {
-      console.log('edit'); // TODO: Implement
+    log(id) {
+      this.$router.push({name: 'LogWorkout', params: {id: id}});
     },
     remove() {
       this.$modal.show('dialog', {
@@ -144,8 +144,6 @@ export default {
     font-weight: bold;
     color: #393e46;
     border-bottom: 1px solid #999999;
-    /*border: 1px solid red;*/
-    /*overflow: hidden;*/
   }
 
   .workout-link span {
@@ -178,7 +176,7 @@ export default {
       flex-direction: column;
     }
 
-    .control-box button:first-child {
+    .control-box button {
       margin-bottom: 5px;
     }
   }

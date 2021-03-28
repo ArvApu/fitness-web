@@ -34,14 +34,14 @@
 
               <div class='form-group'>
                 <label :for="`${exercise.id}-sets`" class="exercise-log-input-label"> Sets done </label>
-                <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'sets_done')"
-                       :max="exercise.pivot.sets" type="number" :id="`${exercise.id}-sets`" placeholder="Number of sets done"> / {{ exercise.pivot.sets }}
+                <input required class="exercise-log-input" @input="updateExerciseLog(parseInt($event.target.value), exercise, 'sets_done')"
+                       :max="exercise.pivot.sets" type="number" :id="`${exercise.id}-sets`" placeholder="Number of sets done"> <b style="font-size: 18px"> / {{ exercise.pivot.sets }}</b>
               </div>
 
               <div class='form-group'>
-                <label :for="`${exercise.id}-weight`" class="exercise-log-input-label"> Exercise weight, seconds etc.  </label>
-                <input required @input="updateExerciseLog(parseInt($event.target.value), exercise, 'weight')"
-                       type="number" :id="`${exercise.id}-weight`" placeholder="Value of exercise unit">
+                <label :for="`${exercise.id}-measurement-value`" class="exercise-log-input-label"> Did total of {{ exercise.measurement }} per set </label>
+                <input required class="exercise-log-input" @input="updateExerciseLog(parseInt($event.target.value), exercise, 'measurement_value')"
+                       type="number" :id="`${exercise.id}-measurement-value`" placeholder="Value of exercise measurement">
               </div>
               <hr>
             </div>
@@ -100,7 +100,7 @@ export default {
         log['comment'] = this.log.comment;
       }
 
-      this.create(log); // TODO: success message
+      this.create(log);
     },
     updateExerciseLog(value, exercise, field) {
       const foundIndex = this.exerciseLogs.findIndex(x => x.exercise_id === exercise.id);
@@ -135,7 +135,30 @@ h4 {
 }
 
 .exercise-log-input-label {
+  text-transform: capitalize;
   display: block;
 }
 
+
+.exercise-log-input {
+  width: 50%;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 4px 0;
+}
+
+@media only screen and (max-width: 900px) {
+  .exercise-log-input {
+    width: 80%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 4px 0;
+  }
+}
 </style>
