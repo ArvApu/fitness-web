@@ -29,7 +29,6 @@
           <font-awesome-icon class='view' icon="eye" size="lg" v-on:click="view(event.id)"/>
         </div>
 
-
       </div>
     </div>
 
