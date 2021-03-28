@@ -8,11 +8,6 @@
       <input required class='form-input' type="text" id="title" name="title" v-model="eventObj.title">
     </div>
 
-    <div class='form-check'>
-      <input type="checkbox" id="all_day" name="all_day" v-model="eventObj.all_day">
-      <label for="all_day"> Will event be all day? </label>
-    </div>
-
     <div class='form-group'>
       <label> Workout (optional) </label>
       <v-select @search="fetchWorkouts" :appendToBody="true" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId">
@@ -21,6 +16,16 @@
           <button class="btn btn-secondary" @click.prevent="nextPage()" :disabled="!hasNextPage">Next</button>
         </li>
       </v-select>
+    </div>
+
+    <div class='form-group'>
+      <label for="information"> Information (optional) </label>
+      <textarea class='form-input-textarea' id="information" name="information" v-model="eventObj.information" />
+    </div>
+
+    <div class='form-check'>
+      <input type="checkbox" id="all_day" name="all_day" v-model="eventObj.all_day">
+      <label for="all_day"> Will event be all day? </label>
     </div>
 
     <hr>
