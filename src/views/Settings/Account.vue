@@ -23,12 +23,12 @@
         <flat-pickr v-model="user.birthday" :config="config" id="birthday-u" class="form-input" placeholder="Birthday"/>
       </div>
 
-      <div class="form-group" v-if="user.role === 'admin'">
+      <div class="form-group" v-if="user.role === 'user'">
         <label for="weight">Weight</label>
         <input class="form-input" v-model="user.weight" id="weight" type="text" placeholder="Weight"/>
       </div>
 
-      <div v-if="user.role === 'admin'">
+      <div v-if="user.role === 'trainer'">
 
         <h2> Trainer information </h2>
 
