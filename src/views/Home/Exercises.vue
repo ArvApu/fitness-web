@@ -21,6 +21,7 @@
           </div>
 
           <div class="control">
+            <font-awesome-icon v-if="exercise.url" class='view' icon="video" size="lg" v-on:click="showDetails(exercise)"/>
             <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="edit(exercise)"/>
             <font-awesome-icon class='remove' icon="trash-alt" size="lg" v-on:click="remove(exercise.id)"/>
           </div>
@@ -36,6 +37,12 @@
       <modal class="force-scroll-modal" name="add-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
         <div class="modal-from">
           <exercise-form v-bind="this.exercise" @created="hide" @updated="hide"/>
+        </div>
+      </modal>
+
+      <modal class="force-scroll-modal" name="exercise-details-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+        <div>
+          <iframe class="video" :src="this.url"></iframe>
         </div>
       </modal>
 
@@ -61,6 +68,7 @@ export default {
   data() {
     return {
       exercise: null,
+      url: null,
     }
   },
   computed: {
@@ -107,6 +115,11 @@ export default {
     hide () {
       this.$modal.hide('add-exercise-modal');
     },
+    showDetails(exercise) {
+      this.url = exercise.url;
+      console.log(exercise.url);
+      this.$modal.show('exercise-details-modal');
+    },
     paginate(page) {
       this.fetchAll({page: page})
     }
@@ -119,4 +132,8 @@ export default {
 
 <style scoped>
   @import '../../assets/css/items.css';
+  .video {
+    width: 100%;
+    height: 550px;
+  }
 </style>
