@@ -12,6 +12,7 @@ import workoutLogs from "./workoutLogs";
 import rooms from "./rooms";
 import profile from "./profile";
 import news from "./news";
+import statistics from "./statistics";
 
 export default {
     request,
@@ -28,4 +29,5 @@ export default {
     rooms,
     profile,
     news,
+    statistics,
 };
