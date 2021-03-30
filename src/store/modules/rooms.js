@@ -31,15 +31,21 @@ const mutations = {
         state.paginator = paginator;
     },
     SET_ROOM_MESSAGES_COUNT(state, {id, count}) {
-        console.log(id, count);
         state.rooms = state.rooms.map((room) => {
             if (room.roomId === id) {
                 room.unreadCount = count;
             }
             return room;
         });
-        console.log(state.rooms);
     },
+    INCREMENT_ROOM_MESSAGES_COUNT(state, id) {
+        state.rooms = state.rooms.map((room) => {
+            if (room.roomId === id) {
+                room.unreadCount++;
+            }
+            return room;
+        });
+    }
 };
 
 const actions = {

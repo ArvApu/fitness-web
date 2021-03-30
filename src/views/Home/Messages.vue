@@ -13,6 +13,7 @@
         :show-add-room="canAddRoom"
         :show-reaction-emojis="false"
         :show-new-messages-divider="false"
+        :load-first-room="false"
         @fetch-messages="handleMessages"
         @fetch-more-rooms="handleRooms"
         @send-message="handleMessageSend"
@@ -112,6 +113,10 @@ export default {
     this.fetchRooms(1).finally(() => {
       this.roomsLoaded = this.roomPaginator.currentPage >= this.roomPaginator.lastPage;
     });
+  },
+  beforeRouteLeave (to, from, next) {
+    this.$store.commit('messages/SET_CURRENT_ROOM', null);
+    next()
   }
 }
 </script>

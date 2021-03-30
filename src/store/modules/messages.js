@@ -30,6 +30,9 @@ const mutations = {
     SET_PAGINATOR(state, paginator) {
         state.paginator = paginator;
     },
+    SET_CURRENT_ROOM(state, room) {
+        state.currentRoom = room;
+    }
 };
 
 const actions = {
@@ -44,6 +47,8 @@ const actions = {
                 total: response.data.meta.total,
                 perPage: response.data.meta.per_page,
             });
+
+            commit('SET_CURRENT_ROOM', roomId);
 
             const messages = [];
 
@@ -82,13 +87,15 @@ const actions = {
         });
     },
 
-    receive({ commit }, message) {
+    async receive({ state, commit, dispatch }, message) {
 
-        if(message.room_id === 11111) { // TODO: check if room is opened, if yes add message
+        if(message.room_id === state.currentRoom) {
             commit('ADD_MESSAGE', parseMessage(message));
+            await dispatch('rooms/readMessages', message.room_id, { root: true });
             return;
         }
 
+        commit('rooms/INCREMENT_ROOM_MESSAGES_COUNT', message.room_id, { root: true });
         this._vm.$toast('You received a message.');
     },
 };
