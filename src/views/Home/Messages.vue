@@ -50,7 +50,7 @@ export default {
       userId: null,
       messagesLoaded: false,
       roomsLoaded: false,
-      canAddRoom: this.$store.state.auth.user.role !== 'user',
+      canAddRoom: this.$store.state.auth.user.role === 'admin',
     }
   },
   computed: {
