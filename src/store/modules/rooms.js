@@ -49,7 +49,7 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAll({ state, commit }, page) {
+    async fetchAll({ state, commit, rootState }, page) {
         try {
             commit('SET_IS_LOADING', true);
             const response = await api.rooms.all(page ?? state.paginator.currentPage);
@@ -62,9 +62,10 @@ const actions = {
             });
 
             const rooms = [];
+            const authUser = rootState.auth.user;
 
             for (let i = 0; i < response.data.data.length; i++) {
-                rooms.push(parseRoom(response.data.data[i]));
+                rooms.push(parseRoom(response.data.data[i], authUser));
             }
 
             commit('ADD_ROOMS', rooms);
@@ -122,7 +123,7 @@ export default module;
 
 /* Module helper methods */
 
-function parseRoom(room) {
+function parseRoom(room, authUser) {
 
     let users = [];
 
@@ -135,7 +136,7 @@ function parseRoom(room) {
 
     return {
         roomId: room.id,
-        roomName: room.name,
+        roomName: authUser.role === 'user' ? 'Trainer' : room.name,
         users: users,
         unreadCount: room.unread_count,
     }
