@@ -1,36 +1,42 @@
 <template>
   <div class="content-box">
 
-    <h1> {{ workout.name }} </h1>
+    <div v-if="isLoading">
+      <page-loading-ring/>
+    </div>
 
-    <p>
-      {{ workout.description }}
-    </p>
+    <div v-else>
+      <h1> {{ workout.name }} </h1>
 
-    <table>
-      <caption>Exercises</caption>
-      <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Sets</th>
-        <th scope="col">Reps</th>
-        <th scope="col">Rest (s)</th>
-        <th scope="col">Video url</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="exercise in workout.exercises" :key="exercise.id">
-        <td data-label="Name"> {{ exercise.name }} </td>
-        <td data-label="Sets"> {{ exercise.pivot.sets }} </td>
-        <td data-label="Reps"> {{ exercise.pivot.reps }} </td>
-        <td data-label="Reset (s)"> {{ exercise.pivot.rest }} </td>
-        <td data-label="Video url">
-          <font-awesome-icon v-if="exercise.url" class='view' icon="video" size="lg" v-on:click="showDetails(exercise)"/>
-          <span v-else> - </span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+      <p>
+        {{ workout.description }}
+      </p>
+
+      <table>
+        <caption>Exercises</caption>
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Sets</th>
+          <th scope="col">Reps</th>
+          <th scope="col">Rest (s)</th>
+          <th scope="col">Video url</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="exercise in workout.exercises" :key="exercise.id">
+          <td data-label="Name"> {{ exercise.name }} </td>
+          <td data-label="Sets"> {{ exercise.pivot.sets }} </td>
+          <td data-label="Reps"> {{ exercise.pivot.reps }} </td>
+          <td data-label="Reset (s)"> {{ exercise.pivot.rest }} </td>
+          <td data-label="Video url">
+            <font-awesome-icon v-if="exercise.url" class='view' icon="video" size="lg" v-on:click="showDetails(exercise)"/>
+            <span v-else> - </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- MODALS -->
 
@@ -55,6 +61,7 @@
 
 import { mapState, mapActions} from 'vuex';
 import AssignExerciseForm from "@/components/Forms/AssignExerciseForm";
+import PageLoadingRing from "@/components/PageLoadingRing";
 
 export default {
   name: 'Workout',
@@ -65,11 +72,12 @@ export default {
     }
   },
   components: {
-    AssignExerciseForm
+    AssignExerciseForm,
+    PageLoadingRing
   },
   computed: {
     ...mapState('workouts', [
-      'errors'
+      'errors', 'isLoading'
     ])
   },
   methods: {

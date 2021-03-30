@@ -73,7 +73,7 @@ export default {
     UserUpdateForm,
     EmptyMessageBlock,
     Paginator,
-    PageLoadingRing
+    PageLoadingRing,
   },
   data() {
     return {

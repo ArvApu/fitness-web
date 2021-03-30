@@ -1,7 +1,11 @@
 <template>
   <div class="content-box">
 
-    <div>
+    <div v-if="isLoading || firstLoad">
+      <page-loading-ring/>
+    </div>
+
+    <div v-else>
 
       <button class="btn btn-primary" v-on:click="add"> <font-awesome-icon icon="plus"/> Add workout </button>
 
@@ -51,22 +55,25 @@ import { mapState, mapActions} from 'vuex';
 import WorkoutForm from "@/components/Forms/WorkoutForm";
 import EmptyMessageBlock from "@/components/EmptyMessageBlock";
 import Paginator from "@/components/Paginator";
+import PageLoadingRing from "@/components/PageLoadingRing";
 
 export default {
   name: 'Workouts',
   components: {
     WorkoutForm,
     EmptyMessageBlock,
-    Paginator
+    Paginator,
+    PageLoadingRing,
   },
   data() {
     return {
       workout: null,
+      firstLoad: true,
     }
   },
   computed: {
     ...mapState('workouts', [
-      'workouts', 'paginator'
+      'workouts', 'paginator', 'isLoading'
     ])
   },
   methods: {
@@ -116,7 +123,9 @@ export default {
     }
   },
   created() {
-    this.fetchAll({page: this.paginator.currentPage})
+    this.fetchAll({page: this.paginator.currentPage}).finally(() => {
+      this.firstLoad = false;
+    });
   }
 }
 </script>

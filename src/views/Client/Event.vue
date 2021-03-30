@@ -1,7 +1,12 @@
 <template>
 
   <div class="event-container">
-    <div class="event">
+
+    <div v-if="isLoading || firstLoad">
+      <page-loading-ring/>
+    </div>
+
+    <div v-else class="event">
       <h1> {{ event.title }} </h1>
 
       <h4> Information </h4>
@@ -40,10 +45,14 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapState} from "vuex";
+import PageLoadingRing from "@/components/PageLoadingRing";
 
 export default {
   name: 'Event',
+  components: {
+    PageLoadingRing,
+  },
   data() {
     return {
       id: this.$route.params.id,
@@ -52,7 +61,13 @@ export default {
         title: null
       },
       canControl: ['trainer', 'admin'].includes(this.$store.state.auth.user.role),
+      firstLoad: true,
     }
+  },
+  computed: {
+    ...mapState('events', [
+        'isLoading'
+    ])
   },
   methods: {
     ...mapActions('events', [
@@ -88,6 +103,8 @@ export default {
       this.event = result;
     }).catch(() => {
       this.$router.back();
+    }).finally(() => {
+      this.firstLoad = false;
     });
   }
 }
