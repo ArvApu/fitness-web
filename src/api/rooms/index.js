@@ -22,5 +22,9 @@ export default {
 
     destroy(id) {
         return request.delete(`${resource}/${id}`);
-    }
+    },
+
+    readMessages(id) {
+        return request.post(`${resource}/${id}/messages/read`);
+    },
 };

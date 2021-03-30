@@ -30,6 +30,16 @@ const mutations = {
     SET_PAGINATOR(state, paginator) {
         state.paginator = paginator;
     },
+    SET_ROOM_MESSAGES_COUNT(state, {id, count}) {
+        console.log(id, count);
+        state.rooms = state.rooms.map((room) => {
+            if (room.roomId === id) {
+                room.unreadCount = count;
+            }
+            return room;
+        });
+        console.log(state.rooms);
+    },
 };
 
 const actions = {
@@ -69,6 +79,14 @@ const actions = {
             this._vm.$toast.success('Room created.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
+            return Promise.reject(e);
+        }
+    },
+    async readMessages({ commit }, id) {
+        try {
+            await api.rooms.readMessages(id);
+            commit('SET_ROOM_MESSAGES_COUNT', {id: id, count: 0});
+        } catch (e) {
             return Promise.reject(e);
         }
     },
@@ -113,5 +131,6 @@ function parseRoom(room) {
         roomId: room.id,
         roomName: room.name,
         users: users,
+        unreadCount: room.unread_count,
     }
 }

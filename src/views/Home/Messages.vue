@@ -67,7 +67,8 @@ export default {
     ]),
     ...mapActions('rooms', {
       fetchRooms: 'fetchAll',
-      resetRooms: 'resetRooms'
+      resetRooms: 'resetRooms',
+      readMessages: 'readMessages'
     }),
     handleMessageSend({ roomId, content }) {
       this.send({
@@ -83,8 +84,13 @@ export default {
     },
     handleMessages({room, options}){
       this.messagesLoaded = false;
+
       if(options && options.reset) {
         this.resetMessages();
+      }
+
+      if(room.unreadCount > 0) {
+        this.readMessages(room.roomId);
       }
 
       this.fetchAll({
