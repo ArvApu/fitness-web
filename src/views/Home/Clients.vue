@@ -1,11 +1,15 @@
 <template>
   <div class="content-box">
 
-    <div>
+    <div v-if="isLoading || firstLoad">
+      <page-loading-ring/>
+    </div>
+
+    <div v-else>
 
       <button class="btn btn-primary" v-on:click="show"> <font-awesome-icon icon="plus"/> Invite client </button>
 
-      <empty-message-block :show="users === undefined || users.length === 0" resource="clients"/>
+      <empty-message-block :show="(users === undefined || users.length === 0)" resource="clients"/>
 
       <div class="items">
 
@@ -60,6 +64,7 @@ import UserInviteForm from "@/components/Forms/UserInviteForm";
 import UserUpdateForm from "@/components/Forms/UserUpdateForm";
 import EmptyMessageBlock from "@/components/EmptyMessageBlock";
 import Paginator from "@/components/Paginator";
+import PageLoadingRing from "@/components/PageLoadingRing";
 
 export default {
   name: 'Clients',
@@ -67,16 +72,18 @@ export default {
     UserInviteForm,
     UserUpdateForm,
     EmptyMessageBlock,
-    Paginator
+    Paginator,
+    PageLoadingRing
   },
   data() {
     return {
       client: null,
+      firstLoad: true,
     }
   },
   computed: {
     ...mapState('users', [
-      'users', 'paginator'
+      'users', 'paginator', 'isLoading'
     ])
   },
   methods: {
@@ -126,7 +133,9 @@ export default {
     }
   },
   created() {
-    this.fetchAll({page: this.paginator.currentPage})
+    this.fetchAll({page: this.paginator.currentPage}).finally(() => {
+      this.firstLoad = false;
+    });
   }
 }
 </script>

@@ -72,22 +72,28 @@ const actions = {
     },
     async update({ commit }, user) {
         try {
+            commit('SET_IS_LOADING', true);
             const response = await api.users.update(user.id, {email: user.email});
             commit('UPDATE_USER', response.data);
             this._vm.$toast.success('User information updated.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
+        } finally {
+            commit('SET_IS_LOADING', false);
         }
     },
-    async delete({ state, dispatch }, id) {
+    async delete({ state, dispatch, commit}, id) {
         try {
+            commit('SET_IS_LOADING', true);
             await api.users.destroy(id);
             dispatch('fetchAll', state.paginator.currentPage );
             this._vm.$toast.success('User removed.');
         } catch (e) {
             this._vm.$toast.error('Failed to remove a user.');
             return Promise.reject(e);
+        } finally {
+            commit('SET_IS_LOADING', false);
         }
     },
     clearErrors({ commit }) {

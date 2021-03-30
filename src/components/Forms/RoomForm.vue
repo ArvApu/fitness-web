@@ -57,9 +57,7 @@ export default {
     handle() {
       this.$store.dispatch('rooms/create', {
         name: this.name,
-        users: [
-          this.userId // TODO: select users from list
-        ]
+        users: [this.userId]
       }).then(() => {
         this.$emit('created')
       });
