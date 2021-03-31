@@ -14,10 +14,12 @@ import Toast from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPen, faTrashAlt, faPlus, faEye, faUser, faAngleDoubleRight, faAngleDoubleLeft, faCheck, faFileExport, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrashAlt, faPlus, faEye, faUser, faAngleDoubleRight, faAngleDoubleLeft, faCheck, faFileExport, faVideo,
+  faHome, faComments, faDumbbell, faRunning, faUsers, faShieldAlt, faChartBar, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faPen, faTrashAlt, faPlus, faEye, faUser, faAngleDoubleRight, faAngleDoubleLeft, faCheck, faFileExport, faVideo);
+library.add(faPen, faTrashAlt, faPlus, faEye, faUser, faAngleDoubleRight, faAngleDoubleLeft, faCheck, faFileExport, faVideo,
+    faHome, faComments, faDumbbell, faRunning, faUsers, faShieldAlt, faChartBar, faCalendar );
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('form-submit-button', FormSubmitButton);
