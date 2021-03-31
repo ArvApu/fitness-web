@@ -141,7 +141,6 @@ h4 {
   display: block;
 }
 
-
 .exercise-log-input {
   width: 50%;
   padding: 12px 20px;

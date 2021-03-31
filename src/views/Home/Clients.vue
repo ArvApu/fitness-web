@@ -7,7 +7,7 @@
 
     <div v-else>
 
-      <button class="btn btn-primary" v-on:click="show"> <font-awesome-icon icon="plus"/> Invite client </button>
+      <button class="btn btn-primary add-btn" v-on:click="show"> <font-awesome-icon icon="plus"/> Invite client </button>
 
       <empty-message-block :show="(users === undefined || users.length === 0)" resource="clients"/>
 

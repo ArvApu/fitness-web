@@ -7,7 +7,7 @@
 
     <div v-else>
 
-      <button class="btn btn-primary" v-on:click="add"> <font-awesome-icon icon="plus"/> Add workout </button>
+      <button class="btn btn-primary add-btn" v-on:click="add"> <font-awesome-icon icon="plus"/> Add workout </button>
 
       <empty-message-block :show="workouts === undefined || workouts.length === 0" resource="workouts"/>
 

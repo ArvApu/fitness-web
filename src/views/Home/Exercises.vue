@@ -7,7 +7,7 @@
 
     <div v-else>
 
-      <button class="btn btn-primary" v-on:click="add"> <font-awesome-icon icon="plus"/> Add exercise </button>
+      <button class="btn btn-primary add-btn" v-on:click="add"> <font-awesome-icon icon="plus"/> Add exercise </button>
 
       <empty-message-block :show="exercises === undefined || exercises.length === 0" resource="exercises"/>
 
@@ -39,6 +39,7 @@
       <v-dialog/>
 
       <modal class="force-scroll-modal" name="add-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+
         <div class="modal-from">
           <exercise-form v-bind="this.exercise" @created="hide" @updated="hide"/>
         </div>

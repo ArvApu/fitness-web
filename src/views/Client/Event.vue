@@ -32,8 +32,8 @@
       </div>
 
       <div v-if="canControl" class="control-box">
-        <button v-if="event.workout_id" v-on:click="log(event.workout_id)" class="btn btn-secondary"> Log </button>
-        <button v-on:click="remove" class="btn btn-danger"> Remove </button>
+        <button v-if="event.workout_id" v-on:click="log(event.workout_id)" class="btn btn-secondary"> <font-awesome-icon icon="pen"/>  Log event's workout </button>
+        <button v-on:click="remove" class="btn btn-danger"> <font-awesome-icon icon="trash-alt"/> Remove event </button>
       </div>
     </div>
 
@@ -126,7 +126,7 @@ export default {
   }
 
   .event {
-    width: 900px;
+    width: 1000px;
     padding: 5px 30px;
     box-shadow: 1px 4px 8px 1px rgba(0,0,0,0.2);
     box-sizing: border-box;
@@ -135,17 +135,16 @@ export default {
 
   .information {
     display: flex;
-    padding: 7px;
-    border: 1px solid #999999;
-    border-radius: 5px;
   }
 
   .control-box {
     display: flex;
-    justify-content: space-between;
-    width: 140px ;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     margin-top: 15px;
+  }
+
+  .control-box button {
+    margin-right: 7px;
   }
 
   .dates span {

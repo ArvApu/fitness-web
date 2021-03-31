@@ -7,12 +7,6 @@
 
     <div v-else>
 
-      <div class="buttons-control">
-        <button class="btn btn-primary" v-on:click="copyWorkout"> <font-awesome-icon icon="copy"/> Copy </button>
-        <button class="btn btn-secondary" v-on:click="showEdit"> <font-awesome-icon icon="pen"/> Edit </button>
-        <button class="btn  btn-danger" v-on:click="remove"> <font-awesome-icon icon="trash-alt"/> Remove </button>
-      </div>
-
       <h1> {{ workout.name }} </h1>
 
       <p>
@@ -22,6 +16,12 @@
       <p>
         {{ workout.description }}
       </p>
+
+      <div class="buttons-control">
+        <button class="btn btn-primary" v-on:click="copyWorkout"> <font-awesome-icon icon="copy"/> Copy </button>
+        <button class="btn btn-secondary" v-on:click="showEdit"> <font-awesome-icon icon="pen"/> Edit </button>
+        <button class="btn  btn-danger" v-on:click="remove"> <font-awesome-icon icon="trash-alt"/> Remove </button>
+      </div>
 
       <table>
         <caption>Exercises</caption>
@@ -184,6 +184,7 @@ export default {
 
   h1 {
     text-transform: capitalize;
+    margin-top: 0;
   }
 
   .add-exercise-button {
@@ -201,6 +202,10 @@ export default {
   .video {
     width: 100%;
     height: 550px;
+  }
+
+  .buttons-control {
+    margin-top: 40px;
   }
 
   .buttons-control button {

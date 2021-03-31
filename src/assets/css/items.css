@@ -53,6 +53,11 @@
     cursor: pointer;
 }
 
+.add-btn {
+    width: 150px;
+    margin-left: 4px;
+}
+
 @media only screen and (max-width: 1440px) {
     .item {
         margin: 1rem 0.2em;
@@ -82,5 +87,10 @@
         flex-direction: row;
         padding: 7px 0;
         width: 100%;
+    }
+
+    .add-btn {
+        width: 99%;
+        margin-left: 4px;
     }
 }
