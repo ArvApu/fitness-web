@@ -20,17 +20,22 @@
       </v-select>
     </div>
 
-    <div class='form-group' style="margin-right: 12px">
+    <div class='form-group'>
+      <label for="order"> Order </label>
+      <input required class='form-input' type="number" id="order" name="order" placeholder="Order" v-model="assignee.order">
+    </div>
+
+    <div class='form-group'>
       <label for="sets"> Sets </label>
       <input required class='form-input' type="number" id="sets" name="sets" placeholder="Sets" v-model="assignee.sets">
     </div>
 
-    <div class='form-group' style="margin-right: 12px">
+    <div class='form-group'>
       <label for="reps"> Reps </label>
       <input required class='form-input' type="number" id="reps" name="reps" placeholder="Reps" v-model="assignee.reps">
     </div>
 
-    <div class='form-group' style="margin-right: 12px">
+    <div class='form-group'>
       <label for="rest"> Rest </label>
       <input required class='form-input' type="number" id="rest" name="rest" placeholder="Rest" v-model="assignee.rest">
     </div>
@@ -54,6 +59,10 @@ export default {
     workoutId: {
       type: Number,
       required: true,
+    },
+    assignedExercisesCount: {
+      type: Number,
+      default() { return 0; },
     }
   },
   computed: {
@@ -74,6 +83,7 @@ export default {
     return {
       assignee: {
         id: null,
+        order: this.assignedExercisesCount + 1,
         sets: null,
         reps: null,
         rest: null,

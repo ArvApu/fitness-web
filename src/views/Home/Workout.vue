@@ -42,7 +42,7 @@
 
     <modal class="force-scroll-modal" name="assign-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
       <div class="modal-from">
-        <assign-exercise-form @created="add" @canceled="hide" :workoutId="parseInt(this.$route.params.id)"/>
+        <assign-exercise-form @created="add" @canceled="hide" :workout-id="parseInt(this.$route.params.id)" :assigned-exercises-count="this.workout.exercises.length"/>
       </div>
     </modal>
 
@@ -78,7 +78,10 @@ export default {
   computed: {
     ...mapState('workouts', [
       'errors', 'isLoading'
-    ])
+    ]),
+    exercises: () => {
+      return this.workout.exercises.sort((a, b) => parseInt(a.order) - parseInt(b.order));
+    }
   },
   methods: {
     ...mapActions('workouts', [
