@@ -73,8 +73,8 @@ export default {
     },
     update() {
       this.$store.dispatch('workouts/update', this.workout)
-          .then(() => {
-            this.$emit('updated')
+          .then((updated) => {
+            this.$emit('updated', updated)
           });
     },
   },

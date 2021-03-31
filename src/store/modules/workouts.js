@@ -83,6 +83,7 @@ const actions = {
                 commit('UPDATE_WORKOUT', response.data);
             }
             this._vm.$toast.success('Workout updated.');
+            return response.data;
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);

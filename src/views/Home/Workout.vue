@@ -6,13 +6,22 @@
     </div>
 
     <div v-else>
+
+      <div class="buttons-control">
+        <button class="btn btn-primary" v-on:click="copyWorkout"> <font-awesome-icon icon="copy"/> Copy </button>
+        <button class="btn btn-secondary" v-on:click="showEdit"> <font-awesome-icon icon="pen"/> Edit </button>
+        <button class="btn  btn-danger" v-on:click="remove"> <font-awesome-icon icon="trash-alt"/> Remove </button>
+      </div>
+
       <h1> {{ workout.name }} </h1>
+
+      <p>
+        <b>Type</b>: {{ workout.type }}
+      </p>
 
       <p>
         {{ workout.description }}
       </p>
-
-      <button class="btn btn-secondary" v-on:click="copyWorkout"> <font-awesome-icon icon="copy"/> Copy workout </button>
 
       <table>
         <caption>Exercises</caption>
@@ -41,6 +50,7 @@
     </div>
 
     <!-- MODALS -->
+    <v-dialog/>
 
     <modal class="force-scroll-modal" name="assign-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
       <div class="modal-from">
@@ -54,6 +64,12 @@
       </div>
     </modal>
 
+    <modal class="force-scroll-modal" name="edit-workout-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
+      <div class="modal-from">
+        <workout-form v-bind="this.workout" @updated="hideEdit"/>
+      </div>
+    </modal>
+
     <button class="btn btn-secondary add-exercise-button" v-on:click="show"> <font-awesome-icon icon="plus"/> Add </button>
 
   </div>
@@ -64,6 +80,7 @@
 import { mapState, mapActions} from 'vuex';
 import AssignExerciseForm from "@/components/Forms/AssignExerciseForm";
 import PageLoadingRing from "@/components/PageLoadingRing";
+import WorkoutForm from "@/components/Forms/WorkoutForm";
 
 export default {
   name: 'Workout',
@@ -76,7 +93,8 @@ export default {
   },
   components: {
     AssignExerciseForm,
-    PageLoadingRing
+    PageLoadingRing,
+    WorkoutForm,
   },
   computed: {
     ...mapState('workouts', [
@@ -88,13 +106,22 @@ export default {
   },
   methods: {
     ...mapActions('workouts', [
-      'fetchOne', 'copy'
+      'fetchOne', 'copy', 'delete'
     ]),
     show () {
       this.$modal.show('assign-exercise-modal');
     },
     hide () {
       this.$modal.hide('assign-exercise-modal');
+    },
+    showEdit () {
+      this.$modal.show('edit-workout-modal');
+    },
+    hideEdit (workout) {
+      const exercises = this.workout.exercises;
+      this.workout = workout;
+      this.workout.exercises = exercises;
+      this.$modal.hide('edit-workout-modal');
     },
     showDetails(exercise) {
       this.url = exercise.url;
@@ -111,7 +138,30 @@ export default {
       this.copy(this.$route.params.id).then((workout) => {
         this.$router.push({ name: 'Workout', params: {id: workout.id}});
       })
-    }
+    },
+    remove() {
+      this.$modal.show('dialog', {
+        title: 'WARNING',
+        text: 'Are you sure want to delete this workout?',
+        buttons: [
+          {
+            title: 'Cancel',
+            handler: () => {
+              this.$modal.hide('dialog');
+            }
+          },
+          {
+            title: 'Yes',
+            handler: () => {
+              this.$modal.hide('dialog');
+              this.delete(this.$route.params.id).then(() => {
+                this.$router.push({ name: 'Workouts' });
+              });
+            }
+          },
+        ]
+      })
+    },
   },
   created() {
     this.fetchOne(this.$route.params.id).then(result =>{
@@ -151,6 +201,23 @@ export default {
   .video {
     width: 100%;
     height: 550px;
+  }
+
+  .buttons-control button {
+    margin-right: 7px;
+    width: 140px;
+  }
+
+  @media only screen and (max-width: 500px) {
+    .buttons-control {
+      display: flex;
+      flex-direction: column;
+    }
+    .buttons-control button {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 7px;
+    }
   }
 
 </style>
