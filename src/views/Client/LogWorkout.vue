@@ -100,7 +100,9 @@ export default {
         log['comment'] = this.log.comment;
       }
 
-      this.create(log);
+      this.create(log).then(() => {
+        this.$router.push({name: 'Calendar' });
+      });
     },
     updateExerciseLog(value, exercise, field) {
       const foundIndex = this.exerciseLogs.findIndex(x => x.exercise_id === exercise.id);

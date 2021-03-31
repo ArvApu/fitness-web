@@ -9,6 +9,7 @@
       <p>
         Sorry, it looks like we couldn't find what you're looking for.
         <br />
+        <br />
         Click the button below to go back.
       </p>
       <router-link :to="{name: 'Home'}" class="btn not-found-button">Return to the app</router-link>
@@ -64,6 +65,53 @@ export default {
     outline: none;
     border-color: black;
     box-shadow: 0 0 0 0;
+  }
+
+  @media only screen and (max-width: 1300px) {
+
+    .not-found-text {
+      font-size: 35px;
+    }
+
+    .not-found-code {
+      padding-left: 110px;
+      font-size: 160px;
+    }
+  }
+
+  @media only screen and (max-width: 1100px) {
+
+    .not-found-text {
+      font-size: 25px;
+    }
+
+    .not-found-code {
+      padding-left: 85px;
+      font-size: 80px;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+
+    .not-found {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .not-found-code {
+      font-size: 50px;
+      padding-left: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .not-found-text {
+      font-size: 20px;
+    }
+
+    .not-found-button {
+      width: 160px;
+    }
   }
 
 </style>
