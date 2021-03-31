@@ -27,7 +27,7 @@
           </div>
 
           <div class="control">
-            <font-awesome-icon v-if="client.role === 'user'" class='view' icon="eye" size="lg" v-on:click="view(client.id)"/>
+            <font-awesome-icon v-if="client.role === 'user'" class='view' icon="eye" size="lg" v-on:click="view(client)"/>
             <font-awesome-icon v-if="$store.state.auth.user.role === 'admin'" class='edit' icon="pen" size="lg" v-on:click="edit(client)"/>
             <font-awesome-icon v-if="client.role === 'user'" class='remove' icon="trash-alt" size="lg" v-on:click="remove(client.id)"/>
           </div>
@@ -96,8 +96,9 @@ export default {
     hide () {
       this.$modal.hide('invite-user-modal');
     },
-    view(id) {
-      this.$store.commit('auth/SET_CLIENT_ID', id);
+    view(client) {
+      this.$store.commit('auth/SET_CLIENT_ID', client.id);
+      this.$store.commit('auth/SET_CLIENT_NAME', client.full_name);
       this.$router.push({ name: 'Client'});
     },
     edit(client) {

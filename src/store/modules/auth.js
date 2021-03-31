@@ -6,6 +6,7 @@ const state = {
     user: null,
     refreshFailed: false,
     clientId: null,
+    clientName: null,
 };
 
 const getters = {};
@@ -25,6 +26,9 @@ const mutations = {
     },
     SET_CLIENT_ID(state, id) {
         state.clientId = id;
+    },
+    SET_CLIENT_NAME(state, name) {
+        state.clientName = name;
     },
     UPDATE_USER(state, user) {
         for (const prop in user) {
