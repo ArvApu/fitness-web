@@ -52,14 +52,11 @@ const actions = {
     },
     async invite({ commit }, email) {
         try {
-            commit('SET_IS_LOADING', true);
             await api.users.invite(email);
             this._vm.$toast.success('Invitation sent.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
-        } finally {
-            commit('SET_IS_LOADING', false);
         }
     },
     async confirmInvite({ commit }, token) {
@@ -72,15 +69,12 @@ const actions = {
     },
     async update({ commit }, user) {
         try {
-            commit('SET_IS_LOADING', true);
             const response = await api.users.update(user.id, {email: user.email});
             commit('UPDATE_USER', response.data);
             this._vm.$toast.success('User information updated.');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
-        } finally {
-            commit('SET_IS_LOADING', false);
         }
     },
     async delete({ state, dispatch, commit}, id) {

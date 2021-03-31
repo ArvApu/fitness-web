@@ -8,7 +8,7 @@
       <input required class='form-input' type="email" id="email" name="email" v-model="email">
     </div>
 
-    <form-submit-button label="Invite" :processing="this.$store.state.users.isLoading"/>
+    <form-submit-button label="Invite" :processing="isLoading"/>
 
   </form>
 </template>
@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       email: null,
+      isLoading: false,
     }
   },
   computed: {
@@ -31,9 +32,13 @@ export default {
   },
   methods: {
     handle() {
+      this.isLoading = true;
       this.$store.dispatch('users/invite', this.email)
           .then(() => {
             this.$emit('invited')
+          })
+          .finally(() => {
+            this.isLoading = false;
           });
     }
   },

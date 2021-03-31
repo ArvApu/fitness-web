@@ -8,7 +8,7 @@
       <input required class='form-input' type="email" id="email" name="email" v-model="email">
     </div>
 
-    <form-submit-button label="Update" :processing="this.$store.state.users.isLoading"/>
+    <form-submit-button label="Update" :processing="this.isLoading"/>
 
   </form>
 </template>
@@ -26,6 +26,7 @@ export default {
     return {
       id: this.user.id,
       email: this.user.email,
+      isLoading: false,
     }
   },
   computed: {
@@ -35,9 +36,13 @@ export default {
   },
   methods: {
     handle() {
+      this.isLoading = true;
       this.$store.dispatch('users/update', {id: this.id, email: this.email})
         .then(() => {
           this.$emit('updated')
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     }
   },
