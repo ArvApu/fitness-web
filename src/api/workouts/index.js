@@ -32,4 +32,8 @@ export default {
             exercises: exercises
         });
     },
+
+    copy(id) {
+        return request.post(`${resource}/${id}/copy`);
+    },
 };

@@ -98,6 +98,16 @@ const actions = {
             return Promise.reject(e);
         }
     },
+    async copy(context, id) {
+        try {
+            const response = await api.workouts.copy(id);
+            this._vm.$toast.success('Workout copied.');
+            return response.data;
+        } catch (e) {
+            this._vm.$toast.error('Failed to copy a workout.');
+            return Promise.reject(e);
+        }
+    },
     async assignExercises({ commit }, { id, exercises} ) {
         try {
             await api.workouts.assignExercises(id, exercises);

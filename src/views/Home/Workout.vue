@@ -12,6 +12,8 @@
         {{ workout.description }}
       </p>
 
+      <button class="btn btn-secondary" v-on:click="copyWorkout"> <font-awesome-icon icon="copy"/> Copy workout </button>
+
       <table>
         <caption>Exercises</caption>
         <thead>
@@ -42,7 +44,7 @@
 
     <modal class="force-scroll-modal" name="assign-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
       <div class="modal-from">
-        <assign-exercise-form @created="add" @canceled="hide" :workout-id="parseInt(this.$route.params.id)" :assigned-exercises-count="this.workout.exercises.length"/>
+        <assign-exercise-form @created="add" @canceled="hide" :workout-id="parseInt(this.$route.params.id)" :assigned-exercises-count="exercisesCount"/>
       </div>
     </modal>
 
@@ -69,6 +71,7 @@ export default {
     return {
       workout: {},
       url: null,
+      exercisesCount: 0,
     }
   },
   components: {
@@ -85,7 +88,7 @@ export default {
   },
   methods: {
     ...mapActions('workouts', [
-      'fetchOne',
+      'fetchOne', 'copy'
     ]),
     show () {
       this.$modal.show('assign-exercise-modal');
@@ -101,13 +104,27 @@ export default {
       this.fetchOne(this.$route.params.id).then(
           result => this.workout = result
       );
+      this.exercisesCount++;
       this.hide();
+    },
+    copyWorkout() {
+      this.copy(this.$route.params.id).then((workout) => {
+        this.$router.push({ name: 'Workout', params: {id: workout.id}});
+      })
     }
   },
   created() {
-    this.fetchOne(this.$route.params.id).then(
-        result => this.workout = result
-    );
+    this.fetchOne(this.$route.params.id).then(result =>{
+      this.workout = result
+      this.exercisesCount = result.exercises.length
+    });
+  },
+  watch: {
+    '$route.params': {
+      handler() {
+        this.workout.name = this.workout.name + ' (copy)';
+      }
+    }
   }
 }
 </script>
