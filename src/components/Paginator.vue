@@ -1,5 +1,5 @@
 <template>
-  <div class="paginator" v-show="total > perPage">
+  <div class="paginator no-highlight-select" v-show="total > perPage">
 
     <div v-on:click="goPrev()"> Prev </div>
     <div> {{ currentPage }} </div>
@@ -42,6 +42,7 @@ export default {
     width: 100%;
     display: flex;
   }
+
   .paginator div {
     display: flex;
     justify-content: center;
@@ -56,12 +57,15 @@ export default {
     color: white;
     font-size: 13px;
   }
+
   .paginator div:hover {
     background: #1a1c21;
   }
+
   .paginator div:nth-child(2):hover {
     background: var(--secondary-color);
   }
+
   .paginator div:nth-child(2) {
     cursor: default;
   }

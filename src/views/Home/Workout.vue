@@ -31,7 +31,7 @@
           <th scope="col">Sets</th>
           <th scope="col">Reps</th>
           <th scope="col">Rest (s)</th>
-          <th scope="col">Video url</th>
+          <th scope="col">Control</th>
         </tr>
         </thead>
         <tbody>
@@ -40,9 +40,10 @@
           <td data-label="Sets"> {{ exercise.pivot.sets }} </td>
           <td data-label="Reps"> {{ exercise.pivot.reps }} </td>
           <td data-label="Reset (s)"> {{ exercise.pivot.rest }} </td>
-          <td data-label="Video url">
+          <td data-label="Control" class="table-control">
             <font-awesome-icon v-if="exercise.url" class='view' icon="video" size="lg" v-on:click="showDetails(exercise)"/>
-            <span v-else> - </span>
+            <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="reassign(exercise)"/>
+            <font-awesome-icon class='remove' icon="times" size="lg" v-on:click="unassign(exercise)"/>
           </td>
         </tr>
         </tbody>
@@ -106,7 +107,7 @@ export default {
   },
   methods: {
     ...mapActions('workouts', [
-      'fetchOne', 'copy', 'delete'
+      'fetchOne', 'copy', 'delete', 'unassignExercise'
     ]),
     show () {
       this.$modal.show('assign-exercise-modal');
@@ -133,6 +134,17 @@ export default {
       );
       this.exercisesCount++;
       this.hide();
+    },
+    unassign(exercise) {
+      this.unassignExercise({id: this.$route.params.id, assigned: exercise.pivot.id}).then(() => {
+        this.fetchOne(this.$route.params.id).then(
+            result => this.workout = result
+        );
+        this.exercisesCount--;
+      })
+    },
+    reassign() {
+
     },
     copyWorkout() {
       this.copy(this.$route.params.id).then((workout) => {
@@ -194,9 +206,8 @@ export default {
     margin: 20px 0;
   }
 
-  .view:hover {
-    color: var(--primary-color);
-    cursor: pointer;
+  .table-control svg {
+    margin-right: 15px;
   }
 
   .video {

@@ -36,4 +36,12 @@ export default {
     copy(id) {
         return request.post(`${resource}/${id}/copy`);
     },
+
+    reassignExercises(id, assigned, payload) {
+        return request.put(`${resource}/${id}/exercises/${assigned}`, payload);
+    },
+
+    unassignExercises(id, assigned) {
+        return request.delete(`${resource}/${id}/exercises/${assigned}`);
+    },
 };

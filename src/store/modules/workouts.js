@@ -35,7 +35,7 @@ const mutations = {
 };
 
 const actions = {
-    async fetchAll({ commit }, { page, search}) {
+    async fetchAll({ commit }, { page, search }) {
         try {
             commit('SET_IS_LOADING', true);
             const response = await api.workouts.all(page, search);
@@ -109,11 +109,19 @@ const actions = {
             return Promise.reject(e);
         }
     },
-    async assignExercises({ commit }, { id, exercises} ) {
+    async assignExercises({ commit }, { id, exercises } ) {
         try {
             await api.workouts.assignExercises(id, exercises);
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
+            return Promise.reject(e);
+        }
+    },
+    async unassignExercise(context, { id, assigned } ) {
+        try {
+            await api.workouts.unassignExercises(id, assigned);
+        } catch (e) {
+            this._vm.$toast.error('Failed to remove exercise from workout.');
             return Promise.reject(e);
         }
     },
