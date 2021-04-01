@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <form-submit-button label="Submit"/>
+      <form-submit-button label="Submit" :processing="isLoading"/>
     </form>
 
   </div>
@@ -67,6 +67,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       user: {
         first_name: this.$store.state.auth.user.first_name,
         last_name: this.$store.state.auth.user.last_name,
@@ -91,11 +92,18 @@ export default {
       'update', 'clearErrors'
     ]),
     handle() {
-      this.update(this.user);
+      this.isLoading = true;
+      Object.keys(this.user).forEach((k) => this.user[k] == null && delete this.user[k]);
+      this.update(this.user).then(() => {
+        this.clearErrors();
+      }).finally(() => {
+        this.isLoading = false;
+      });
     }
   },
-  created() {
+  beforeRouteLeave (to, from, next) {
     this.clearErrors();
+    next();
   }
 }
 </script>

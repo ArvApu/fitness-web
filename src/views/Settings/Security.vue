@@ -15,15 +15,15 @@
 
       <div class="form-group">
         <label for="new_password">New password</label>
-        <input class="form-input" v-model="new_password" id="new_password" type="password" placeholder="New password"/>
+        <input class="form-input" v-model="newPassword" id="new_password" type="password" placeholder="New password"/>
       </div>
 
       <div class="form-group">
         <label for="new_password_confirmation">Confirm new password</label>
-        <input class="form-input" v-model="new_password_confirmation" id="new_password_confirmation" type="password" placeholder="Confirm new password"/>
+        <input class="form-input" v-model="newPasswordConfirmation" id="new_password_confirmation" type="password" placeholder="Confirm new password"/>
       </div>
 
-      <form-submit-button label="Submit"/>
+      <form-submit-button label="Submit" :processing="isLoading"/>
     </form>
   </div>
 
@@ -36,9 +36,10 @@ export default {
   name: 'Security',
   data() {
     return {
+      isLoading: false,
       password: null,
-      new_password:null,
-      new_password_confirmation: null,
+      newPassword:null,
+      newPasswordConfirmation: null,
     }
   },
   computed: {
@@ -51,15 +52,24 @@ export default {
       'changePassword', 'clearErrors'
     ]),
     handle() {
+      this.isLoading = true;
       this.changePassword({
         password: this.password,
-        new_password: this.new_password,
-        new_password_confirmation: this.new_password_confirmation,
+        new_password: this.newPassword,
+        new_password_confirmation: this.newPasswordConfirmation,
+      }).then(() => {
+        this.password = null;
+        this.newPassword = null;
+        this.newPasswordConfirmation = null;
+        this.clearErrors();
+      }).finally(() => {
+        this.isLoading = false;
       });
     },
-    created() {
-      this.clearErrors();
-    }
+  },
+  beforeRouteLeave (to, from, next) {
+    this.clearErrors();
+    next();
   }
 }
 </script>
