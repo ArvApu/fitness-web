@@ -125,6 +125,14 @@ const actions = {
             return Promise.reject(e);
         }
     },
+    async reassignExercise({ commit }, { id, assigned, payload } ) {
+        try {
+            await api.workouts.reassignExercises(id, assigned, payload);
+        } catch (e) {
+            commit('SET_ERRORS', e.response.data.error);
+            return Promise.reject(e);
+        }
+    },
     clearErrors({ commit }) {
         commit('SET_ERRORS', []);
     }

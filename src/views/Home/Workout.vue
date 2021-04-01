@@ -35,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="exercise in workout.exercises" :key="exercise.id">
+        <tr v-for="exercise in workout.exercises" :key="exercise.pivot.id">
           <td data-label="Name"> {{ exercise.name }} </td>
           <td data-label="Sets"> {{ exercise.pivot.sets }} </td>
           <td data-label="Reps"> {{ exercise.pivot.reps }} </td>
