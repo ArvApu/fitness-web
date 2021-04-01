@@ -78,6 +78,7 @@ const actions = {
     },
     async create({ commit, dispatch }, data) {
         try {
+            commit('SET_IS_LOADING', true);
             const response = await api.rooms.create(data);
             if (response && response.data && response.status === 201) {
                 dispatch('resetRooms');
@@ -87,6 +88,8 @@ const actions = {
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
+        } finally {
+            commit('SET_IS_LOADING', false);
         }
     },
     async readMessages({ commit }, id) {

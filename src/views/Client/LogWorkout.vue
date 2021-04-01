@@ -48,7 +48,7 @@
           </div>
 
           <div class='form-group'>
-            <form-submit-button label="Log"/>
+            <form-submit-button label="Log" :processing="isLoading"/>
           </div>
         </form>
   </div>
@@ -63,7 +63,7 @@ export default {
   name: 'LogWorkout',
   computed: {
     ...mapState('workoutLogs', [
-      'errors'
+      'errors', 'isLoading'
     ])
   },
   data() {
@@ -98,6 +98,10 @@ export default {
 
       if(this.log.comment) {
         log['comment'] = this.log.comment;
+      }
+
+      if(this.$store.state.auth.clientId) {
+        log['user_id'] = this.$store.state.auth.clientId;
       }
 
       this.create(log).then(() => {

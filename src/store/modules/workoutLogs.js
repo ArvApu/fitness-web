@@ -53,6 +53,7 @@ const actions = {
     },
     async create({ commit }, workout) {
         try {
+            commit('SET_IS_LOADING', true);
             const response = await api.workoutLogs.create(workout);
             if (response && response.data && response.status === 201) {
                 commit('ADD_WORKOUT_LOG', response.data);
@@ -61,6 +62,8 @@ const actions = {
         } catch (e) {
             commit('SET_ERRORS', e.response.data.error);
             return Promise.reject(e);
+        } finally {
+            commit('SET_IS_LOADING', false);
         }
     },
     async delete({ commit }, id) {

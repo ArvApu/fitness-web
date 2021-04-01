@@ -41,7 +41,7 @@
     </div>
 
     <div class="buttons" >
-      <form-submit-button label="Submit"/>
+      <form-submit-button label="Submit" :processing="isLoading"/>
     </div>
 
   </form>
@@ -81,6 +81,8 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
+      exerciseId: null,
       assignee: {
         id: null,
         order: this.assignedExercisesCount + 1,
@@ -88,16 +90,18 @@ export default {
         reps: null,
         rest: null,
       },
-      exerciseId: null,
     }
   },
   methods: {
     handle() {
+      this.isLoading = true;
       this.$store.dispatch('workouts/assignExercises', {
         id: this.workoutId,
         exercises: [this.assignee]
       }).then(() => {
         this.$emit('created')
+      }).finally(() => {
+        this.isLoading = false;
       });
     },
     fetchExercises(search, loading) {

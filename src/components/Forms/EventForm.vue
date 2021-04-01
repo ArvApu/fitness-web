@@ -49,7 +49,7 @@
         </div>
       </div>
 
-    <form-submit-button label="Submit"/>
+    <form-submit-button label="Submit" :processing="isLoading"/>
 
   </form>
 </template>
@@ -81,6 +81,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       eventObj: {
         attendee_id: this.$store.state.auth.clientId ?? this.$store.state.auth.user.id,
         title: null,
@@ -110,6 +111,7 @@ export default {
   },
   methods: {
     handle() {
+      this.isLoading = true;
       if(!this.eventObj.end_time) {
         this.eventObj.end_time = this.eventObj.start_time;
       }
@@ -125,7 +127,9 @@ export default {
       this.$store.dispatch('events/create', this.eventObj)
         .then((result) => {
           this.$emit('created', result)
-        });
+        }).finally(() => {
+          this.isLoading = false;
+      });
     },
     fetchWorkouts(search, loading) {
       loading(true)

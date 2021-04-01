@@ -21,7 +21,7 @@
       <input required class='form-input' type="text" id="name" name="name" v-model="name">
     </div>
 
-    <form-submit-button label="Add room" :processing="this.$store.state.users.isLoading"/>
+    <form-submit-button label="Add room" :processing="this.$store.state.rooms.isLoading"/>
 
   </form>
 </template>

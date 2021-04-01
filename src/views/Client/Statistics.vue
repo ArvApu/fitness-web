@@ -49,10 +49,10 @@ export default {
 
       this.chartdata = {
         datasets: [{
-          data: [data.missed, data.completed, data.completed],
+          data: [data.missed, data.interrupted, data.completed],
           backgroundColor: this.colors,
         }],
-        labels: ['missed', 'completed', 'completed']
+        labels: ['missed', 'interrupted', 'completed']
       }
 
       this.loaded = true;

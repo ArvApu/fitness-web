@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <form-submit-button label="Submit"/>
+      <form-submit-button label="Submit" :processing="isLoading"/>
 
     </form>
 </template>
@@ -48,17 +48,19 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
+      types: ['general', 'cardio', 'hiit', 'weight', 'recovery'],
       workout: {
         id: this.id,
         name: this.name,
         description: this.description,
         type: this.type ?? 'none',
       },
-      types: ['general', 'cardio', 'hiit', 'weight', 'recovery']
     }
   },
   methods: {
     handle() {
+      this.isLoading = true;
       if(this.workout.id) {
         this.update();
       } else {
@@ -69,13 +71,17 @@ export default {
       this.$store.dispatch('workouts/create', this.workout)
           .then(() => {
             this.$emit('created')
-          });
+          }).finally(() => {
+            this.isLoading = false;
+      });
     },
     update() {
       this.$store.dispatch('workouts/update', this.workout)
           .then((updated) => {
             this.$emit('updated', updated)
-          });
+          }).finally(() => {
+            this.isLoading = false;
+      });
     },
   },
   created() {

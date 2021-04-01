@@ -10,7 +10,7 @@
 
       <div class='form-group'>
         <label for="description"> Description (optional) </label>
-        <textarea required class='form-input-textarea' id="description" name="description" v-model="exercise.description" />
+        <textarea class='form-input-textarea' id="description" name="description" v-model="exercise.description" />
       </div>
 
       <div class='form-group'>
@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <form-submit-button label="Submit"/>
+      <form-submit-button label="Submit" :processing="isLoading"/>
 
     </form>
 </template>
@@ -54,6 +54,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       measurements: ['seconds', 'minutes', 'grams', 'kilograms', 'quantity'],
       exercise: {
         id: this.id,
@@ -66,6 +67,7 @@ export default {
   },
   methods: {
     handle() {
+      this.isLoading = true;
       if(this.exercise.id) {
         this.update();
       } else {
@@ -76,13 +78,17 @@ export default {
       this.$store.dispatch('exercises/create', this.exercise)
           .then(() => {
             this.$emit('created')
-          });
+          }).finally(() => {
+            this.isLoading = false;
+      });
     },
     update() {
       this.$store.dispatch('exercises/update', this.exercise)
           .then(() => {
             this.$emit('updated')
-          });
+          }).finally(() => {
+            this.isLoading = false;
+      });
     }
   },
   created() {
