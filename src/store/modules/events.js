@@ -44,6 +44,18 @@ const actions = {
             commit('SET_IS_LOADING', false);
         }
     },
+    async fetchAllForTrainer({ commit }, {start, end}) {
+        try {
+            commit('SET_IS_LOADING', true);
+            const response = await api.events.allForTrainer(start, end);
+            return response.data;
+        } catch (e) {
+            this._vm.$toast.error('Failed to fetch events.');
+            return Promise.reject(e);
+        } finally {
+            commit('SET_IS_LOADING', false);
+        }
+    },
     async fetchOne({ commit }, {id, userId}) {
         try {
             commit('SET_IS_LOADING', true);

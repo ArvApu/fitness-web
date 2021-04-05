@@ -14,6 +14,16 @@ export default {
         });
     },
 
+    allForTrainer(start, end) {
+        return request.get(`${resource}`, {
+            params: {
+                start_date: start,
+                end_date: end,
+                all_trainer_events: 1,
+            }
+        });
+    },
+
     single(id, userId) {
         return request.get(`${resource}/${id}`,{
             params: {

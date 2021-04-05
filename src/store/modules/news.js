@@ -20,6 +20,9 @@ const mutations = {
     SET_NEWS(state, news) {
         state.news = news;
     },
+    SET_PAGINATOR(state, paginator) {
+        state.paginator = paginator;
+    },
 };
 
 const actions = {

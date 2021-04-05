@@ -4,7 +4,7 @@
 }
 
 .item {
-    box-shadow: 1px 4px 8px 3px rgba(0,0,0,0.2);
+    box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
     box-sizing: border-box;
     margin: 1rem 0.6em 1rem 0.3em;
     flex: 0 1 48%;
@@ -13,6 +13,7 @@
     padding: 7px;
     display: flex;
     border-radius: 5px;
+    background: #f3f3f3;
 }
 
 .item h3 {
