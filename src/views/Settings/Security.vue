@@ -75,13 +75,13 @@ export default {
 </script>
 
 <style scoped>
-.security {
-  margin: 0 80px;
-}
-
-@media only screen and (max-width: 500px) {
   .security {
-    margin: 0;
+    margin: 0 80px;
   }
-}
+
+  @media only screen and (max-width: 500px) {
+    .security {
+      margin: 0;
+    }
+  }
 </style>

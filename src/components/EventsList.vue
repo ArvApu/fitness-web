@@ -5,7 +5,7 @@
       {{ header }}
     </div>
 
-    <div class="event no-highlight-select" v-for="event in events" :key="event.id" v-on:click="goToEvent(event.id)">
+    <div class="event no-highlight-select" v-for="event in events" :key="event.id" v-on:click="goToEvent(event)">
       <div class="event-title"> {{ event.title }} </div>
       <div class="event-attendee"> <small><b>Attendee:</b> {{ event.attendee.full_name }}</small></div>
     </div>
@@ -21,8 +21,10 @@ export default {
     events: Array,
   },
   methods: {
-    goToEvent(id) {
-      this.$router.push({name: 'Event', params: {id: id}})
+    goToEvent(event) {
+      this.$store.commit('auth/SET_CLIENT_ID', event.attendee.id);
+      this.$store.commit('auth/SET_CLIENT_NAME', event.attendee.full_name);
+      this.$router.push({name: 'Event', params: {id: event.id}})
     }
   }
 }

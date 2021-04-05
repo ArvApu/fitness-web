@@ -135,29 +135,17 @@ export default {
 
 
 <style scoped>
+  h4 {
+    text-transform: capitalize;
+  }
 
-h4 {
-  text-transform: capitalize;
-}
+  .exercise-log-input-label {
+    text-transform: capitalize;
+    display: block;
+  }
 
-.exercise-log-input-label {
-  text-transform: capitalize;
-  display: block;
-}
-
-.exercise-log-input {
-  width: 50%;
-  padding: 12px 20px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin: 4px 0;
-}
-
-@media only screen and (max-width: 900px) {
   .exercise-log-input {
-    width: 80%;
+    width: 50%;
     padding: 12px 20px;
     display: inline-block;
     border: 1px solid #ccc;
@@ -165,5 +153,16 @@ h4 {
     box-sizing: border-box;
     margin: 4px 0;
   }
-}
+
+  @media only screen and (max-width: 900px) {
+    .exercise-log-input {
+      width: 80%;
+      padding: 12px 20px;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin: 4px 0;
+    }
+  }
 </style>

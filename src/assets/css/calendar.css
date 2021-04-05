@@ -1,0 +1,101 @@
+.calendar {
+    margin: 0 100px;
+}
+.calendar-box {
+    margin: 20px 0;
+}
+
+.cal-btn button:first-child {
+    margin-right: 10px;
+}
+
+.events-box {
+    display: none;
+}
+
+@media only screen and (max-width: 1120px) {
+    .calendar {
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 620px) {
+    .calendar-box .fc-view-harness {
+        display: none;
+    }
+
+    .fc-toolbar-chunk:last-child {
+        display: none !important;
+    }
+
+    .events-box {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .event {
+        border: 1px solid #999999;
+        border-radius: 7px;
+        box-sizing: border-box;
+        margin: 1rem 0.6em 1rem 0.3em;
+        flex: 0 1 48%;
+        transition: 0.3s;
+        height: 130px;
+        padding: 7px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .event h3 {
+        margin: 0;
+    }
+
+    .event .from-to {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .event .control {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        border-top: solid 1px #999999;
+        padding-top: 5px;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .cal-btn button:first-child {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .cal-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .fc-toolbar-chunk {
+        display: flex;
+        padding: 5px;
+        justify-content: space-between;
+    }
+
+    .fc-toolbar-title {
+        font-size: 20px !important;
+    }
+
+    .event .from-to {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .event .from-to p:last-child {
+        margin: 0;
+    }
+}

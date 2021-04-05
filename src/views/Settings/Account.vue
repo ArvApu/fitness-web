@@ -109,13 +109,13 @@ export default {
 </script>
 
 <style scoped>
-.account {
-  margin: 0 80px;
-}
-
-@media only screen and (max-width: 500px) {
   .account {
-    margin: 0;
+    margin: 0 80px;
   }
-}
+
+  @media only screen and (max-width: 500px) {
+    .account {
+      margin: 0;
+    }
+  }
 </style>
