@@ -92,6 +92,14 @@
     opacity: 0;
 }
 
+.empty-news-dialog {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 300px;
+}
+
 @media only screen and (max-width: 900px) {
     .overview {
         flex-direction: column-reverse;
@@ -114,5 +122,14 @@
     .events-mobile-switch {
         display: flex;
     }
+}
 
+@media only screen and (max-width: 450px) {
+    .empty-news-dialog {
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 25px;
+        margin-top: 200px;
+    }
 }

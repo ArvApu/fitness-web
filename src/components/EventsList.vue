@@ -10,6 +10,10 @@
       <div class="event-attendee"> <small><b>Attendee:</b> {{ event.attendee.full_name }}</small></div>
     </div>
 
+    <div class="empty-events-list-dialog" v-if="events.length === 0">
+      No events
+    </div>
+
   </div>
 </template>
 
@@ -59,6 +63,12 @@ export default {
   .event:hover {
     border-color: var(--primary-color);
     background: #efefef;
+  }
+
+  .empty-events-list-dialog {
+    font-style: italic;
+    padding: 10px 0;
+    margin-bottom: 5px;
   }
 
 </style>

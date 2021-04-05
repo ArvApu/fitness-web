@@ -15,6 +15,11 @@
         <div class="news-content"> {{ newsEvent.content }}</div>
         <div class="news-date"> {{ getDisplayDate(newsEvent.created_at) }} </div>
       </div>
+
+      <div v-if="news.length === 0" class="empty-news-dialog">
+        News feed is empty.
+      </div>
+
     </div>
 
     <div class="events">
@@ -34,7 +39,7 @@
 
     <div class="events-mobile-switch">
       <button class="btn btn-primary" v-on:click="showMobileEvents = !showMobileEvents">
-        There <span  v-if="eventsCount > 0">are</span><span v-else>is</span> {{ eventsCount }} upcoming event<span v-if="eventsCount !== 1">s</span> <span v-if="eventsCount > 0">&#9660;</span>
+        There <span  v-if="eventsCount === 1">is</span><span v-else>are</span> {{ eventsCount }} upcoming event<span v-if="eventsCount !== 1">s</span> <span v-if="eventsCount > 0">&#9660;</span>
       </button>
     </div>
 
