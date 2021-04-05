@@ -7,7 +7,7 @@
 
   <div class="overview" v-else>
 
-    <div class="news">
+    <div class="news" v-on:scroll="onScroll" ref="news">
 
       <h3> News feed </h3>
 
@@ -95,6 +95,14 @@ export default {
       } else {
         return date.substring(0, 10) + ' at ' + fullDate.getHours() + ':' + fullDate.getMinutes();
       }
+    },
+    onScroll ({ target: { scrollTop, clientHeight, scrollHeight }}) {
+      if ((scrollTop + clientHeight >= scrollHeight) && this.paginator.currentPage < this.paginator.lastPage) {
+        this.fetchNews({
+          page: this.paginator.currentPage + 1,
+          add: true
+        });
+      }
     }
   },
   data() {
@@ -107,7 +115,7 @@ export default {
     }
   },
   created() {
-    this.fetchNews(1).finally(() => {
+    this.fetchNews({page: 1, add: false}).finally(() => {
       this.isLoadingNews = false;
     })
 

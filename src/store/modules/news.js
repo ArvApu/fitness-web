@@ -20,17 +20,26 @@ const mutations = {
     SET_NEWS(state, news) {
         state.news = news;
     },
+    ADD_NEWS(state, news) {
+        state.news.push(...news);
+    },
     SET_PAGINATOR(state, paginator) {
         state.paginator = paginator;
     },
 };
 
 const actions = {
-    async fetchAll({ commit }, page) {
+    async fetchAll({ commit }, {page, add}) {
         try {
             commit('SET_IS_LOADING', true);
             const response = await api.news.all(page);
-            commit('SET_NEWS', response.data.data);
+
+            if(!add) {
+                commit('SET_NEWS', response.data.data);
+            } else {
+                commit('ADD_NEWS', response.data.data);
+            }
+
             commit('SET_PAGINATOR', {
                 currentPage: response.data.meta.current_page,
                 lastPage: response.data.meta.last_page,
