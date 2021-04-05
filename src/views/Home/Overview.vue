@@ -128,6 +128,4 @@ export default {
 
 </script>
 
-<style scoped>
-  @import '../../assets/css/overview.css';
-</style>
+<style scoped lang="css" src="../../assets/css/overview.css"/>

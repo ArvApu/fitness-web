@@ -141,14 +141,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="css" src="../../assets/css/items.css"/>
 
-  @import '../../assets/css/items.css';
-
+<style scoped lang="css">
   .item .info .description {
     display: flex;
     flex-direction: column;
     font-size: small;
   }
-
 </style>

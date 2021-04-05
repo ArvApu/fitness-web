@@ -139,8 +139,9 @@ export default {
 }
 </script>
 
+<style scoped lang="css" src="../../assets/css/items.css"/>
+
 <style scoped>
-  @import '../../assets/css/items.css';
   .video {
     width: 100%;
     height: 550px;

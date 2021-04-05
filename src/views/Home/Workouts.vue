@@ -130,6 +130,4 @@ export default {
 }
 </script>
 
-<style scoped>
-  @import '../../assets/css/items.css';
-</style>
+<style scoped lang="css" src="../../assets/css/items.css"/>

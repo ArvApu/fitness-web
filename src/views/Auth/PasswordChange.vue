@@ -75,6 +75,4 @@ export default {
 };
 </script>
 
-<style scoped>
-  @import '../../assets/css/auth.css';
-</style>
+<style scoped lang="css" src="../../assets/css/auth.css"/>

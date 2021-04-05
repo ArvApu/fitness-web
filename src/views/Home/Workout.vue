@@ -191,8 +191,8 @@ export default {
 }
 </script>
 
+<style scoped lang="css" src="../../assets/css/table.css"/>
 <style scoped>
-  @import '../../assets/css/table.css';
 
   h1 {
     text-transform: capitalize;

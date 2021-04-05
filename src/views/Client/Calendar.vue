@@ -137,6 +137,4 @@ export default {
 }
 </script>
 
-<style>
-  @import '../../assets/css/calendar.css';
-</style>
+<style scoped lang="css" src="../../assets/css/calendar.css"/>

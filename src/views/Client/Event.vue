@@ -110,7 +110,4 @@ export default {
 }
 </script>
 
-
-<style scoped>
-  @import '../../assets/css/event.css';
-</style>
+<style scoped lang="css" src="../../assets/css/event.css"/>
