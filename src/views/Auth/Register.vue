@@ -34,6 +34,15 @@
           <input required class="form-input" v-model="user.password_confirmation" id="password_confirmation" type="password" placeholder="Confirm password"/>
         </div>
 
+        <div class="form-group">
+          Gender
+          <input v-model="user.gender" type="radio"  id="male" name="male" value="male"/>
+          <label for="male">Male</label>
+
+          <input v-model="user.gender" type="radio" id="female" name="female" value="female">
+          <label for="female">Female</label>
+        </div>
+
         <form-submit-button label="Register" :processing="loading"/>
 
         <div class="form-group auth-links">
@@ -70,6 +79,7 @@ export default {
       user: {
         first_name: null,
         last_name: null,
+        gender: 'male',
         email : null,
         password: null,
         password_confirmation: null,
