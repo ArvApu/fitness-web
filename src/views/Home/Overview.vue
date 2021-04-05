@@ -25,10 +25,12 @@
       <events-list :events="tomorrowEvents" header="Tomorrow"/>
     </div>
 
-    <div class="events-mobile" v-if="showMobileEvents && eventsCount > 0">
-      <events-list :events="todayEvents" header="Today"/>
-      <events-list :events="tomorrowEvents" header="Tomorrow"/>
-    </div>
+    <transition name="slide-fade">
+      <div class="events-mobile" v-if="showMobileEvents && eventsCount > 0">
+        <events-list :events="todayEvents" header="Today"/>
+        <events-list :events="tomorrowEvents" header="Tomorrow"/>
+      </div>
+    </transition>
 
     <div class="events-mobile-switch">
       <button class="btn btn-primary" v-on:click="showMobileEvents = !showMobileEvents">

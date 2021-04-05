@@ -67,6 +67,7 @@
     background: #d4d4d4;
     width: 100%;
     margin-bottom: 10px;
+    transition: display 800ms;
 }
 
 .events-mobile-switch {
@@ -77,6 +78,18 @@
 
 .events-mobile-switch button{
     width: 100%;
+}
+
+.slide-fade-enter-active {
+    transition: all 0.5s ease-out;
+}
+.slide-fade-leave-active {
+    transition: all 0.4s ease-in;
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+    transform: translateY(-15px);
+    opacity: 0;
 }
 
 @media only screen and (max-width: 900px) {
