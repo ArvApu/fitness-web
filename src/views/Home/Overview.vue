@@ -76,9 +76,6 @@ export default {
       fetchNews: 'fetchAll'
     }),
     getDisplayDate(date) {
-
-      const fullDate = new Date(date);
-
       const today = new Date();
       today.setHours(0);
       today.setMinutes(0);
@@ -94,11 +91,11 @@ export default {
       const diff = today.getTime() - compDate.getTime();
 
       if (compDate.getTime() === today.getTime()) {
-        return 'Today at ' + fullDate.getHours() + ':' + fullDate.getMinutes();
+        return 'Today at ' + date.substring(11, 16);
       } else if (diff <= (24 * 60 * 60 * 1000)) {
-        return 'Yesterday at ' + fullDate.getHours() + ':' + fullDate.getMinutes();
+        return 'Yesterday at ' + date.substring(11, 16);
       } else {
-        return date.substring(0, 10) + ' at ' + fullDate.getHours() + ':' + fullDate.getMinutes();
+        return date.substring(0, 10) + ' at ' + date.substring(11, 16);
       }
     },
     onScroll ({ target: { scrollTop, clientHeight, scrollHeight }}) {
