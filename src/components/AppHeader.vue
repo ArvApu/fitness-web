@@ -7,6 +7,11 @@
         <settings-menu-links v-else-if="this.links === 'settings'"/>
         <menu-links v-else/>
       </slide>
+
+      <div class="logo-image no-highlight-select">
+        <router-link :to="{ name: 'Home'}"> Training system </router-link>
+      </div>
+
     </div>
 
     <div class='account'>

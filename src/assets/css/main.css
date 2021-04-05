@@ -107,7 +107,36 @@ a, a:hover, a:visited, a:link, a:active {
     overflow: hidden;
     height: 100%;
     width: 200px;
-    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#header .logo-image {
+    font-size: 20px;
+}
+
+#header .logo-image a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#header .logo-image:after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    margin-top: 3px;
+    background: white;
+    transition: width .3s;
+}
+
+#header .logo-image:hover::after {
+    width: 100%;
+}
+
+#header .logo-image:hover {
+    cursor: pointer;
 }
 
 #header .account {
@@ -489,5 +518,9 @@ select {
 
     #mobile-menu {
         display: block;
+    }
+
+    .logo-image {
+        display: none;
     }
 }
