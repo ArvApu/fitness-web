@@ -24,8 +24,13 @@
       </div>
 
       <div class="form-group" v-if="user.role === 'user'">
-        <label for="weight">Weight</label>
+        <label for="weight">Weight (kg)</label>
         <input class="form-input" v-model="user.weight" id="weight" type="text" placeholder="Weight"/>
+      </div>
+
+      <div class="form-group" v-if="user.role === 'user'">
+        <label for="height">Height (cm)</label>
+        <input class="form-input" v-model="user.height" id="height" type="text" placeholder="Height"/>
       </div>
 
       <div v-if="user.role === 'trainer'">
@@ -73,6 +78,7 @@ export default {
         last_name: this.$store.state.auth.user.last_name,
         birthday: this.$store.state.auth.user.birthday,
         weight: this.$store.state.auth.user.weight,
+        height: this.$store.state.auth.user.height,
         experience: this.$store.state.auth.user.experience,
         about: this.$store.state.auth.user.about,
         role: this.$store.state.auth.user.role,
