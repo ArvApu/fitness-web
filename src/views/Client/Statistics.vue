@@ -3,7 +3,7 @@
   <div>
     Statistics page
 
-    <doughnut-chart v-if="this.loaded" :chartdata="this.chartdata" :options="this.options"/>
+    <doughnut-chart v-if="getChartLoadedStatus(0)" :chartdata="getChartData(0)" :options="getChartOptions(0)"/>
   </div>
 
 </template>
@@ -20,34 +20,48 @@ export default {
   data() {
     return {
       clientId: this.$store.state.auth.clientId,
-      colors: ['#ff6384', '#36a2eb', '#ffce56', '#20B2AA',
-        '#FFA500','#B0171F','#C1FFC1', '#90EE90'],
-
-      // TODO: add charts to array
-      loaded: false,
-      chartdata: {},
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        title: {
-          display: true,
-          text: 'Workouts'
+      colors: ['#ff6384', '#36a2eb', '#ffce56', '#20B2AA', '#FFA500','#B0171F','#C1FFC1', '#90EE90'],
+      charts: [
+        {
+          loaded: false,
+          chartdata: {},
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: 'Workouts'
+            }
+          },
         }
-      },
+      ],
     }
   },
   methods: {
     ...mapActions('statistics', [
         'workouts', 'workout', 'weight', 'exercises', 'exercise'
-    ])
+    ]),
+    getChartLoadedStatus(id) {
+      return this.getChart(id).loaded;
+    },
+    getChartData(id) {
+      return this.getChart(id).chartdata;
+    },
+    getChartOptions(id) {
+      return this.getChart(id).options;
+    },
+    getChart(id){
+      return this.charts[id];
+    }
   },
   created() {
     this.workouts({userId: this.clientId}).then((data) => {
+      let chart = this.charts[0];
 
-      this.chartdata = {
+      chart.chartdata = {
         datasets: [{
           data: [data.missed, data.interrupted, data.completed],
           backgroundColor: this.colors,
@@ -55,7 +69,7 @@ export default {
         labels: ['missed', 'interrupted', 'completed']
       }
 
-      this.loaded = true;
+      chart.loaded = true;
     });
   }
 }
