@@ -156,17 +156,4 @@ export default {
 }
 </script>
 
-<style scoped>
-  .pagination {
-    display: flex;
-    margin: .25rem .25rem 0;
-  }
-
-  .pagination button {
-    flex-grow: 1;
-  }
-
-  .pagination button:disabled {
-    cursor: default;
-  }
-</style>
+<style scoped lang="css" src="../../assets/css/paginate-select.css"/>
