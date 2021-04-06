@@ -21,7 +21,7 @@ import {mapState} from "vuex";
 import DoughnutChart from "@/components/Charts/DoughnutChart";
 
 export default {
-  name: 'Workouts',
+  name: 'Workout',
   components: {
     DoughnutChart
   },
