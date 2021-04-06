@@ -4,6 +4,7 @@
     <workouts/>
     <workout/>
     <exercises/>
+    <exercise/>
   </div>
 
 </template>
@@ -12,6 +13,7 @@
 import Workouts from "@/components/Statistics/Workouts";
 import Workout from "@/components/Statistics/Workout";
 import Exercises from "@/components/Statistics/Exercises";
+import Exercise from "@/components/Statistics/Exercise";
 
 export default {
   name: 'Statistics',
@@ -19,6 +21,7 @@ export default {
     Workouts,
     Workout,
     Exercises,
+    Exercise,
   },
 }
 </script>
