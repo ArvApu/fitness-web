@@ -11,7 +11,12 @@
       </v-select>
     </div>
 
-    <line-chart v-if="chart.loaded" :chartdata="chart.chartdata" :options="chart.options"/>
+    <div v-if="exerciseId && isEnoughData">
+      <line-chart v-if="chart.loaded" :chartdata="chart.chartdata" :options="chart.options"/>
+    </div>
+
+    <empty v-else/>
+
   </div>
 </template>
 
@@ -19,11 +24,13 @@
 
 import {mapState} from "vuex";
 import LineChart from "@/components/Charts/LineChart";
+import Empty from "@/components/Statistics/Empty";
 
 export default {
   name: 'Exercise',
   components: {
-    LineChart
+    LineChart,
+    Empty
   },
   computed: {
     ...mapState('exercises', [
@@ -40,6 +47,7 @@ export default {
     return {
       clientId: this.$store.state.auth.clientId,
       exerciseId: null,
+      isEnoughData: false,
       chart: {
         loaded: false,
         chartdata: {},
@@ -78,12 +86,14 @@ export default {
       this.$store.dispatch('statistics/exercise', payload).then((data) => {
 
         const labels = data.measurement_values.map(function (value) {
-          return value.created_at;
+          return value.created_at.slice(0, 10);
         });
 
         const chartData = data.measurement_values.map(function (value) {
           return value.measurement_value;
         });
+
+        this.isEnoughData = chartData.length >= 2;
 
         this.chart.chartdata = {
           labels: labels,

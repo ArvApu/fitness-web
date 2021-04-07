@@ -1,6 +1,5 @@
 <template>
-  <div>
-
+  <div class="workout-stats">
     <div class='form-group'>
       <label> Workout statistics </label>
       <v-select @search="fetchWorkouts" v-on:option:selected="reLoadStats" :appendToBody="false" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId">
@@ -11,7 +10,12 @@
       </v-select>
     </div>
 
-    <doughnut-chart v-if="chart.loaded" :chartdata="chart.chartdata" :options="chart.options"/>
+    <div v-if="workoutId && isEnoughData">
+      <doughnut-chart v-if="chart.loaded" :chartdata="chart.chartdata" :options="chart.options"/>
+    </div>
+
+    <empty v-else/>
+
   </div>
 </template>
 
@@ -19,11 +23,13 @@
 
 import {mapState} from "vuex";
 import DoughnutChart from "@/components/Charts/DoughnutChart";
+import Empty from "@/components/Statistics/Empty";
 
 export default {
   name: 'Workout',
   components: {
-    DoughnutChart
+    DoughnutChart,
+    Empty
   },
   computed: {
     ...mapState('workouts', [
@@ -40,7 +46,8 @@ export default {
     return {
       clientId: this.$store.state.auth.clientId,
       workoutId: null,
-      colors: ['#ff6384', '#36a2eb', '#ffce56', '#20B2AA', '#FFA500','#B0171F','#C1FFC1', '#90EE90'],
+      isEnoughData: false,
+      colors: ['#e20a60', '#FFA500','#20b2aa', '#9fff9f'],
       chart: {
         loaded: false,
         chartdata: {},
@@ -77,6 +84,9 @@ export default {
       const payload = {id: this.workoutId, userId: this.clientId};
 
       this.$store.dispatch('statistics/workout', payload).then((data) => {
+
+        this.isEnoughData = data.missed > 0 || data.interrupted > 0 || data.completed > 0;
+
         this.chart.chartdata = {
           datasets: [{
             data: [data.missed, data.interrupted, data.completed],
@@ -96,3 +106,9 @@ export default {
 </script>
 
 <style scoped lang="css" src="../../assets/css/paginate-select.css"/>
+
+<style scoped>
+  .workout-stats {
+    height: 480px;
+  }
+</style>

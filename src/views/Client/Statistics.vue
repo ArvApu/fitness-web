@@ -1,11 +1,31 @@
 <template>
 
   <div class="statistics">
-    <workouts/>
-    <workout/>
-    <exercises/>
-    <exercise/>
-    <weight/>
+
+    <div class="general">
+      <div class="statistic-general">
+        <exercises/>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="statistic-chart">
+        <workouts/>
+      </div>
+
+      <div class="statistic-chart">
+        <weight/>
+      </div>
+
+      <div class="statistic-chart">
+        <workout/>
+      </div>
+
+      <div class="statistic-chart">
+        <exercise/>
+      </div>
+    </div>
+
   </div>
 
 </template>
@@ -32,5 +52,31 @@ export default {
 <style scoped>
   .statistics {
     display: flex;
+    flex-direction: column;
   }
+
+  .general {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .charts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .statistic-chart {
+    width: 49%;
+    padding: 20px 5px;
+    margin-bottom: 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+    background: #f3f3f3;
+    border-radius: 5px;
+  }
+
+  .statistic-general {
+    display: flex;
+  }
+
 </style>

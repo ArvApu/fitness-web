@@ -82,6 +82,7 @@ a, a:hover, a:visited, a:link, a:active {
 
 #content {
     overflow-y: scroll;
+    height: calc(100vh - 60px); /* Remove to turnoff sticky header and menu */
     -webkit-overflow-scrolling: touch;
     width: 100%;
     padding: 15px 25px; /* If updated also update .remove-content-paddings */
