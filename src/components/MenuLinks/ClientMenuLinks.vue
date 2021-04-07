@@ -5,7 +5,7 @@
     </div>
     <ul>
       <li>
-        <router-link :to="{ name: 'Calendar'}" exact-active-class="side-panel-exact-active" > <font-awesome-icon icon="calendar" fixed-width/> Calendar </router-link>
+        <router-link :to="{ name: 'Calendar'}" exact-active-class="side-panel-exact-active" > <font-awesome-icon icon="calendar" fixed-width/> Events </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'Statistics'}" exact-active-class="side-panel-exact-active" > <font-awesome-icon icon="chart-bar" fixed-width/> Statistics </router-link>

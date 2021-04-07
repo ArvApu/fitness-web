@@ -68,7 +68,7 @@ const routes = [
     path: '/client',
     name: 'Client',
     component: Client,
-    redirect: '/client/calendar',
+    redirect: '/client/calendar/events',
     meta: { client: true },
     children: [
       {
@@ -87,7 +87,7 @@ const routes = [
         component: Statistics,
       },
       {
-        path: 'calendar',
+        path: 'calendar/events',
         name: 'Calendar',
         component: Calendar,
       },

@@ -1,5 +1,5 @@
 <template>
-  <div class="workout-stats">
+  <div>
     <div class='form-group'>
       <label> Workout statistics </label>
       <v-select @search="fetchWorkouts" v-on:option:selected="reLoadStats" :appendToBody="false" :filterable="false" :options="workouts" label="name" :reduce="workout => workout.id" v-model="workoutId">
@@ -106,9 +106,3 @@ export default {
 </script>
 
 <style scoped lang="css" src="../../assets/css/paginate-select.css"/>
-
-<style scoped>
-  .workout-stats {
-    height: 480px;
-  }
-</style>
