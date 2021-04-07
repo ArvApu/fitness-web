@@ -32,6 +32,10 @@ export default {
           legend: {
             display: false
           },
+          title: {
+            display: true,
+            text: 'Weight'
+          }
         },
       },
     }

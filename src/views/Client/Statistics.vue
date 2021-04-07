@@ -79,4 +79,13 @@ export default {
     display: flex;
   }
 
+  @media only screen and (max-width: 820px) {
+    .charts {
+      flex-direction: column;
+    }
+
+    .statistic-chart {
+      width: 100%;
+    }
+  }
 </style>
