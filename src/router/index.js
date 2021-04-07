@@ -174,18 +174,18 @@ const router = new VueRouter({
 router.beforeEach(function(to, from, next) {
 
   /* Let all unguarded routes pass */
-  if (!to.matched.some(path => path.meta.unguarded)) {
-    next();
+  if (to.matched.some(path => path.meta.unguarded)) {
+    return next();
   }
 
   /* If user is not authenticated and path is not for guests then whe should block further action */
   if (!store.state.auth.accessToken && !to.matched.some(path => path.meta.guest)) {
-    next({ name: 'Login' });
+    return next({ name: 'Login' });
   }
 
   /* If user is authenticated and path is for guests then whe should block further action */
   if (store.state.auth.accessToken && to.matched.some(path => path.meta.guest)) {
-    next({ name: 'Home' });
+    return next({ name: 'Home' });
   }
 
   /* If path only for trainers check is user a trainer and can access this path (admins have full access) */
@@ -193,15 +193,15 @@ router.beforeEach(function(to, from, next) {
       store.state.auth.user.role !== 'trainer' &&
       store.state.auth.user.role !== 'admin'
   )) {
-    next({ name: 'Client' });
+    return next({ name: 'Client' });
   }
 
   /* If path is created for client and admin/trainer did not enabled user view mode redirect back to clients page */
   if(to.matched.some(path => path.meta.client) && store.state.auth.user.role !== 'user' && !store.state.auth.clientId) {
-    next({ name: 'Clients' });
+    return next({ name: 'Clients' });
   }
 
-  next();
+  return next();
 });
 
 export default router
