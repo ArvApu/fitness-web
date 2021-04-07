@@ -46,7 +46,7 @@ const actions = {
     async weight(context, { userId }) {
         try {
             const response = await api.statistics.weight(userId);
-            return response.data;
+            return response.data.data;
         } catch (e) {
             this._vm.$toast.error('Failed to load weight statistics.');
             return Promise.reject(e);
