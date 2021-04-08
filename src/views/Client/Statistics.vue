@@ -73,7 +73,7 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
     background: #f3f3f3;
     border-radius: 5px;
-    height: 480px;
+    height: 500px;
   }
 
   .statistic-general {
