@@ -93,6 +93,10 @@ export default {
     register() {
       this.loading = true
 
+      if(this.$route.query.token) {
+        this.user.token = this.$route.query.token;
+      }
+
       api.registration.register(this.user)
           .then(() => this.success = true)
           .catch(err => this.errors = err.response.data.error)
