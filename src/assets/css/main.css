@@ -27,12 +27,15 @@
 }
 
 :root {
-    --main-bg-color: #eeeeee;
-    --menu-bg-color: #00adb5;
-    --header-bg-color: #222831;
-    --primary-color: #16a596;
-    --secondary-color: #393e46;
-    --danger-color: #ac0000;
+    --main-bg-color: #f1f1f1;
+    --menu-bg-color: #0353a4;
+    --menu-active-color: #f1f1f1;
+    --menu-link-color: #0353a4;
+    --header-bg-color: #001233;
+    --header-account: #0353a4;
+    --primary-color: #0353a4;
+    --secondary-color: #33415c;
+    --danger-color: #8b0000;
     --success-color: #155724;
 }
 
@@ -75,6 +78,7 @@ a, a:hover, a:visited, a:link, a:active {
 /* --------------- Main element elements ---------------- */
 
 #menu {
+    padding-right: 7px;
     background-color: var(--menu-bg-color);
     height: 100%;
     width: 15%;
@@ -148,14 +152,15 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 #header .account .btn {
-    background-color: #bbded6;
+    color: var(--main-bg-color);
+    background-color: var(--header-account);
     height: 35px;
     margin: 2px 20px;
     font-weight: bold;
 }
 
 #header .account .btn:hover {
-    background-color: #007c70
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.15);
 }
 
 .profile-links a {
@@ -170,7 +175,11 @@ a, a:hover, a:visited, a:link, a:active {
 /* --------------- Menu elements --------------- */
 
 #menu a {
-    color: #000000;
+    color: #f1f1f1;
+    border-bottom: 2px solid #f1f1f1;
+    background-image: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1));
+    border-radius: 0 2px 7px 0;
+    margin-bottom: 10px;
     text-decoration: none;
     display: block;
     width: 100%;
@@ -181,7 +190,8 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 #menu a:hover{
-    background-color: #61c0bf;
+    color: #000000;
+    background-color: var(--menu-active-color);
 }
 
 #menu ul{
@@ -191,12 +201,12 @@ a, a:hover, a:visited, a:link, a:active {
 
 #menu li {
     margin: 4px 0;
-    background-color: #bbded6;
+    background-color: var(--menu-link-color);
 }
 
 #menu .side-panel-exact-active {
-    color: #ffffff;
-    background-color: #61c0bf;
+    color: #000000;
+    background-color: var(--menu-active-color);
 }
 
 /* --------------- Mobile menu --------------- */
@@ -250,12 +260,15 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 #mobile-menu .bm-item-list ul li {
-    background-color: #bbded6;
-    margin: 4px 0;
+    color: #f1f1f1;
+    border-bottom: 2px solid #f1f1f1;
+    background-image: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1));
+    margin-bottom: 10px;
+    background-color: var(--menu-link-color);
 }
 
 #mobile-menu .bm-item-list ul li a {
-    color: #000000;
+    color: #f1f1f1;
     display: block;
     padding: 10px 5px;
     width: 100%;
@@ -263,8 +276,8 @@ a, a:hover, a:visited, a:link, a:active {
 }
 
 #mobile-menu .side-panel-exact-active {
-    color: #ffffff !important;
-    background-color: #61c0bf;
+    color: #000000 !important;
+    background-color: var(--menu-active-color);
 }
 
 /* --------------- Buttons elements --------------- */
@@ -324,7 +337,7 @@ button[disabled=disabled], button:disabled, .btn-disabled-wait:disabled {
 }
 
 .btn-primary:hover {
-    background-color: #007c70;
+    box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
@@ -334,7 +347,7 @@ button[disabled=disabled], button:disabled, .btn-disabled-wait:disabled {
 }
 
 .btn-secondary:hover {
-    background-color: #222831;
+    box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.15);
 }
 
 .btn-danger {
@@ -344,7 +357,7 @@ button[disabled=disabled], button:disabled, .btn-disabled-wait:disabled {
 }
 
 .btn-danger:hover {
-    background-color: #810000;
+    box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.15);
 }
 
 /* -------------------- Forms -------------------- */

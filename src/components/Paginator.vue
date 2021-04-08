@@ -51,19 +51,20 @@ export default {
     height: 35px;
     margin: 5px;
     border-radius: 5px;
-    border: none;
     cursor: pointer;
-    background: var(--secondary-color);
+    background: var(--primary-color);
+    border: none;
     color: white;
     font-size: 13px;
+
   }
 
   .paginator div:hover {
-    background: #1a1c21;
+    box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.3);
   }
 
   .paginator div:nth-child(2):hover {
-    background: var(--secondary-color);
+    box-shadow: none;
   }
 
   .paginator div:nth-child(2) {

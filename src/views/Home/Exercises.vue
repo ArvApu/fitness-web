@@ -132,7 +132,7 @@ export default {
     }
   },
   created() {
-    this.fetchAll({page: this.paginator.currentPage}).finally(() => {
+    this.fetchAll({page: 1}).finally(() => {
       this.firstLoad = false;
     });
   }

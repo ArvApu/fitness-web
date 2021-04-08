@@ -71,7 +71,7 @@
       </div>
     </modal>
 
-    <button class="btn btn-secondary add-exercise-button" v-on:click="show"> <font-awesome-icon icon="plus"/> Add </button>
+    <button class="btn btn-primary add-exercise-button" v-on:click="show"> <font-awesome-icon icon="plus"/> Add </button>
 
   </div>
 </template>
