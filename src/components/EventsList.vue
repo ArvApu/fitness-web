@@ -61,8 +61,8 @@ export default {
   }
 
   .event:hover {
+    background-image: linear-gradient(rgba(3, 83, 164, 0), rgba(3, 83, 164, 0.08));
     border-color: var(--primary-color);
-    background: #efefef;
   }
 
   .empty-events-list-dialog {

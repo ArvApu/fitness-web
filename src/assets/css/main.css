@@ -178,7 +178,7 @@ a, a:hover, a:visited, a:link, a:active {
     color: #f1f1f1;
     border-bottom: 2px solid #f1f1f1;
     background-image: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1));
-    border-radius: 0 2px 7px 0;
+    border-radius: 0 5px 5px 0;
     margin-bottom: 10px;
     text-decoration: none;
     display: block;
