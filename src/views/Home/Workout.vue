@@ -55,7 +55,7 @@
 
     <modal class="force-scroll-modal" name="assign-exercise-modal" :width=800 :height="'auto'" :adaptive=true :scrollable=true>
       <div class="modal-from">
-        <assign-exercise-form @created="add" @canceled="hide" :workout-id="parseInt(this.$route.params.id)" :assigned-exercises-count="exercisesCount"/>
+        <assign-exercise-form @created="add" @updated="update" :assigned="assignee" :workout-id="parseInt(this.$route.params.id)" :assigned-exercises-count="exercisesCount"/>
       </div>
     </modal>
 
@@ -90,6 +90,7 @@ export default {
       workout: {},
       url: null,
       exercisesCount: 0,
+      assignee: null,
     }
   },
   components: {
@@ -101,15 +102,13 @@ export default {
     ...mapState('workouts', [
       'errors', 'isLoading'
     ]),
-    exercises: () => {
-      return this.workout.exercises.sort((a, b) => parseInt(a.order) - parseInt(b.order));
-    }
   },
   methods: {
     ...mapActions('workouts', [
       'fetchOne', 'copy', 'delete', 'unassignExercise'
     ]),
     show () {
+      this.assignee = null;
       this.$modal.show('assign-exercise-modal');
     },
     hide () {
@@ -130,21 +129,28 @@ export default {
     },
     add() {
       this.fetchOne(this.$route.params.id).then(
-          result => this.workout = result
+          result => this.setWorkout(result)
       );
       this.exercisesCount++;
+      this.hide();
+    },
+    update() {
+      this.fetchOne(this.$route.params.id).then(
+          result => this.setWorkout(result)
+      );
       this.hide();
     },
     unassign(exercise) {
       this.unassignExercise({id: this.$route.params.id, assigned: exercise.pivot.id}).then(() => {
         this.fetchOne(this.$route.params.id).then(
-            result => this.workout = result
+            result => this.setWorkout(result)
         );
         this.exercisesCount--;
       })
     },
-    reassign() {
-
+    reassign(exercise) {
+      this.assignee = exercise.pivot;
+      this.$modal.show('assign-exercise-modal');
     },
     copyWorkout() {
       this.copy(this.$route.params.id).then((workout) => {
@@ -174,10 +180,16 @@ export default {
         ]
       })
     },
+    setWorkout(workout) {
+      this.workout = workout
+      this.workout.exercises = this.workout.exercises.sort((a, b) => {
+        return parseInt(a.pivot.order) - parseInt(b.pivot.order)
+      });
+    }
   },
   created() {
-    this.fetchOne(this.$route.params.id).then(result =>{
-      this.workout = result
+    this.fetchOne(this.$route.params.id).then(result => {
+      this.setWorkout(result)
       this.exercisesCount = result.exercises.length
     });
   },
@@ -192,6 +204,7 @@ export default {
 </script>
 
 <style scoped lang="css" src="../../assets/css/table.css"/>
+
 <style scoped>
 
   h1 {
@@ -222,6 +235,22 @@ export default {
   .buttons-control button {
     margin-right: 7px;
     width: 140px;
+  }
+
+  .view, .edit, .remove {
+    cursor: pointer;
+  }
+
+  .view:hover {
+    color: var(--primary-color);
+  }
+
+  .edit:hover {
+    color: var(--secondary-color);
+  }
+
+  .remove:hover {
+    color: var(--danger-color);
   }
 
   @media only screen and (max-width: 500px) {

@@ -6,7 +6,7 @@
 
     <alerts :errors="errors"/>
 
-    <div class='form-group'>
+    <div class='form-group' v-if="assigned === null">
       <label> Exercise </label>
       <v-select @search="fetchExercises" :appendToBody="true" :filterable="false" :options="exercises"
                 label="name" :reduce="exercise => exercise.id" v-model="assignee.id">
@@ -63,7 +63,10 @@ export default {
     assignedExercisesCount: {
       type: Number,
       default() { return 0; },
-    }
+    },
+    assigned: {
+      type: Object,
+    },
   },
   computed: {
     ...mapState('exercises', [
@@ -84,22 +87,42 @@ export default {
       isLoading: false,
       exerciseId: null,
       assignee: {
+        _id: this?.assigned?.id ?? null,
         id: null,
-        order: this.assignedExercisesCount + 1,
-        sets: null,
-        reps: null,
-        rest: null,
+        order: this?.assigned?.order ?? this.assignedExercisesCount + 1,
+        sets: this?.assigned?.sets ?? null,
+        reps: this?.assigned?.reps ?? null,
+        rest: this?.assigned?.rest ?? null,
       },
     }
   },
   methods: {
     handle() {
       this.isLoading = true;
+      if(this.assignee._id) {
+        this.update();
+      } else {
+        this.create();
+      }
+    },
+    create() {
       this.$store.dispatch('workouts/assignExercises', {
         id: this.workoutId,
         exercises: [this.assignee]
       }).then(() => {
         this.$emit('created')
+      }).finally(() => {
+        this.isLoading = false;
+      });
+    },
+    update() {
+      this.assignee.id = this.assignee._id;
+      this.$store.dispatch('workouts/reassignExercise', {
+        id: this.workoutId,
+        assigned: this.assignee.id,
+        payload: this.assignee
+      }).then(() => {
+        this.$emit('updated')
       }).finally(() => {
         this.isLoading = false;
       });
