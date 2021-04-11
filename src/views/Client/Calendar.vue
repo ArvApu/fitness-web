@@ -137,4 +137,4 @@ export default {
 }
 </script>
 
-<style scoped lang="css" src="../../assets/css/calendar.css"/>
+<style lang="css" src="../../assets/css/calendar.css"/>
