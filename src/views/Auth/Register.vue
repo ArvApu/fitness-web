@@ -19,7 +19,7 @@
           <input required class="form-input" v-model="user.last_name" id="last_name" type="text" placeholder="Last name"/>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" v-if="!this.$route.query.email">
           <label for="email">Email</label>
           <input required class="form-input" v-model="user.email" id="email" type="email" placeholder="Email"/>
         </div>
@@ -45,7 +45,7 @@
 
         <form-submit-button label="Register" :processing="loading"/>
 
-        <div class="form-group auth-links">
+        <div class="form-group auth-links" v-if="!this.$route.query.email">
           <router-link :to="{ name: 'Login' }"> Return back to login </router-link>
         </div>
 
@@ -80,7 +80,7 @@ export default {
         first_name: null,
         last_name: null,
         gender: 'male',
-        email : null,
+        email : this.$route.query.email ?? null,
         password: null,
         password_confirmation: null,
       },
