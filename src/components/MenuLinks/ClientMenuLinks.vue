@@ -13,6 +13,9 @@
       <li v-show="user && user.role === 'user'">
         <router-link :to="{ name: 'ClientMessages'}" exact-active-class="side-panel-exact-active" >  <font-awesome-icon icon="comments" fixed-width/> Messages </router-link>
       </li>
+      <li v-show="user && user.role === 'user'">
+        <router-link :to="{ name: 'ClientWorkouts'}" exact-active-class="side-panel-exact-active" >  <font-awesome-icon icon="swimmer" fixed-width/> Workouts </router-link>
+      </li>
     </ul>
   </div>
 </template>

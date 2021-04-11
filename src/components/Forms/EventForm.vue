@@ -29,7 +29,7 @@
 <!--      <label for="all_day"> Will event be all day? </label>-->
 <!--    </div>-->
 
-    <hr>
+<!--    <hr>-->
 
       <div v-show="eventObj.all_day">
         <div class='form-group'>
@@ -104,6 +104,7 @@ export default {
         altInput: true,
         altFormat: "Y-m-d",
         dateFormat: "Y-m-d H:i:S",
+        defaultDate: new Date(),
         locale: {
           firstDayOfWeek: 1,
         },

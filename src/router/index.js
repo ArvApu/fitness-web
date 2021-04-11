@@ -97,7 +97,12 @@ const routes = [
         component: Event,
       },
       {
-        path: '/workout/:id/view',
+        path: 'workouts',
+        name: 'ClientWorkouts',
+        component: Workouts
+      },
+      {
+        path: 'workout/:id',
         name: 'ClientWorkout',
         component: Workout
       },

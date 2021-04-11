@@ -7,7 +7,7 @@
 
     <div v-else>
 
-      <button class="btn btn-primary add-btn" v-on:click="add"> <font-awesome-icon icon="plus"/> Add workout </button>
+      <button v-if='canControl' class="btn btn-primary add-btn" v-on:click="add"> <font-awesome-icon icon="plus"/> Add workout </button>
 
       <empty-message-block :show="workouts === undefined || workouts.length === 0" resource="workouts"/>
 
@@ -27,7 +27,7 @@
           <div class="control">
             <font-awesome-icon class='view' icon="eye" size="lg" v-on:click="view(workout.id)"/>
             <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="edit(workout)"/>
-            <font-awesome-icon class='remove' icon="trash-alt" size="lg" v-on:click="remove(workout.id)"/>
+            <font-awesome-icon v-if='canControl' class='remove' icon="trash-alt" size="lg" v-on:click="remove(workout.id)"/>
           </div>
 
         </div>
@@ -69,6 +69,7 @@ export default {
     return {
       workout: null,
       firstLoad: true,
+      canControl: ['trainer', 'admin'].includes(this.$store.state.auth.user.role),
     }
   },
   computed: {
@@ -81,15 +82,20 @@ export default {
       'fetchAll', 'delete'
     ]),
     view(id) {
-      this.$router.push({ name: 'Workout', params: { id: id }})
+      const route = this.$store.state.auth.user.role === 'user' ? 'ClientWorkout' : 'Workout'
+      this.$router.push({ name: route, params: { id: id }})
     },
     add() {
       this.workout = null;
       this.show();
     },
     edit(workout) {
-      this.workout = workout;
-      this.show();
+      if(this.canControl) {
+        this.workout = workout;
+        this.show();
+      } else {
+        this.$router.push({ name: "LogWorkout", params: {id: workout.id} });
+      }
     },
     remove(id) {
       this.$modal.show('dialog', {

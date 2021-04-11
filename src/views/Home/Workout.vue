@@ -10,7 +10,7 @@
       <h1> {{ workout.name }} </h1>
 
       <p>
-        <b>Type</b>: {{ workout.type }}
+        <b>Type</b>: {{ workout.type }} <span v-if="workout.type === 'hiit'"> (high intensity interval training)</span>
       </p>
 
       <p>
