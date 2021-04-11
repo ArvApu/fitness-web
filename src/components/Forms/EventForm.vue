@@ -87,7 +87,7 @@ export default {
         attendee_id: this.$store.state.auth.clientId ?? this.$store.state.auth.user.id,
         title: null,
         information: null,
-        start_time: null,
+        start_time: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
         end_time: null,
         all_day: true,
       },
@@ -104,7 +104,6 @@ export default {
         altInput: true,
         altFormat: "Y-m-d",
         dateFormat: "Y-m-d H:i:S",
-        defaultDate: new Date(),
         locale: {
           firstDayOfWeek: 1,
         },
