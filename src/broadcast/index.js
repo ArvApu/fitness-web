@@ -21,6 +21,10 @@ const plugin = (store) => {
     channel.bind('send.message', function (data) {
         store.dispatch('messages/receive', data.message);
     });
+
+    channel.bind('read.messages', function (data) {
+        store.dispatch('messages/read', data.messages);
+    });
 };
 
 export default plugin;

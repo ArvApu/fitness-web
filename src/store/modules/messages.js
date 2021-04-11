@@ -32,6 +32,14 @@ const mutations = {
     },
     SET_CURRENT_ROOM(state, room) {
         state.currentRoom = room;
+    },
+    READ_MESSAGE(state, message) {
+        state.messages = state.messages.map((m) => {
+            if(m._id === message.id) {
+                m.seen = true;
+            }
+            return m;
+        });
     }
 };
 
@@ -97,6 +105,20 @@ const actions = {
 
         commit('rooms/INCREMENT_ROOM_MESSAGES_COUNT', message.room_id, { root: true });
         this._vm.$toast('You received a message.');
+    },
+
+    read({ state, commit }, messages) {
+
+        for (let i = 0; i < messages.length; i++) {
+            const message = messages[i];
+
+            if(message.room_id !== state.currentRoom) {
+                continue;
+            }
+
+            commit('READ_MESSAGE', message);
+        }
+
     },
 };
 
