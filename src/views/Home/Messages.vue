@@ -14,6 +14,7 @@
         :show-reaction-emojis="false"
         :show-new-messages-divider="false"
         :load-first-room="false"
+        :styles="styles"
         @fetch-messages="handleMessages"
         @fetch-more-rooms="handleRooms"
         @send-message="handleMessageSend"
@@ -51,6 +52,22 @@ export default {
       messagesLoaded: false,
       roomsLoaded: false,
       canAddRoom: this.$store.state.auth.user.role === 'admin',
+      styles: {
+        message: {
+          background: '#fff',
+          backgroundMe: '#a3cbfc',
+          color: '#0a0a0a',
+          colorDate: '#505a62',
+          colorTimestamp: '#505a62',
+        },
+        content: {
+          background: '#f6f5f5'
+        },
+        icons: {
+          checkmark: '#505a62',
+          checkmarkSeen: '#0022ff',
+        }
+      }
     }
   },
   computed: {
