@@ -17,7 +17,7 @@
         {{ workout.description }}
       </p>
 
-      <div class="buttons-control">
+      <div class="buttons-control" v-if='canControl'>
         <button class="btn btn-primary" v-on:click="copyWorkout"> <font-awesome-icon icon="copy"/> Copy </button>
         <button class="btn btn-secondary" v-on:click="showEdit"> <font-awesome-icon icon="pen"/> Edit </button>
         <button class="btn  btn-danger" v-on:click="remove"> <font-awesome-icon icon="trash-alt"/> Remove </button>
@@ -31,7 +31,8 @@
           <th scope="col">Sets</th>
           <th scope="col">Reps</th>
           <th scope="col">Rest (s)</th>
-          <th scope="col">Control</th>
+          <th scope="col" v-if='canControl'>Control</th>
+          <th scope="col" v-else>Video</th>
         </tr>
         </thead>
         <tbody>
@@ -40,10 +41,14 @@
           <td data-label="Sets"> {{ exercise.pivot.sets }} </td>
           <td data-label="Reps"> {{ exercise.pivot.reps }} </td>
           <td data-label="Reset (s)"> {{ exercise.pivot.rest }} </td>
-          <td data-label="Control" class="table-control">
+          <td data-label="Control" class="table-control" v-if='canControl'>
             <font-awesome-icon v-if="exercise.url" class='view' icon="video" size="lg" v-on:click="showDetails(exercise)"/>
             <font-awesome-icon class='edit' icon="pen" size="lg" v-on:click="reassign(exercise)"/>
             <font-awesome-icon class='remove' icon="times" size="lg" v-on:click="unassign(exercise)"/>
+          </td>
+          <td data-label="Video" class="table-control" v-else>
+            <font-awesome-icon v-if="exercise.url" class='view' icon="video" size="lg" v-on:click="showDetails(exercise)"/>
+            <span v-else> - </span>
           </td>
         </tr>
         </tbody>
@@ -71,7 +76,7 @@
       </div>
     </modal>
 
-    <button class="btn btn-primary add-exercise-button" v-on:click="show"> <font-awesome-icon icon="plus"/> Add </button>
+    <button v-if='canControl' class="btn btn-primary add-exercise-button" v-on:click="show"> <font-awesome-icon icon="plus"/> Add </button>
 
   </div>
 </template>
@@ -91,6 +96,7 @@ export default {
       url: null,
       exercisesCount: 0,
       assignee: null,
+      canControl: ['trainer', 'admin'].includes(this.$store.state.auth.user.role),
     }
   },
   components: {

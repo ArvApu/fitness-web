@@ -11,9 +11,13 @@
     margin: 15px 0;
 }
 
+.event h1 {
+    margin: 0
+}
+
 .event {
     width: 1000px;
-    padding: 5px 30px;
+    padding: 25px 30px;
     box-shadow: 1px 4px 8px 1px rgba(0,0,0,0.2);
     box-sizing: border-box;
     border-radius: 7px;
@@ -25,7 +29,6 @@
 
 .control-box {
     display: flex;
-    margin-bottom: 15px;
     margin-top: 15px;
 }
 
@@ -56,6 +59,7 @@
 
 .workout-link:hover {
     color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
 }
 
 .workout-link:hover span {

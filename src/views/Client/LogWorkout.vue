@@ -128,7 +128,9 @@ export default {
   created() {
     this.fetchOne(this.$route.params.id).then(
         result => this.workout = result
-    );
+    ).catch(() => {
+      this.$router.back();
+    });
   }
 }
 </script>

@@ -96,6 +96,11 @@ const routes = [
         name: 'Event',
         component: Event,
       },
+      {
+        path: '/workout/:id/view',
+        name: 'ClientWorkout',
+        component: Workout
+      },
     ]
   },
   {

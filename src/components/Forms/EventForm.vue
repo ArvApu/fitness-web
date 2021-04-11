@@ -23,10 +23,11 @@
       <textarea class='form-input-textarea' id="information" name="information" v-model="eventObj.information" />
     </div>
 
-    <div class='form-check'>
-      <input type="checkbox" id="all_day" name="all_day" v-model="eventObj.all_day">
-      <label for="all_day"> Will event be all day? </label>
-    </div>
+    <!-- TODO: restore, temp removal -->
+<!--    <div class='form-check'>-->
+<!--      <input type="checkbox" id="all_day" name="all_day" v-model="eventObj.all_day">-->
+<!--      <label for="all_day"> Will event be all day? </label>-->
+<!--    </div>-->
 
     <hr>
 
@@ -88,7 +89,7 @@ export default {
         information: null,
         start_time: null,
         end_time: null,
-        all_day: false,
+        all_day: true,
       },
       workoutId: null,
       config: {

@@ -23,7 +23,7 @@
 
       <h4> Workout </h4>
       <div v-if="event.workout_id">
-        <router-link class="workout-link" :to="{ name: 'Workout', params: {id: event.workout_id}}">
+        <router-link class="workout-link" :to="{ name: this.workoutRouteName, params: {id: event.workout_id}}">
           <span>{{ event.workout.name }}</span> <font-awesome-icon icon="angle-double-right" />
         </router-link>
       </div>
@@ -31,9 +31,9 @@
         No linked workout
       </div>
 
-      <div v-if="canControl" class="control-box">
+      <div class="control-box">
         <button v-if="event.workout_id" v-on:click="log(event.workout_id)" class="btn btn-secondary"> <font-awesome-icon icon="pen"/>  Log event's workout </button>
-        <button v-on:click="remove" class="btn btn-danger"> <font-awesome-icon icon="trash-alt"/> Remove event </button>
+        <button v-if="canControl" v-on:click="remove" class="btn btn-danger"> <font-awesome-icon icon="trash-alt"/> Remove event </button>
       </div>
     </div>
 
@@ -62,6 +62,7 @@ export default {
       },
       canControl: ['trainer', 'admin'].includes(this.$store.state.auth.user.role),
       firstLoad: true,
+      workoutRouteName: this.$store.state.auth.user.role === 'user' ? 'ClientWorkout' : 'Workout'
     }
   },
   computed: {
