@@ -18,7 +18,7 @@
         <h3> {{ event.title }}</h3>
 
         <div v-if="event.all_day">
-          <p> All day </p>
+          <p> All day: <b>{{ event.start_time.substring(0, 10) }}</b></p>
         </div>
         <div v-else class="from-to">
           <p> <b>From:</b> {{ event.start_time }}</p>
