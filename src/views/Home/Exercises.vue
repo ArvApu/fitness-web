@@ -124,7 +124,7 @@ export default {
       this.$modal.hide('add-exercise-modal');
     },
     showDetails(exercise) {
-      this.url = exercise.url;
+      this.url = exercise.url_embedded;
       this.$modal.show('exercise-details-modal');
     },
     paginate(page) {
