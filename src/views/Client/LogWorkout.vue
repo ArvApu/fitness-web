@@ -28,6 +28,11 @@
             <textarea class='form-input-textarea' id="comment" name="comment" v-model="log.comment" placeholder="Optional comment"/>
           </div>
 
+          <div class="form-group">
+            <label for="log_date">Done at </label>
+            <flat-pickr v-model="log.log_date" :config="config" id="log_date" class="form-input"/>
+          </div>
+
           <div v-if="log.status !== 'missed'">
             <div v-for="exercise in workout.exercises " :key="exercise.id">
               <h4>{{ exercise.name }}</h4>
@@ -58,9 +63,13 @@
 <script>
 
 import {mapState, mapActions} from "vuex";
+import flatPickr from 'vue-flatpickr-component';
 
 export default {
   name: 'LogWorkout',
+  components: {
+    flatPickr,
+  },
   computed: {
     ...mapState('workoutLogs', [
       'errors', 'isLoading'
@@ -74,6 +83,16 @@ export default {
         status: 'completed',
         comment: null,
         difficulty: 'easy',
+        log_date: this.$route.query.date || null,
+      },
+      config: {
+        altInput: true,
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d H:i:S",
+        time_24hr: true,
+        locale: {
+          firstDayOfWeek: 1,
+        },
       },
       exerciseLogs: [],
       statuses: ['missed', 'interrupted', 'completed'],
@@ -93,6 +112,7 @@ export default {
         workout_id: this.log.workoutId,
         status: this.log.status,
         difficulty: this.log.difficulty,
+        log_date: this.log.log_date,
         exercise_logs: this.exerciseLogs,
       };
 

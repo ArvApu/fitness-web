@@ -14,7 +14,7 @@
 
       <h4> Duration </h4>
       <div v-if="event.all_day">
-        <span> All day </span>
+        <span> All day - <b>{{ event.start_time.substring(0, 10) }}</b> </span>
       </div>
       <div v-else class="dates">
         <span> <b>From:</b> {{ event.start_time }}</span>
@@ -75,7 +75,7 @@ export default {
       'fetchOne', 'delete'
     ]),
     log(id) {
-      this.$router.push({name: 'LogWorkout', params: {id: id}});
+      this.$router.push({name: 'LogWorkout', params: {id: id},  query: {date: this.event.start_time}});
     },
     remove() {
       this.$modal.show('dialog', {

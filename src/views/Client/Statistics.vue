@@ -2,11 +2,11 @@
 
   <div class="statistics">
 
-    <div class="general">
-      <div class="statistic-general">
-        <exercises/>
-      </div>
-    </div>
+<!--    <div class="general">-->
+<!--      <div class="statistic-general">-->
+<!--        <exercises/>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div class="charts">
       <div class="statistic-chart">
@@ -33,7 +33,6 @@
 <script>
 import Workouts from "@/components/Statistics/Workouts";
 import Workout from "@/components/Statistics/Workout";
-import Exercises from "@/components/Statistics/Exercises";
 import Exercise from "@/components/Statistics/Exercise";
 import Weight from "@/components/Statistics/Weight";
 
@@ -42,7 +41,6 @@ export default {
   components: {
     Workouts,
     Workout,
-    Exercises,
     Exercise,
     Weight,
   },
