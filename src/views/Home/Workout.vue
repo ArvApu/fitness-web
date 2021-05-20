@@ -130,7 +130,7 @@ export default {
       this.$modal.hide('edit-workout-modal');
     },
     showDetails(exercise) {
-      this.url = exercise.url;
+      this.url = exercise.url_embedded;
       this.$modal.show('exercise-details-modal');
     },
     add() {
