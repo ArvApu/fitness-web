@@ -45,8 +45,8 @@
 
               <div class='form-group'>
                 <label :for="`${exercise.id}-measurement-value`" class="exercise-log-input-label"> Did total of {{ exercise.measurement }} per set </label>
-                <input required class="exercise-log-input" @input="updateExerciseLog(parseInt($event.target.value), exercise, 'measurement_value')"
-                       type="number" :id="`${exercise.id}-measurement-value`" placeholder="Value of exercise measurement">
+                <input required class="exercise-log-input" @input="updateExerciseLog($event.target.value, exercise, 'measurement_value')"
+                       type="text" :id="`${exercise.id}-measurement-value`" placeholder="Value of exercise measurement">
               </div>
               <hr>
             </div>
@@ -123,7 +123,7 @@ export default {
       if(this.$store.state.auth.clientId) {
         log['user_id'] = this.$store.state.auth.clientId;
       }
-
+    console.log(log);
       this.create(log).then(() => {
         this.$router.push({name: 'Calendar' });
       });
